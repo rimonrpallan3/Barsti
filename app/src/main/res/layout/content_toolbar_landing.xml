@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_80"
+    android:elevation="@dimen/_04"
+    android:fitsSystemWindows="true"
+    android:minHeight="?attr/actionBarSize"
+    app:cardElevation="@dimen/_04"
+    app:contentPadding="5dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="@dimen/_70"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10"
+            android:src="@drawable/barasti_logo" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <AutoCompleteTextView
+                android:id="@+id/actvSearchList"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30"
+                android:layout_marginLeft="@dimen/_04"
+                android:layout_marginRight="@dimen/_10"
+                android:layout_marginTop="@dimen/_04"
+                android:background="@drawable/bg_search_edittext"
+                android:drawableRight="@drawable/places_ic_search"
+                android:textSize="@dimen/_10" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_04"
+                android:layout_marginTop="@dimen/_04"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_04"
+                    android:text="Dates"
+                    android:textSize="@dimen/_12" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/iconColor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_04"
+                    android:layout_marginRight="@dimen/_04"
+                    android:text="Guest"
+                    android:textSize="@dimen/_12" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

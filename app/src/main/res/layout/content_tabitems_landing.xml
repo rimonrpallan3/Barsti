@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabItemsLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_60"
+    android:layout_gravity="bottom"
+    android:background="@color/splsh_bg"
+    android:gravity="bottom"
+    android:orientation="horizontal"
+    android:weightSum="80">
+
+
+    <FrameLayout
+        android:id="@+id/homeTabFrame"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="19"
+        android:background="?selectableItemBackground"
+        android:onClick="homeTab">
+
+        <ImageButton
+            android:id="@+id/homeTabImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_10"
+            android:background="@null"
+            android:onClick="homeTab" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/_04"
+            android:onClick="homeTab"
+            android:textSize="@dimen/_14" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5" />
+
+    <FrameLayout
+        android:id="@+id/earnTabFrame"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="20"
+        android:background="?selectableItemBackground"
+        android:onClick="earnTab">
+
+        <ImageButton
+            android:id="@+id/earnTabImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_10"
+            android:background="@null"
+            android:onClick="earnTab" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/_04"
+            android:onClick="earnTab"
+            android:textSize="@dimen/_14" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5" />
+
+    <FrameLayout
+        android:id="@+id/rateTabFrame"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="19"
+        android:onClick="rateTab">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/_04"
+            android:onClick="rateTab"
+            android:textSize="@dimen/_14" />
+
+        <ImageButton
+            android:id="@+id/rateTabImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_10"
+            android:background="@null"
+            android:onClick="rateTab" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5" />
+
+    <FrameLayout
+        android:id="@+id/profileTabFrame"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="20"
+        android:background="?selectableItemBackground"
+        android:onClick="profileTab">
+
+        <ImageButton
+            android:id="@+id/profileTabImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_10"
+            android:background="@null"
+            android:onClick="profileTab" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/_04"
+            android:onClick="profileTab"
+            android:textSize="@dimen/_14" />
+    </FrameLayout>
+
+</LinearLayout>
+
+
