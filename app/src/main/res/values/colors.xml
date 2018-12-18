@@ -4,4 +4,33 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>-->
     <color name="splsh_bg">#0e76bc</color>
+
+    <!--Highlight Text Color-->
+    <color name="highLightText">#ffa500</color>
+    <color name="hintHighLightText">#a5a5a5</color>
+    <color name="white">#FFF</color>
+    <color name="Approval_pending">#eeaa00</color>
+    <color name="green">#00513f</color>
+    <color name="black">#000000</color>
+    <color name="red">#F44336</color>
+    <color name="dark_red">#D50000</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="dark_gray">#a9a9a9</color>
+    <color name="red_dull">#EF5350</color>
+
+    <!-- Register Color-->
+    <color name="edt_txt_underline">#acacac</color>
+    <color name="default_green">#b7ce1e</color>
+
+    <!--Sign In Color-->
+
+    <color name="forgot_pass">#FF0E7C9C</color>
+    <!--Landing -->
+    <color name="tab_icon_color_unselect">#afafaf</color>
+    <color name="grayIconTint">#727272</color>
+    <color name="galleryAccent">#FFC107</color>
+    <color name="landing_bg">#FAFAFA</color>
+    <color name="landing_sub_heading">#9E9E9E</color>
+    <color name="card_heading">#333333</color>
+    <color name="text_color_hl">#b7ce1e</color>
 </resources>

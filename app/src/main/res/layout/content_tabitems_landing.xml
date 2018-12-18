@@ -5,33 +5,33 @@
     android:layout_height="@dimen/_60"
     android:layout_gravity="bottom"
     android:background="@color/splsh_bg"
-    android:gravity="bottom"
     android:orientation="horizontal"
     android:weightSum="80">
 
 
     <FrameLayout
-        android:id="@+id/homeTabFrame"
+        android:id="@+id/flExploreTabFrame"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="19"
         android:background="?selectableItemBackground"
-        android:onClick="homeTab">
+        android:onClick="clickExplore">
 
         <ImageButton
             android:id="@+id/homeTabImg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20"
+            android:layout_gravity="bottom|center"
             android:background="@null"
-            android:onClick="homeTab" />
+            android:src="@drawable/explore_icon"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="@dimen/_04"
-            android:onClick="homeTab"
+            android:text="Ecplore"
             android:textSize="@dimen/_14" />
     </FrameLayout>
 
@@ -41,20 +41,21 @@
         android:layout_weight=".5" />
 
     <FrameLayout
-        android:id="@+id/earnTabFrame"
+        android:id="@+id/flFavTabFrame"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="20"
         android:background="?selectableItemBackground"
-        android:onClick="earnTab">
+        android:onClick="clickFav">
 
         <ImageButton
             android:id="@+id/earnTabImg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20"
+            android:layout_gravity="bottom|center"
             android:background="@null"
-            android:onClick="earnTab" />
+            android:src="@drawable/favourite_icon" />
 
         <TextView
             android:id="@+id/textView"
@@ -62,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="@dimen/_04"
-            android:onClick="earnTab"
+            android:text="Saved"
             android:textSize="@dimen/_14" />
     </FrameLayout>
 
@@ -72,27 +73,29 @@
         android:layout_weight=".5" />
 
     <FrameLayout
-        android:id="@+id/rateTabFrame"
+        android:id="@+id/flInboxTabFrame"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="19"
-        android:onClick="rateTab">
+        android:background="?selectableItemBackground"
+        android:onClick="clickInbox">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="@dimen/_04"
-            android:onClick="rateTab"
+            android:text="Inbox"
             android:textSize="@dimen/_14" />
 
         <ImageButton
             android:id="@+id/rateTabImg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/_20"
             android:background="@null"
-            android:onClick="rateTab" />
+            android:src="@drawable/inbox_icon" />
     </FrameLayout>
 
     <View
@@ -101,27 +104,28 @@
         android:layout_weight=".5" />
 
     <FrameLayout
-        android:id="@+id/profileTabFrame"
+        android:id="@+id/flProfileTabFrame"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="20"
         android:background="?selectableItemBackground"
-        android:onClick="profileTab">
+        android:onClick="clickProfile">
 
         <ImageButton
             android:id="@+id/profileTabImg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20"
+            android:layout_gravity="bottom|center"
             android:background="@null"
-            android:onClick="profileTab" />
+            android:src="@drawable/profile_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="@dimen/_04"
-            android:onClick="profileTab"
+            android:text="Profile"
             android:textSize="@dimen/_14" />
     </FrameLayout>
 

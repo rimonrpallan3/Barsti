@@ -28,7 +28,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".splashscreen.SplashScreen"
+        <activity android:name=".activity.splashscreen.SplashScreen"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".landingpage.LandingPage"
+        <activity android:name=".activity.landingpage.LandingPage"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
