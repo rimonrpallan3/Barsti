@@ -55,7 +55,11 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return bodyItemsList.size();
+        if (bodyItemsList != null && bodyItemsList.size() > 0) {
+            return bodyItemsList.size();
+        } else {
+            return 0;
+        }
     }
 
   /*  @Override

@@ -14,10 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.voyager.barasti.R;
+import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocList;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.HeaderItem;
 import com.voyager.barasti.fragment.explore.model.exploreList.BodyItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.ExploreItems;
+import com.voyager.barasti.fragment.explore.model.ExploreFooter.FooterItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +36,12 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ClickListener clickListener;
     private LayoutInflater infalter;
     List<BodyItems> bodyItemsList;
+    List<LocList> locLists;
     private static final int TYPE_HEADER = 0;
-    private static final int TYPE_FOOTER = 1;
+    private static final int TYPE_FOOTER = 2;
+    private static final int TYPE_BODY = 1;
     BodyListAdapter bodyListAdapter;
-
-
-
+    FooterListAdapter footerListAdapter;
 
     public ExploreListAdapter(List<ExploreItems> exploreItems, Activity activity) {
         this.exploreItems = exploreItems;
@@ -51,12 +54,16 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         System.out.println(" ------------ ExploreListAdapter onCreateViewHolder viewType : "+viewType);
         if(viewType == 1){
-            View rootView = infalter.inflate(R.layout.content_landing_list_footer,parent,false);
-            System.out.println(" ------------ ExploreListAdapter drawer_list_menu_card");
+            View rootView = infalter.inflate(R.layout.content_explore_list_body,parent,false);
+            System.out.println(" ------------ ExploreListAdapter content_explore_list_body");
             return new BodyListViewHolder(rootView);
+        }else if(viewType == 2){
+            View rootView = infalter.inflate(R.layout.content_explore_list_footer,parent,false);
+            System.out.println(" ------------ ExploreListAdapter content_explore_list_footer");
+            return new FooterListViewHolder(rootView);
         }else{
             View rootView = infalter.inflate(R.layout.content_landing_header,parent,false);
-            System.out.println(" ------------ ExploreListAdapter drawer_header");
+            System.out.println(" ------------ ExploreListAdapter content_landing_header");
             return new mHeaderViewHolder(rootView);
         }
     }
@@ -66,7 +73,7 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(final RecyclerView.ViewHolder holderViews, final int position) {
         if(holderViews instanceof BodyListViewHolder) {
             BodyListViewHolder holder = (BodyListViewHolder) holderViews;
-            System.out.println(" ------------ ExploreListAdapter onBindViewHolder drawer_list_menu_card position : "+position);
+            System.out.println(" ------------ ExploreListAdapter onBindViewHolder BodyListViewHolder position : "+position);
 
             holder.tvHeading.setText(exploreItems.get(position).getMainHeading());
             holder.btnExpandView.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +92,7 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             holder.rvBodyList.setLayoutFrozen(true);
             //bodyListAdapter.setClickListener(this);
         } else if (holderViews instanceof mHeaderViewHolder){
-            System.out.println(" ------------ ExploreListAdapter onBindViewHolder drawer_header position : "+position);
+            System.out.println(" ------------ mHeaderViewHolder onBindViewHolder HeaderItem position : "+position);
             final mHeaderViewHolder holder = (mHeaderViewHolder) holderViews;
             final HeaderItem dataItem = (HeaderItem) exploreItems.get(position);
             System.out.println("mHeaderViewHolder Btn name : "+dataItem.getBtnContent());
@@ -94,6 +101,22 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             holder.btnHome.setText(dataItem.getBtnContent());
 
 
+        } else if (holderViews instanceof FooterListViewHolder){
+            System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems position : "+position);
+            final FooterListViewHolder holder = (FooterListViewHolder) holderViews;
+            final FooterItems footerItems = (FooterItems) exploreItems.get(position);
+            String json = new Gson().toJson(footerItems);
+            System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems  : "+json);
+            locLists = footerItems.getLocLists();
+            holder.tvFooterHeading.setText(footerItems.getHeadingTitile());
+            System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems Heading : "+footerItems.getHeadingTitile());
+            footerListAdapter = new FooterListAdapter(locLists, activity);
+            LinearLayoutManager mLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+            holder.rvFooterList.setLayoutManager(mLayoutManager);
+            holder.rvFooterList.setItemAnimator(new DefaultItemAnimator());
+            holder.rvFooterList.setAdapter(footerListAdapter);
+            holder.rvFooterList.setNestedScrollingEnabled(true);
+            //holder.rvFooterList.setLayoutFrozen(true);
         }
 
     }
@@ -112,10 +135,13 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemViewType(int position) {
         System.out.println(" ------------ ExploreListAdapter getItemViewType position : "+position);
         if(position == 0 && exploreItems.get(position) instanceof HeaderItem){
-            System.out.println(" ------------ ExploreListAdapter onBindViewHolder getItemViewType position : "+position);
+            System.out.println(" ------------ ExploreListAdapter onBindViewHolder getItemViewType HeaderItem : "+position);
             return TYPE_HEADER;
+        }else if(position == 2 && exploreItems.get(position) instanceof FooterItems){
+            System.out.println(" ------------ ExploreListAdapter onBindViewHolder getItemViewType FooterItems : "+position);
+            return TYPE_FOOTER;
         }
-        return TYPE_FOOTER;
+        return TYPE_BODY;
     }
 
 
@@ -124,7 +150,7 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-/*** ViewHolder class which holds Initialisation to all views and buttons.*/
+        /*** ViewHolder class which holds Initialisation to all views and buttons.*/
 
 
 
@@ -142,6 +168,31 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             rvBodyList =  itemView.findViewById(R.id.rvBodyList);
             tvHeading =  itemView.findViewById(R.id.tvHeading);
             btnExpandView =  itemView.findViewById(R.id.btnExpandView);
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if(clickListener!=null){
+                clickListener.itemClicked(v,getPosition());
+            }
+
+            //delete(getPosition());
+
+        }
+    }
+    public class FooterListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        TextView tvFooterHeading;
+        RecyclerView rvFooterList;
+        View root;
+
+        public FooterListViewHolder(View itemView) {
+            super(itemView);
+            root = itemView;
+            itemView.setOnClickListener(this);
+            rvFooterList =  itemView.findViewById(R.id.rvFooterList);
+            tvFooterHeading =  itemView.findViewById(R.id.tvFooterHeading);
         }
 
         @Override

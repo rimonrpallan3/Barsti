@@ -63,6 +63,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
 
     private BackHandledFragment selectedFragment;
     String[] fruits = {"Apple", "Banana", "Cherry", "Date", "Grape", "Kiwi", "Mango", "Pear"};
+    public String currentTabFrg;
 
 
     @Override
@@ -104,7 +105,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         exploreFrg.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
+        currentTabFrg="explore";
 
         //toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
         //Creating the instance of ArrayAdapter containing list of fruit names
@@ -149,52 +150,72 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         ivPointer1.setVisibility(View.VISIBLE);
         ivPointer2.setVisibility(View.GONE);
         ivPointer3.setVisibility(View.GONE);*/
-        Toast.makeText(getApplicationContext(), "Explore Selected", Toast.LENGTH_SHORT).show();
-        ExploreFrg exploreFrg = new ExploreFrg();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, exploreFrg);
-        exploreFrg.setArguments(bundle);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        if(currentTabFrg!="explore") {
+            Toast.makeText(getApplicationContext(), "Explore Selected", Toast.LENGTH_SHORT).show();
+            ExploreFrg exploreFrg = new ExploreFrg();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container, exploreFrg);
+            exploreFrg.setArguments(bundle);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            currentTabFrg = "explore";
+        }else {
+            Toast.makeText(getApplicationContext(),"Your in Explore Frg",Toast.LENGTH_LONG).show();
+        }
     }
 
     public void clickFav(View v) {/*
         ivPointer1.setVisibility(View.GONE);
         ivPointer2.setVisibility(View.VISIBLE);
         ivPointer3.setVisibility(View.GONE);*/
-        Toast.makeText(getApplicationContext(), "Fav Selected", Toast.LENGTH_SHORT).show();
-        FavouriteFag favouriteFag = new FavouriteFag();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, favouriteFag);
-        favouriteFag.setArguments(bundle);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        if(currentTabFrg!="fav") {
+            Toast.makeText(getApplicationContext(), "Fav Selected", Toast.LENGTH_SHORT).show();
+            FavouriteFag favouriteFag = new FavouriteFag();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container, favouriteFag);
+            favouriteFag.setArguments(bundle);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            currentTabFrg = "fav";
+        }else {
+            Toast.makeText(getApplicationContext(),"Your in Fav Frg",Toast.LENGTH_LONG).show();
+        }
     }
 
     public void clickInbox(View v) {/*
         ivPointer1.setVisibility(View.GONE);
         ivPointer2.setVisibility(View.GONE);
         ivPointer3.setVisibility(View.VISIBLE);*/
-        Toast.makeText(getApplicationContext(), "Inbox Selected", Toast.LENGTH_SHORT).show();
-        InboxFrg inboxFrg = new InboxFrg();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, inboxFrg);
-        inboxFrg.setArguments(bundle);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        if(currentTabFrg!="inbox") {
+            Toast.makeText(getApplicationContext(), "Inbox Selected", Toast.LENGTH_SHORT).show();
+            InboxFrg inboxFrg = new InboxFrg();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container, inboxFrg);
+            inboxFrg.setArguments(bundle);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            currentTabFrg = "inbox";
+        }else {
+            Toast.makeText(getApplicationContext(),"Your in Inbox Frg",Toast.LENGTH_LONG).show();
+        }
     }
 
     public void clickProfile(View v) {/*
         ivPointer1.setVisibility(View.GONE);
         ivPointer2.setVisibility(View.GONE);
         ivPointer3.setVisibility(View.VISIBLE);*/
-        Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
-        ProfileFrg profileFrg = new ProfileFrg();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, profileFrg);
-        profileFrg.setArguments(bundle);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        if(currentTabFrg!="profile") {
+            Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
+            ProfileFrg profileFrg = new ProfileFrg();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container, profileFrg);
+            profileFrg.setArguments(bundle);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            currentTabFrg = "profile";
+        }else {
+            Toast.makeText(getApplicationContext(),"Your in Profile Frg",Toast.LENGTH_LONG).show();
+        }
     }
 
 

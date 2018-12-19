@@ -9,11 +9,14 @@
     android:weightSum="80">
 
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/flExploreTabFrame"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_weight="19"
+        android:orientation="vertical"
         android:background="?selectableItemBackground"
         android:onClick="clickExplore">
 
@@ -21,30 +24,29 @@
             android:id="@+id/homeTabImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_20"
-            android:layout_gravity="bottom|center"
             android:background="@null"
             android:src="@drawable/explore_icon"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_marginBottom="@dimen/_04"
             android:text="Ecplore"
             android:textSize="@dimen/_14" />
-    </FrameLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight=".5" />
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/flFavTabFrame"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_weight="20"
+        android:orientation="vertical"
         android:background="?selectableItemBackground"
         android:onClick="clickFav">
 
@@ -52,8 +54,6 @@
             android:id="@+id/earnTabImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_20"
-            android:layout_gravity="bottom|center"
             android:background="@null"
             android:src="@drawable/favourite_icon" />
 
@@ -61,53 +61,55 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_marginBottom="@dimen/_04"
             android:text="Saved"
             android:textSize="@dimen/_14" />
-    </FrameLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight=".5" />
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/flInboxTabFrame"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="19"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
         android:background="?selectableItemBackground"
         android:onClick="clickInbox">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_marginBottom="@dimen/_04"
-            android:text="Inbox"
-            android:textSize="@dimen/_14" />
 
         <ImageButton
             android:id="@+id/rateTabImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_marginBottom="@dimen/_20"
             android:background="@null"
             android:src="@drawable/inbox_icon" />
-    </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inbox"
+            android:textSize="@dimen/_14" />
+
+
+    </LinearLayout>
 
     <View
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight=".5" />
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/flProfileTabFrame"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="20"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
         android:background="?selectableItemBackground"
         android:onClick="clickProfile">
 
@@ -115,19 +117,15 @@
             android:id="@+id/profileTabImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_20"
-            android:layout_gravity="bottom|center"
             android:background="@null"
             android:src="@drawable/profile_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_marginBottom="@dimen/_04"
             android:text="Profile"
             android:textSize="@dimen/_14" />
-    </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>
 

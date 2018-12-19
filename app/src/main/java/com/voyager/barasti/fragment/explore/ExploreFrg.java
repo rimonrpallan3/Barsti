@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.voyager.barasti.R;
 import com.voyager.barasti.fragment.explore.adapter.ExploreListAdapter;
+import com.voyager.barasti.fragment.explore.model.ExploreFooter.FooterItems;
+import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocList;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.HeaderItem;
 import com.voyager.barasti.fragment.explore.model.exploreList.BodyItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.ExploreItems;
@@ -30,6 +32,11 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
 
     RecyclerView rvExploreList;
     ExploreListAdapter exploreListAdapter;
+
+    public static final int HEADER_TYPE=0;
+    public static final int BODY_TYPE=1;
+    public static final int FOOTER_TYPE=2;
+
 
     public ExploreFrg() {
     }
@@ -71,12 +78,22 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         // headerItem.setEnabled(true);
         landingListItems.add(headerItem);
 
+        FooterItems footerItems = new FooterItems();
+        footerItems.setHeadingTitile("Location");
+        footerItems.setID(1);
+        footerItems.setLocLists(getLocs());
+        landingListItems.add(footerItems);
+
         ExploreItems yourTripItem = new ExploreItems();
         yourTripItem.setMainHeading("Top Rated Homes");
         yourTripItem.setBodyItemsList(getDatas());
         yourTripItem.setID(1);
         yourTripItem.setEnabled(true);
         landingListItems.add(yourTripItem);
+
+
+
+
 
 
         return landingListItems;
@@ -106,7 +123,7 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         homeBodyItems2.setAmtHome("100BD per Night");
         homeBodyItems2.setFavRate("192");
         homeBodyItems2.setFavRatio("3.5");
-        homeBodyItems2.setId(1);
+        homeBodyItems2.setId(2);
         homeBodyItems2.setEnabled(true);
         bodyItemsList.add(homeBodyItems2);
 
@@ -116,7 +133,7 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         homeBodyItems3.setAmtHome("100BD per Night");
         homeBodyItems3.setFavRate("192");
         homeBodyItems3.setFavRatio("3.5");
-        homeBodyItems3.setId(1);
+        homeBodyItems3.setId(3);
         homeBodyItems3.setEnabled(true);
         bodyItemsList.add(homeBodyItems3);
 
@@ -126,11 +143,43 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         homeBodyItems4.setAmtHome("100BD per Night");
         homeBodyItems4.setFavRate("192");
         homeBodyItems4.setFavRatio("3.5");
-        homeBodyItems4.setId(1);
+        homeBodyItems4.setId(4);
         homeBodyItems4.setEnabled(true);
         bodyItemsList.add(homeBodyItems4);
 
         return bodyItemsList;
+    }
+
+    List<LocList> locLists = Arrays.asList();
+
+    public List<LocList> getLocs() {
+
+        locLists = new ArrayList<LocList>();
+        locLists.clear();
+
+        LocList locList1 = new LocList();
+        locList1.setIdImg(R.drawable.placeholder_image);
+        locList1.setImgHeading("India");
+        locList1.setId(1);
+        locList1.setEnabled(true);
+        locLists.add(locList1);
+
+
+        LocList locList2 = new LocList();
+        locList2.setIdImg(R.drawable.placeholder_image);
+        locList2.setImgHeading("Kerala");
+        locList2.setId(2);
+        locList2.setEnabled(true);
+        locLists.add(locList2);
+
+        LocList locList3 = new LocList();
+        locList3.setIdImg(R.drawable.placeholder_image);
+        locList2.setImgHeading("Kumbalangi");
+        locList3.setId(3);
+        locList3.setEnabled(true);
+        locLists.add(locList3);
+
+        return locLists;
     }
 
 

@@ -21,14 +21,34 @@ public class ExploreItems {
     private int notify;
     String mainHeading;
     private MaterialDrawableBuilder.IconValue iconDraw;
+    public int viewType;
+    public final static String TAG_NAME = "ExploreItems";
+
 
     List<BodyItems> bodyItemsList;
 
     public ExploreItems() {
+        this.type = TAG_NAME;
     }
 
     public String getMainHeading() {
         return mainHeading;
+    }
+
+    public int getViewType() {
+        return viewType;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
     }
 
     public List<BodyItems> getBodyItemsList() {
@@ -46,6 +66,7 @@ public class ExploreItems {
     public int getNotify() {
         return notify;
     }
+
 
     public void setNotify(int notify) {
         this.notify = notify;
@@ -99,13 +120,6 @@ public class ExploreItems {
         ImageId = imageId;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public MaterialDrawableBuilder.IconValue getIconDraw() {
         return iconDraw;
