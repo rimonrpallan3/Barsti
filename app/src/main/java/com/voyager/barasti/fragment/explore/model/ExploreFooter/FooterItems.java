@@ -1,6 +1,9 @@
 package com.voyager.barasti.fragment.explore.model.ExploreFooter;
 
+import com.voyager.barasti.fragment.explore.model.exploreList.BodyItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.ExploreItems;
+
+import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ public class FooterItems extends ExploreItems {
     private String headingTitile;
     List<LocList> locLists ;
 
+
     public String getHeadingTitile() {
         return headingTitile;
     }
@@ -30,7 +34,6 @@ public class FooterItems extends ExploreItems {
         this.headingTitile = headingTitile;
     }
 
-
     public List<LocList> getLocLists() {
         return locLists;
     }
@@ -38,5 +41,4 @@ public class FooterItems extends ExploreItems {
     public void setLocLists(List<LocList> locLists) {
         this.locLists = locLists;
     }
-
 }

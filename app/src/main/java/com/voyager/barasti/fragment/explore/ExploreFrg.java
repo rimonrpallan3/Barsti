@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.voyager.barasti.R;
 import com.voyager.barasti.fragment.explore.adapter.ExploreListAdapter;
@@ -55,19 +56,20 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
 
         rvExploreList = rootView.findViewById(R.id.rvExplore);
         exploreListAdapter = new ExploreListAdapter(getData(), getActivity());
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        rvExploreList.setLayoutFrozen(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rvExploreList.setLayoutManager(mLayoutManager);
         rvExploreList.setItemAnimator(new DefaultItemAnimator());
         rvExploreList.setAdapter(exploreListAdapter);
-        rvExploreList.setLayoutFrozen(true);
+
         //exploreListAdapter.setClickListener(this);
 
         return rootView;
     }
 
-    List<ExploreItems> landingListItems = Arrays.asList();
+    ArrayList<ExploreItems> landingListItems = new ArrayList<>();
 
-    public List<ExploreItems> getData() {
+    public ArrayList<ExploreItems> getData() {
 
         landingListItems = new ArrayList<ExploreItems>();
         landingListItems.clear();
@@ -75,33 +77,28 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         HeaderItem headerItem = new HeaderItem();
         headerItem.setImgHeader(R.drawable.barasti_home_banner);
         headerItem.setBtnContent("Explore Homes >");
-        // headerItem.setEnabled(true);
+        headerItem.setViewType(0);
         landingListItems.add(headerItem);
 
-        FooterItems footerItems = new FooterItems();
-        footerItems.setHeadingTitile("Location");
-        footerItems.setID(1);
-        footerItems.setLocLists(getLocs());
-        landingListItems.add(footerItems);
 
         ExploreItems yourTripItem = new ExploreItems();
         yourTripItem.setMainHeading("Top Rated Homes");
         yourTripItem.setBodyItemsList(getDatas());
-        yourTripItem.setID(1);
-        yourTripItem.setEnabled(true);
+        yourTripItem.setViewType(1);
         landingListItems.add(yourTripItem);
 
-
-
-
-
+        FooterItems footerItems = new FooterItems();
+        footerItems.setHeadingTitile("Location");
+        footerItems.setLocLists(getLocs());
+        footerItems.setViewType(2);
+        landingListItems.add(footerItems);
 
         return landingListItems;
     }
 
-    List<BodyItems> bodyItemsList = Arrays.asList();
+    ArrayList<BodyItems> bodyItemsList = new ArrayList<>();
 
-    public List<BodyItems> getDatas() {
+    public ArrayList<BodyItems> getDatas() {
 
         bodyItemsList = new ArrayList<BodyItems>();
         bodyItemsList.clear();
@@ -112,8 +109,6 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         homeBodyItems.setAmtHome("100BD per Night");
         homeBodyItems.setFavRate("192");
         homeBodyItems.setFavRatio("3.5");
-        homeBodyItems.setId(1);
-        homeBodyItems.setEnabled(true);
         bodyItemsList.add(homeBodyItems);
 
 
@@ -123,8 +118,6 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         homeBodyItems2.setAmtHome("100BD per Night");
         homeBodyItems2.setFavRate("192");
         homeBodyItems2.setFavRatio("3.5");
-        homeBodyItems2.setId(2);
-        homeBodyItems2.setEnabled(true);
         bodyItemsList.add(homeBodyItems2);
 
         BodyItems homeBodyItems3 = new BodyItems();
@@ -133,8 +126,6 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         homeBodyItems3.setAmtHome("100BD per Night");
         homeBodyItems3.setFavRate("192");
         homeBodyItems3.setFavRatio("3.5");
-        homeBodyItems3.setId(3);
-        homeBodyItems3.setEnabled(true);
         bodyItemsList.add(homeBodyItems3);
 
         BodyItems homeBodyItems4 = new BodyItems();
@@ -143,40 +134,32 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         homeBodyItems4.setAmtHome("100BD per Night");
         homeBodyItems4.setFavRate("192");
         homeBodyItems4.setFavRatio("3.5");
-        homeBodyItems4.setId(4);
-        homeBodyItems4.setEnabled(true);
         bodyItemsList.add(homeBodyItems4);
 
         return bodyItemsList;
     }
 
-    List<LocList> locLists = Arrays.asList();
+    ArrayList<LocList> locLists = new ArrayList<>();
 
-    public List<LocList> getLocs() {
+    public ArrayList<LocList> getLocs() {
 
         locLists = new ArrayList<LocList>();
         locLists.clear();
 
         LocList locList1 = new LocList();
-        locList1.setIdImg(R.drawable.placeholder_image);
+        locList1.setIdImg(R.drawable.prefered_location);
         locList1.setImgHeading("India");
-        locList1.setId(1);
-        locList1.setEnabled(true);
         locLists.add(locList1);
 
 
         LocList locList2 = new LocList();
-        locList2.setIdImg(R.drawable.placeholder_image);
+        locList2.setIdImg(R.drawable.prefered_location);
         locList2.setImgHeading("Kerala");
-        locList2.setId(2);
-        locList2.setEnabled(true);
         locLists.add(locList2);
 
         LocList locList3 = new LocList();
-        locList3.setIdImg(R.drawable.placeholder_image);
-        locList2.setImgHeading("Kumbalangi");
-        locList3.setId(3);
-        locList3.setEnabled(true);
+        locList3.setIdImg(R.drawable.prefered_location);
+        locList3.setImgHeading("Kumbalangi");
         locLists.add(locList3);
 
         return locLists;

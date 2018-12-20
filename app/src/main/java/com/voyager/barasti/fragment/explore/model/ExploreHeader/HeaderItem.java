@@ -20,12 +20,12 @@ public class HeaderItem extends ExploreItems {
     private String ImageUrl;
     private int imgHeader;
 
-    public int getImgHeader() {
-        return imgHeader;
+    public String getBtnContent() {
+        return btnContent;
     }
 
-    public void setImgHeader(int imgHeader) {
-        this.imgHeader = imgHeader;
+    public void setBtnContent(String btnContent) {
+        this.btnContent = btnContent;
     }
 
     @Override
@@ -38,11 +38,11 @@ public class HeaderItem extends ExploreItems {
         ImageUrl = imageUrl;
     }
 
-    public String getBtnContent() {
-        return btnContent;
+    public int getImgHeader() {
+        return imgHeader;
     }
 
-    public void setBtnContent(String btnContent) {
-        this.btnContent = btnContent;
+    public void setImgHeader(int imgHeader) {
+        this.imgHeader = imgHeader;
     }
 }
