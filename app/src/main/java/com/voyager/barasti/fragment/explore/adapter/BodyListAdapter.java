@@ -53,7 +53,7 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
                 .placeholder(R.drawable.placeholder_image)
                 .into(holder.ivHome);
         holder.tvHeading.setText(bodyItems.getName());
-        holder.tvHomeAmt.setText(""+bodyItems.getPrice());
+        holder.tvHomeAmt.setText(""+bodyItems.getPrice()+" BD per Night");
         holder.tvFavValue.setText(""+bodyItems.getOverall_rating());
 
     }

@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/ivFooterHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_150"
+            android:layout_height="@dimen/_150"
             android:src="@drawable/placeholder_image" />
 
         <TextView
@@ -23,6 +23,10 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="Heading"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:ems="3"
             android:textColor="@color/black"
             android:textSize="@dimen/_14" />
 
