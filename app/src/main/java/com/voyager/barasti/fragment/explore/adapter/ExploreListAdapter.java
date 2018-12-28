@@ -16,11 +16,13 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.voyager.barasti.R;
+import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocList;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.HeaderItem;
 import com.voyager.barasti.fragment.explore.model.exploreList.BodyItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.ExploreItems;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.FooterItems;
+import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,9 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ClickListener clickListener;
     private LayoutInflater infalter;
     List<BodyItems> bodyItemsList;
+    List<HouseList> houseLists;
     List<LocList> locLists;
+    List<LocItems> locItemsList;
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_FOOTER = 2;
     private static final int TYPE_BODY = 1;
@@ -105,7 +109,8 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
                     });
                     bodyItemsList = exploreItems.get(position).getBodyItemsList();
-                    bodyListAdapter = new BodyListAdapter(bodyItemsList, activity);
+                    houseLists = exploreItems.get(position).getHouseList();
+                    bodyListAdapter = new BodyListAdapter(houseLists, activity);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity.getApplicationContext());
                     bodyHolder.rvBodyList.setLayoutManager(mLayoutManager);
                     bodyHolder.rvBodyList.setItemAnimator(new DefaultItemAnimator());
@@ -122,9 +127,10 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     String json = new Gson().toJson(footerItems);
                     System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems  : "+json);
                     locLists = footerItems.getLocLists();
+                    locItemsList = footerItems.getLocItemsList();
                     holderFooter.tvFooterHeading.setText(footerItems.getHeadingTitile());
                     System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems Heading : "+footerItems.getHeadingTitile());
-                    footerListAdapter = new FooterListAdapter(locLists, activity);
+                    footerListAdapter = new FooterListAdapter(locItemsList, activity);
                     LinearLayoutManager HorizontalView = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
                     holderFooter.rvFooterList.setLayoutManager(HorizontalView);
                     holderFooter.rvFooterList.setItemAnimator(new DefaultItemAnimator());
@@ -151,8 +157,8 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     Toast.makeText(activity,"Expand View Clicked",Toast.LENGTH_LONG).show();
                 }
             });
-            bodyItemsList = exploreItems.get(position).getBodyItemsList();
-            bodyListAdapter = new BodyListAdapter(bodyItemsList, activity);
+            houseLists = exploreItems.get(position).getBodyItemsList();
+            bodyListAdapter = new BodyListAdapter(houseLists, activity);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity.getApplicationContext());
             holder.rvBodyList.setLayoutManager(mLayoutManager);
             holder.rvBodyList.setItemAnimator(new DefaultItemAnimator());
@@ -176,10 +182,10 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             final FooterItems footerItems = (FooterItems) exploreItems.get(position);
             String json = new Gson().toJson(footerItems);
             System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems  : "+json);
-            locLists = footerItems.getLocLists();
+            locItemsList = footerItems.getLocLists();
             holder.tvFooterHeading.setText(footerItems.getHeadingTitile());
             System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems Heading : "+footerItems.getHeadingTitile());
-            footerListAdapter = new FooterListAdapter(locLists, activity);
+            footerListAdapter = new FooterListAdapter(locItemsList, activity);
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
             holder.rvFooterList.setLayoutManager(mLayoutManager);
             holder.rvFooterList.setItemAnimator(new DefaultItemAnimator());

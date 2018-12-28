@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
-import com.voyager.barasti.fragment.explore.model.exploreList.BodyItems;
+import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 
 
 import java.util.List;
@@ -25,12 +26,12 @@ import java.util.List;
 
 public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHolder> {
 
-    public List<BodyItems> bodyItemsList;
+    public List<HouseList> houseLists;
     //private CustomFilter mFilter;
     Activity activity;
 
-    public BodyListAdapter(List<BodyItems> bodyItemsList, Activity activity) {
-        this.bodyItemsList = bodyItemsList;
+    public BodyListAdapter(List<HouseList> houseLists, Activity activity) {
+        this.houseLists = houseLists;
         this.activity = activity;
         //mFilter = new CustomFilter(this, items);
         // System.out.println("MapPlaceSearch has ben ListMapApiDirectionSourceAdapter ");
@@ -45,18 +46,22 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         System.out.println("MapPlaceSearch has ben ListMapApiDirectionSourceAdapter  onBindViewHolder");
-        final BodyItems bodyItems = bodyItemsList.get(position);
-        holder.ivHome.setImageResource(bodyItems.getImgHome());
-        holder.tvHeading.setText(bodyItems.getHeading());
-        holder.tvHomeAmt.setText(bodyItems.getAmtHome());
-        holder.tvFavValue.setText(bodyItems.getFavRate());
+        final HouseList bodyItems = houseLists.get(position);
+        //holder.ivHome.setImageResource(bodyItems.getImgHome());
+        Picasso.with(activity)
+                .load(bodyItems.getCover_photo())
+                .placeholder(R.drawable.placeholder_image)
+                .into(holder.ivHome);
+        holder.tvHeading.setText(bodyItems.getName());
+        holder.tvHomeAmt.setText(""+bodyItems.getPrice());
+        holder.tvFavValue.setText(""+bodyItems.getOverall_rating());
 
     }
 
     @Override
     public int getItemCount() {
-        if (bodyItemsList != null && bodyItemsList.size() > 0) {
-            return bodyItemsList.size();
+        if (houseLists != null && houseLists.size() > 0) {
+            return houseLists.size();
         } else {
             return 0;
         }

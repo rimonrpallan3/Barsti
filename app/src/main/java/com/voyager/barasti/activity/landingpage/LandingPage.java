@@ -12,15 +12,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 
 import com.google.gson.Gson;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
@@ -35,9 +31,6 @@ import com.voyager.barasti.fragment.fav.FavouriteFag;
 import com.voyager.barasti.fragment.inbox.InboxFrg;
 import com.voyager.barasti.fragment.profile.ProfileFrg;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -204,7 +197,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         ivPointer1.setVisibility(View.GONE);
         ivPointer2.setVisibility(View.GONE);
         ivPointer3.setVisibility(View.VISIBLE);*/
-        if(currentTabFrg!="profile") {
+        if(currentTabFrg != "profile") {
             Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
             ProfileFrg profileFrg = new ProfileFrg();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

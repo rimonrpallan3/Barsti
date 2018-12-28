@@ -26,6 +26,15 @@ public class ExploreItems {
 
 
     List<BodyItems> bodyItemsList;
+    List<HouseList> houseList;
+
+    public List<HouseList> getHouseList() {
+        return houseList;
+    }
+
+    public void setHouseList(List<HouseList> houseList) {
+        this.houseList = houseList;
+    }
 
     public ExploreItems() {
         this.type = TAG_NAME;

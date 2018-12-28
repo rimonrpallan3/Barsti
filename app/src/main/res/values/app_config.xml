@@ -27,7 +27,7 @@
     <!--Set Your Application version -->
     <string name="app_version">1.0</string>
     <!-- BASE API URL (PLASE SET  LIKE THIS http://domain.com) -->
-    <string name="BASE_URL">http://betaholder.com/sayara/user/</string>
+    <string name="BASE_URL">http://betaholder.com/barastiapp/api/</string>
 
     <!-- DEFAULT HOST -->
     <string name="DEFAULT_HOST">www.betaholder.com</string>
@@ -59,7 +59,7 @@
     <!-- ABOUT -->
     <string name="ADDRESS_CONTACT">hr@itvoyager.com </string>
     <string name="PHONE">+01 0000 000000</string>
-    <string name="ABOUT_CONTENT">NEARBYSTORES is an innovative local business search app with an intelligent search functionality
+    <string name="ABOUT_CONTENT">Barasti is an innovative local business search app with an intelligent search functionality
         that can help you find different businesses in an area easily. </string>
 
     <string-array name="tab_names">

@@ -24,7 +24,15 @@ public class FooterItems extends ExploreItems {
 
     private String headingTitile;
     List<LocList> locLists ;
+    List<LocItems> locItemsList ;
 
+    public List<LocItems> getLocItemsList() {
+        return locItemsList;
+    }
+
+    public void setLocItemsList(List<LocItems> locItemsList) {
+        this.locItemsList = locItemsList;
+    }
 
     public String getHeadingTitile() {
         return headingTitile;
