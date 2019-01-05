@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.voyager.barasti.R;
 import com.voyager.barasti.fragment.explore.adapter.ExploreListAdapter;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.FooterItems;
@@ -28,16 +29,13 @@ import java.util.ArrayList;
  * Created by User on 18-Dec-18.
  */
 
-public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickListener,IExploreView {
+public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickListener, IExploreView {
 
     private Activity activity;
 
     RecyclerView rvExploreList;
     ExploreListAdapter exploreListAdapter;
 
-    public static final int HEADER_TYPE=0;
-    public static final int BODY_TYPE=1;
-    public static final int FOOTER_TYPE=2;
     IExplorePresenter explorePresenter;
 
 
@@ -230,11 +228,11 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
 
     @Override
     public void setHomeList(ArrayList<ExploreItems> exploreItems) {
-            exploreListAdapter = new ExploreListAdapter(exploreItems, getActivity());
-            rvExploreList.setLayoutFrozen(true);
-            LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-            rvExploreList.setLayoutManager(mLayoutManager);
-            rvExploreList.setItemAnimator(new DefaultItemAnimator());
-            rvExploreList.setAdapter(exploreListAdapter);
+        exploreListAdapter = new ExploreListAdapter(exploreItems, getActivity());
+        rvExploreList.setLayoutFrozen(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        rvExploreList.setLayoutManager(mLayoutManager);
+        rvExploreList.setItemAnimator(new DefaultItemAnimator());
+        rvExploreList.setAdapter(exploreListAdapter);
     }
 }

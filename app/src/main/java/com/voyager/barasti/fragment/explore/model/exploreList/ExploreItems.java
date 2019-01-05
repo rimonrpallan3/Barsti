@@ -1,5 +1,7 @@
 package com.voyager.barasti.fragment.explore.model.exploreList;
 
+import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
+
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
 import java.util.List;
@@ -27,9 +29,18 @@ public class ExploreItems {
 
     List<BodyItems> bodyItemsList;
     List<HouseList> houseList;
+    public NewList newList;
 
     public List<HouseList> getHouseList() {
         return houseList;
+    }
+
+    public NewList getNewList() {
+        return newList;
+    }
+
+    public void setNewList(NewList newList) {
+        this.newList = newList;
     }
 
     public void setHouseList(List<HouseList> houseList) {

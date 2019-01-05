@@ -19,6 +19,8 @@ import com.voyager.barasti.R;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocList;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.HeaderItem;
+import com.voyager.barasti.fragment.explore.model.ExploreType.TypeBody;
+import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
 import com.voyager.barasti.fragment.explore.model.exploreList.BodyItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.ExploreItems;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.FooterItems;
@@ -40,12 +42,17 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     List<BodyItems> bodyItemsList;
     List<HouseList> houseLists;
     List<LocList> locLists;
+    List<TypeList> typeLists;
     List<LocItems> locItemsList;
     private static final int TYPE_HEADER = 0;
-    private static final int TYPE_FOOTER = 2;
-    private static final int TYPE_BODY = 1;
+    private static final int TYPE_FOOTER = 3;
+    private static final int TYPE_TYPE = 1;
+    private static final int TYPE_BODY = 2;
     BodyListAdapter bodyListAdapter;
     FooterListAdapter footerListAdapter;
+    TypeListAdapter typeListAdapter;
+    LinearLayoutManager HorizontalView;
+    String json;
 
     public ExploreListAdapter(List<ExploreItems> exploreItems, Activity activity) {
         this.exploreItems = exploreItems;
@@ -66,6 +73,12 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             //rootView = infalter.inflate(R.layout.content_explore_list_body,parent,false);
             System.out.println(" ------------ ExploreListAdapter content_explore_list_body");
             return new BodyListViewHolder(rootView);
+        }else if(viewType == TYPE_TYPE){
+            rootView =LayoutInflater.from(parent.getContext()).inflate(R.layout.content_explore_type, parent, false);
+
+            //rootView = infalter.inflate(R.layout.content_explore_list_footer,parent,false);
+            System.out.println(" ------------ ExploreListAdapter content_explore_TYPE_TYPE");
+            return new TypeListViewHolder(rootView);
         }else if(viewType == TYPE_FOOTER){
             rootView =LayoutInflater.from(parent.getContext()).inflate(R.layout.content_explore_list_footer, parent, false);
 
@@ -120,27 +133,46 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     //bodyListAdapter.setClickListener(this);
 
                     break;
+
                 case TYPE_FOOTER:
                     System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems position : "+position);
                     final FooterListViewHolder holderFooter = (FooterListViewHolder) holderViews;
                     final FooterItems footerItems = (FooterItems) exploreItems.get(position);
-                    String json = new Gson().toJson(footerItems);
+                    json = new Gson().toJson(footerItems);
                     System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems  : "+json);
                     locLists = footerItems.getLocLists();
                     locItemsList = footerItems.getLocItemsList();
                     holderFooter.tvFooterHeading.setText(footerItems.getHeadingTitile());
                     System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems Heading : "+footerItems.getHeadingTitile());
                     footerListAdapter = new FooterListAdapter(locItemsList, activity);
-                    LinearLayoutManager HorizontalView = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+                    HorizontalView = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
                     holderFooter.rvFooterList.setLayoutManager(HorizontalView);
                     holderFooter.rvFooterList.setItemAnimator(new DefaultItemAnimator());
                     holderFooter.rvFooterList.setAdapter(footerListAdapter);
                     holderFooter.rvFooterList.setNestedScrollingEnabled(true);
 
                     break;
+
+                case TYPE_TYPE:
+                    System.out.println(" ------------ TypeListViewHolder onBindViewHolder TypeBody position : "+position);
+                    final TypeListViewHolder holderType = (TypeListViewHolder) holderViews;
+                    final TypeBody typeItems = (TypeBody) exploreItems.get(position);
+                    String json = new Gson().toJson(typeItems);
+                    System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems  : "+json);
+                    typeLists = typeItems.getTypeLists();
+                    holderType.tvTypeHeading.setText(typeItems.getHeadingTitile());
+                    System.out.println(" ------------ TypeListViewHolder onBindViewHolder TypeBody Heading : "+typeItems.getHeadingTitile());
+                    typeListAdapter = new TypeListAdapter(typeLists, activity);
+                    LinearLayoutManager HorizontalView = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+                    holderType.rvTypeList.setLayoutManager(HorizontalView);
+                    holderType.rvTypeList.setItemAnimator(new DefaultItemAnimator());
+                    holderType.rvTypeList.setAdapter(typeListAdapter);
+                    holderType.rvTypeList.setNestedScrollingEnabled(true);
+
+
+
             }
         }
-
 
 
 
@@ -212,8 +244,10 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case 0:
                 return TYPE_HEADER;
             case 1:
-                return TYPE_BODY;
+                return TYPE_TYPE;
             case 2:
+                return TYPE_BODY;
+            case 3:
                 return TYPE_FOOTER;
             default:
                 return -1;
@@ -278,6 +312,32 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             itemView.setOnClickListener(this);
             rvFooterList =  itemView.findViewById(R.id.rvFooterList);
             tvFooterHeading =  itemView.findViewById(R.id.tvFooterHeading);
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if(clickListener!=null){
+                clickListener.itemClicked(v,getPosition());
+            }
+
+            //delete(getPosition());
+
+        }
+    }
+
+    public class TypeListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        TextView tvTypeHeading;
+        RecyclerView rvTypeList;
+        View root;
+
+        public TypeListViewHolder(View itemView) {
+            super(itemView);
+            root = itemView;
+            itemView.setOnClickListener(this);
+            rvTypeList =  itemView.findViewById(R.id.rvTypeList);
+            tvTypeHeading =  itemView.findViewById(R.id.tvTypeHeading);
         }
 
         @Override

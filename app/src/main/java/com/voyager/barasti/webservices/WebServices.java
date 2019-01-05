@@ -3,6 +3,7 @@ package com.voyager.barasti.webservices;
 
 import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
+import com.voyager.barasti.fragment.explore.model.exploreList.NewList;
 
 import java.util.ArrayList;
 
@@ -15,8 +16,8 @@ public interface WebServices {
     //http://10.1.1.18/sayara/user/booking/--pickup_loc: 9.731235,76.355463 -- user_id 89
 
 
-    @GET("listings/2/0")
-    Call<ArrayList<HouseList>> doGetHouseList();
+    @GET("listings/4/0")
+    Call<NewList> doGetHouseList();
     @GET("locations/2/0")
     Call<ArrayList<LocItems>> doGetLocList();
 
