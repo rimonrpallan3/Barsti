@@ -2,6 +2,8 @@ package com.voyager.barasti.fragment.explore.adapter;
 
 
 import android.app.Activity;
+import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.voyager.barasti.R;
+import com.voyager.barasti.custom.viewpagerindicator.CirclePageIndicator;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocList;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.HeaderItem;
@@ -28,6 +31,9 @@ import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by User on 15-May-18.*/
 
@@ -54,11 +60,14 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     LinearLayoutManager HorizontalView;
     String json;
 
+    private  int currentPage = 0;
+    private  int NUM_PAGES = 0;
+    private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
+
     public ExploreListAdapter(List<ExploreItems> exploreItems, Activity activity) {
         this.exploreItems = exploreItems;
         this.infalter = LayoutInflater.from(activity);
         this.activity = activity;
-
         /*String json = new Gson().toJson(exploreItems);
         System.out.println(" ------------ ExploreListAdapter Con onBindViewHolder ExploreItems  : "+json);*/
 
@@ -94,10 +103,14 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return null;
     }
 
+    private void init(View rootView) {
+
+    }
+
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holderViews, final int position) {
-        ExploreItems exploreItems1 =exploreItems.get(position);
+        ExploreItems exploreItems1 = exploreItems.get(position);
         if (exploreItems1 != null) {
             switch (exploreItems1.getViewType()) {
                 case TYPE_HEADER:
@@ -108,6 +121,43 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     System.out.println("mHeaderViewHolder Image Url/Id  : "+dataItem.getImageUrl());
                     headerHolder.ivBanner.setImageResource(dataItem.getImgHeader());
                     headerHolder.btnHome.setText(dataItem.getBtnContent());
+                    headerHolder.mPager.setAdapter(new SlidingImage_Adapter(activity,dataItem.getBanners()));
+                    headerHolder.indicator.setViewPager(headerHolder.mPager);
+                    final float density = activity.getResources().getDisplayMetrics().density;
+                    //Set circle indicator radius
+                    headerHolder.indicator.setRadius(5 * density);
+                    NUM_PAGES =dataItem.getBanners().size();
+                    System.out.println("mHeaderViewHolder NUM_PAGES  : "+NUM_PAGES);
+                    // Auto start of viewpager
+                    final Handler handler = new Handler();
+                    final Runnable Update = new Runnable() {
+                        public void run() {
+                            if (currentPage == NUM_PAGES) {
+                                currentPage = 0;
+                            }
+                            headerHolder.mPager.setCurrentItem(currentPage++, true);
+                        }
+                    };
+                    Timer swipeTimer = new Timer();
+                    swipeTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            handler.post(Update);
+                        }
+                    }, 3000, 3000);
+                    // Pager listener over indicator
+                    headerHolder.indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                        @Override
+                        public void onPageSelected(int position) {
+                            currentPage = position;
+                        }
+                        @Override
+                        public void onPageScrolled(int pos, float arg1, int arg2) {
+                        }
+                        @Override
+                        public void onPageScrollStateChanged(int pos) {
+                        }
+                    });
 
                     break;
                 case TYPE_BODY:
@@ -174,58 +224,6 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         }
 
-
-
-
-
-     /*   if(holderViews instanceof BodyListViewHolder) {
-            BodyListViewHolder holder = (BodyListViewHolder) holderViews;
-            System.out.println(" ------------ ExploreListAdapter onBindViewHolder BodyListViewHolder position : "+position);
-
-            holder.tvHeading.setText(exploreItems.get(position).getMainHeading());
-            holder.btnExpandView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(activity,"Expand View Clicked",Toast.LENGTH_LONG).show();
-                }
-            });
-            houseLists = exploreItems.get(position).getBodyItemsList();
-            bodyListAdapter = new BodyListAdapter(houseLists, activity);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity.getApplicationContext());
-            holder.rvBodyList.setLayoutManager(mLayoutManager);
-            holder.rvBodyList.setItemAnimator(new DefaultItemAnimator());
-            holder.rvBodyList.setLayoutManager(new GridLayoutManager(activity, 2));
-            holder.rvBodyList.setAdapter(bodyListAdapter);
-            holder.rvBodyList.setLayoutFrozen(true);
-            //bodyListAdapter.setClickListener(this);
-        } else if (holderViews instanceof mHeaderViewHolder){
-            System.out.println(" ------------ mHeaderViewHolder onBindViewHolder HeaderItem position : "+position);
-            final mHeaderViewHolder holder = (mHeaderViewHolder) holderViews;
-            final HeaderItem dataItem = (HeaderItem) exploreItems.get(position);
-            System.out.println("mHeaderViewHolder Btn name : "+dataItem.getBtnContent());
-            System.out.println("mHeaderViewHolder Image Url/Id  : "+dataItem.getImageUrl());
-            holder.ivBanner.setImageResource(dataItem.getImgHeader());
-            holder.btnHome.setText(dataItem.getBtnContent());
-
-
-        } else if (holderViews instanceof FooterListViewHolder){
-            System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems position : "+position);
-            final FooterListViewHolder holder = (FooterListViewHolder) holderViews;
-            final FooterItems footerItems = (FooterItems) exploreItems.get(position);
-            String json = new Gson().toJson(footerItems);
-            System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems  : "+json);
-            locItemsList = footerItems.getLocLists();
-            holder.tvFooterHeading.setText(footerItems.getHeadingTitile());
-            System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems Heading : "+footerItems.getHeadingTitile());
-            footerListAdapter = new FooterListAdapter(locItemsList, activity);
-            LinearLayoutManager mLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
-            holder.rvFooterList.setLayoutManager(mLayoutManager);
-            holder.rvFooterList.setItemAnimator(new DefaultItemAnimator());
-            holder.rvFooterList.setAdapter(footerListAdapter);
-            holder.rvFooterList.setNestedScrollingEnabled(true);
-            //holder.rvFooterList.setLayoutFrozen(true);
-        }
-*/
     }
 
 
@@ -358,12 +356,16 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView userName;
         ImageView ivBanner;
         Button btnHome;
+        private  ViewPager mPager;
+        CirclePageIndicator indicator;
+
 
         public mHeaderViewHolder(View itemView) {
             super(itemView);
             ivBanner = itemView.findViewById(R.id.ivBanner);
             btnHome =  itemView.findViewById(R.id.btnHome);
-
+            indicator =itemView.findViewById(R.id.indicator);
+            mPager = itemView.findViewById(R.id.pager);
         }
     }
 

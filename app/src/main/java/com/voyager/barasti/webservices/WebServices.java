@@ -1,6 +1,7 @@
 package com.voyager.barasti.webservices;
 
 
+import com.voyager.barasti.fragment.explore.model.ExploreHeader.Banner;
 import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.NewList;
@@ -18,6 +19,8 @@ public interface WebServices {
 
     @GET("listings/4/0")
     Call<NewList> doGetHouseList();
+    @GET("sliders")
+    Call<ArrayList<Banner>> doGetbannerlist();
     @GET("locations/2/0")
     Call<ArrayList<LocItems>> doGetLocList();
 

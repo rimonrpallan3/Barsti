@@ -2,16 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginLeft="@dimen/_10"
+    android:layout_marginRight="@dimen/_10">
 
     <TextView
         android:id="@+id/tvTypeHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20"
-        android:layout_marginRight="@dimen/_20"
         android:text="Locations"
         android:textColor="@color/black"
+        android:layout_marginLeft="@dimen/_10"
         android:textSize="@dimen/_18"
         android:textStyle="bold" />
 

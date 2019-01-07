@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10"
+        android:visibility="gone"
         android:layout_marginLeft="@dimen/_10"
         android:layout_marginRight="@dimen/_10">
 
         <ImageView
             android:id="@+id/ivBanner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_180"
             android:layout_marginLeft="@dimen/_10"
             android:layout_marginRight="@dimen/_10"
             android:src="@drawable/barasti_home_banner"/>
@@ -30,6 +32,36 @@
             android:background="@drawable/rectangle_button"/>
 
 
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150">
+
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true" />
+
+        <com.voyager.barasti.custom.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom"
+            android:padding="10dip"
+            app:centered="true"
+            app:strokeWidth="2dp"
+            app:radius="@dimen/_30"
+            app:strokeColor="#0f75bd"
+            app:fillColor="#0f75bd"
+            app:pageColor="#FFFF"
+            app:snap="false" />
     </FrameLayout>
 
 </LinearLayout>

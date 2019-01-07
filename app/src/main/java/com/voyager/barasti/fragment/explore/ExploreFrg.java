@@ -55,7 +55,7 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         activity = getActivity();
 
         rvExploreList = rootView.findViewById(R.id.rvExplore);
-        explorePresenter = new ExplorePresenter(this);
+        explorePresenter = new ExplorePresenter(this,getActivity());
         explorePresenter.getHomeListPresenter();
 
 

@@ -24,7 +24,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -33,15 +32,16 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:11.8.0'
     compile 'com.github.jd-alexander:library:1.1.0'
     testCompile 'junit:junit:4.12'
-    implementation("com.mikepenz:materialdrawer:6.0.7@aar") {
+    implementation('com.mikepenz:materialdrawer:6.0.7@aar') {
         transitive = true
     }
+    compile 'com.android.support:support-v4:18.+'
     compile 'com.android.support:appcompat-v7:27.1.1'
     compile 'com.android.support:design:27.1.1'
     compile 'com.android.support:cardview-v7:27.1.1'
     compile 'com.android.support:recyclerview-v7:27.1.1'
-    compile "com.android.support:support-annotations:27.1.1"
-    compile "com.android.support:support-core-utils:27.1.1"
+    compile 'com.android.support:support-annotations:27.1.1'
+    compile 'com.android.support:support-core-utils:27.1.1'
     compile 'com.android.support:multidex:1.0.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     compile 'com.squareup.picasso:picasso:2.5.2'
@@ -58,13 +58,14 @@ dependencies {
     compile 'net.steamcrafted:materialiconlib:1.1.4'
     implementation 'pub.devrel:easypermissions:1.1.1'
     implementation 'com.mikepenz:actionitembadge:3.3.2@aar'
-    implementation "com.mikepenz:iconics-views:3.0.3@aar"
-    implementation "com.mikepenz:iconics-views:3.0.3@aar"
+    implementation 'com.mikepenz:iconics-views:3.0.3@aar'
+    implementation 'com.mikepenz:iconics-views:3.0.3@aar'
     implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
     implementation 'com.mikepenz:community-material-typeface:2.0.46.1@aar'
-    implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar' //Google Material Icons
-    implementation 'com.mikepenz:fontawesome-typeface:5.0.6.0@aar'     //FontAwesome
-
+    implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
+    //Google Material Icons
+    implementation 'com.mikepenz:fontawesome-typeface:5.0.6.0@aar'
+    //FontAwesome
     //New Firebase
     compile 'com.google.firebase:firebase-appindexing:11.8.0'
     compile 'com.google.firebase:firebase-core:11.8.0'
@@ -74,6 +75,5 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:11.8.0'
     compile 'com.google.firebase:firebase-messaging:11.8.0'
     compile 'com.google.firebase:firebase-ads:11.8.0'
-
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 }

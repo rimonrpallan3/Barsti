@@ -1,6 +1,7 @@
 package com.voyager.barasti.fragment.explore.adapter;
 
 
+
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
 import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
 
@@ -46,6 +46,13 @@ public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.ViewHo
     public void onBindViewHolder(final ViewHolder holder, int position) {
         System.out.println("FooterListAdapter has ben   onBindViewHolder");
         final TypeList typeList = typeLists.get(position);
+        if(typeList.getName().equals("Apartment")){
+            typeList.setImgId(R.drawable.apartment);
+        }else  if(typeList.getName().equals("Villa")){
+            typeList.setImgId(R.drawable.penthouse);
+        }else  if(typeList.getName().equals("Penthouse")){
+            typeList.setImgId(R.drawable.villa);
+        }
         holder.ivTypeHome.setImageResource(typeList.getImgId());
         /*Picasso.with(activity)
                 .load("")
