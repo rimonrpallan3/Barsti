@@ -28,6 +28,7 @@
     <string name="fill_txt">Fill the details below</string>
     <string name="permission_location_check">We need this pemission to read documents from device.</string>
     <string name="snack_error_network">Please turn on your net.</string>
+    <string name="googleSignText">Sign in with Google</string>
 
 
 

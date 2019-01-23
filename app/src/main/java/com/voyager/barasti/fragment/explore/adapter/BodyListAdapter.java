@@ -2,15 +2,19 @@ package com.voyager.barasti.fragment.explore.adapter;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.landingpage.LandingPage;
+import com.voyager.barasti.activity.profilepage.ProfilePage;
 import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 
 
@@ -55,7 +59,16 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
         holder.tvHeading.setText(bodyItems.getName());
         holder.tvHomeAmt.setText(""+bodyItems.getPrice()+" BD per Night");
         holder.tvFavValue.setText(""+bodyItems.getOverall_rating());
-
+        holder.llHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, ProfilePage.class);
+                intent.putExtra("currentId", bodyItems.getId());
+                intent.putExtra("priceValue", bodyItems.getPrice());
+                intent.putExtra("reviewRate", bodyItems.getReviews_count());
+                activity.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -74,6 +87,7 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        LinearLayout llHome;
         TextView tvFavValue;
         TextView tvHomeAmt;
         TextView tvHeading;
@@ -86,6 +100,7 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
 
         public ViewHolder(View view) {
             super(view);
+            llHome = view.findViewById(R.id.llHome);
             ivHome = view.findViewById(R.id.ivHome);
             ivFav1 = view.findViewById(R.id.ivFav1);
             ivFav2 = view.findViewById(R.id.ivFav2);

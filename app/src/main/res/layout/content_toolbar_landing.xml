@@ -5,9 +5,8 @@
     android:layout_height="@dimen/_80"
     android:elevation="@dimen/_04"
     android:fitsSystemWindows="true"
-    android:minHeight="?attr/actionBarSize"
-    app:cardElevation="@dimen/_04"
-    app:contentPadding="5dp">
+    android:maxHeight="?attr/actionBarSize"
+    app:cardElevation="@dimen/_04">
 
 
     <LinearLayout

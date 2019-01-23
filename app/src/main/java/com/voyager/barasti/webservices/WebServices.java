@@ -1,6 +1,8 @@
 package com.voyager.barasti.webservices;
 
 
+import com.voyager.barasti.activity.profilepage.model.HomeDetails;
+import com.voyager.barasti.activity.typelist.model.TypedDetail;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.Banner;
 import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface WebServices {
     //@GET("driver/getDriver/")
@@ -17,12 +20,25 @@ public interface WebServices {
     //http://10.1.1.18/sayara/user/booking/--pickup_loc: 9.731235,76.355463 -- user_id 89
 
 
-    @GET("listings/4/0")
+ /*   @GET("listings/4/0")
     Call<NewList> doGetHouseList();
     @GET("sliders")
     Call<ArrayList<Banner>> doGetbannerlist();
     @GET("locations/2/0")
     Call<ArrayList<LocItems>> doGetLocList();
+    @GET("listings/{id}")
+    Call<HomeDetails> doGetHomeDetails(@Path("id") int id);*/
+
+    @GET("listings/{limit}/{offset}")
+    Call<NewList> doGetHouseList(@Path("limit") int limit,@Path("offset") int offset);
+    @GET("sliders")
+    Call<ArrayList<Banner>> doGetbannerlist();
+    @GET("locations/{limit}/{offset}")
+    Call<ArrayList<LocItems>> doGetLocList(@Path("limit") int limit,@Path("offset") int offset);
+    @GET("listings/{propertyId}")
+    Call<HomeDetails> doGetHomeDetails(@Path("propertyId") int propertyId);
+    @GET("listings/{limit}/{offset}/{typeId}")
+    Call<TypedDetail> doGetTypedDetails(@Path("limit") int limit, @Path("offset") int offset, @Path("typeId") int typeId);
 
 /*
     @GET("webservice/getOffertypes")

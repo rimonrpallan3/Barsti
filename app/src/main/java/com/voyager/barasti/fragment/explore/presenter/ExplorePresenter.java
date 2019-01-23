@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.voyager.barasti.R;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.FooterItems;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.Banner;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.HeaderItem;
-import com.voyager.barasti.fragment.explore.model.ExploreHeader.HeaderNewItem;
 import com.voyager.barasti.fragment.explore.model.ExploreType.TypeBody;
 import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
 import com.voyager.barasti.fragment.explore.model.exploreList.ExploreItems;
@@ -47,6 +45,12 @@ public class ExplorePresenter implements IExplorePresenter {
     private static final Integer[] IMAGES= {R.drawable.placeholder_image,R.drawable.placeholder_image,R.drawable.placeholder_image,R.drawable.placeholder_image};
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
 
+    int limit = 4;
+    int locLimit = 4;
+    int offset = 0;
+    int locOffset = 0;
+    int propertyId   = 0;
+
     public ExplorePresenter(IExploreView iExploreView,Activity activity) {
         this.iExploreView = iExploreView;
         this.activity = activity;
@@ -77,7 +81,7 @@ public class ExplorePresenter implements IExplorePresenter {
                 headerItem.setViewType(0);
                 landingListItems.add(headerItem);
 
-                Call<NewList> call1 = webServices.doGetHouseList();
+                Call<NewList> call1 = webServices.doGetHouseList(limit,offset);
                 call1.enqueue(new Callback<NewList>() {
                     @Override
                     public void onResponse(Call<NewList> call, Response<NewList> response) {
@@ -99,7 +103,7 @@ public class ExplorePresenter implements IExplorePresenter {
                         yourTripItem.setViewType(2);
                         landingListItems.add(yourTripItem);
 
-                        Call<ArrayList<LocItems>> calls = webServices.doGetLocList();
+                        Call<ArrayList<LocItems>> calls = webServices.doGetLocList(locLimit,locOffset);
                         calls.enqueue(new Callback<ArrayList<LocItems>>() {
                             @Override
                             public void onResponse(Call<ArrayList<LocItems>> call, Response<ArrayList<LocItems>> response) {

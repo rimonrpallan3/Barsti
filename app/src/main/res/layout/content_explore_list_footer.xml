@@ -13,6 +13,7 @@
         android:layout_marginLeft="@dimen/_10"
         android:text="Locations"
         android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10"
         android:textSize="@dimen/_18"
         android:textStyle="bold" />
 

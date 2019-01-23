@@ -3,14 +3,19 @@ package com.voyager.barasti.fragment.explore.adapter;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.profilepage.ProfilePage;
+import com.voyager.barasti.activity.typelist.TypeListActivity;
+import com.voyager.barasti.activity.typelist.adapter.TypedListAdapter;
 import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
 
 import java.util.List;
@@ -59,6 +64,15 @@ public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.ViewHo
                 .placeholder(R.drawable.placeholder_image)
                 .into(holder.ivTypeHome);*/
         holder.tvTypeSubHeading.setText(typeList.getName());
+        holder.llTypedHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(activity, TypeListActivity.class);
+                intent.putExtra("TypeListActivity", typeList);
+                activity.startActivity(intent);
+            }
+        });
 
     }
 
@@ -80,11 +94,13 @@ public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.ViewHo
 
         TextView tvTypeSubHeading;
         ImageView ivTypeHome;
+        LinearLayout llTypedHome;
 
         public ViewHolder(View view) {
             super(view);
             ivTypeHome = view.findViewById(R.id.ivTypeHome);
             tvTypeSubHeading = view.findViewById(R.id.tvTypeSubHeading);
+            llTypedHome = view.findViewById(R.id.llTypedHome);
         }
 
         @Override

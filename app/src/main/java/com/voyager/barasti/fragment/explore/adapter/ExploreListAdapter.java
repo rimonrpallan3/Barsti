@@ -180,6 +180,12 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     bodyHolder.rvBodyList.setLayoutManager(new GridLayoutManager(activity, 2));
                     bodyHolder.rvBodyList.setAdapter(bodyListAdapter);
                     bodyHolder.rvBodyList.setLayoutFrozen(true);
+                    bodyHolder.btnExpandView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
                     //bodyListAdapter.setClickListener(this);
 
                     break;

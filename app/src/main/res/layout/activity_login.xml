@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="@dimen/_200"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_50"
+        android:src="@drawable/barasti_logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/signIn_btn"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_18"
+        android:background="@android:color/white">
+        <!--Google Login layout -->
+        <LinearLayout
+            android:id="@+id/btnSignInGoogle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/white"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageview_google_icon"
+                android:layout_width="@dimen/_40"
+                android:layout_height="@dimen/_30"
+                android:layout_gravity="start"
+                android:background="@android:color/white"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/google_icon" />
+
+            <TextView
+                android:id="@+id/textview_sign_in_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30"
+                android:background="@android:color/white"
+                android:gravity="center"
+                android:paddingRight="@dimen/_15"
+                android:text="@string/googleSignText"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12" />
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+</LinearLayout>
