@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:clickable="false"
             android:src="@drawable/explore_icon"/>
 
         <TextView
@@ -55,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:clickable="false"
             android:src="@drawable/favourite_icon" />
 
         <TextView
@@ -86,6 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:clickable="false"
             android:src="@drawable/inbox_icon" />
 
         <TextView
@@ -117,6 +120,7 @@
             android:id="@+id/profileTabImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
             android:background="@null"
             android:src="@drawable/profile_icon" />
 

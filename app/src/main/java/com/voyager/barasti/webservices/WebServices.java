@@ -46,7 +46,7 @@ public interface WebServices {
 
     @FormUrlEncoded
     @POST("register/")
-    public Call<UserDetails> registerUser(@Nullable @Field("name") String name,
+    public Call<UserDetail> registerUser(@Nullable @Field("name") String name,
                                           @Nullable @Field("password") String password,
                                           @Nullable @Field("email") String email,
                                           @Nullable @Field("phone") String phone,
@@ -54,13 +54,13 @@ public interface WebServices {
                                           @Nullable @Field("city") String city);
     @FormUrlEncoded
     @POST("login/")
-    public Call<UserDetails> loginUser(@Nullable @Field("email") String email,
+    public Call<UserDetail> loginUser(@Nullable @Field("email") String email,
                                        @Nullable @Field("password") String passwd,
                                        @Nullable @Field("token") String fireBaseToken);
 
     @FormUrlEncoded
     @POST("updateProfile/")
-    Call<UserDetails> updateProfile(@Nullable @Field("name") String name,
+    Call<UserDetail> updateProfile(@Nullable @Field("name") String name,
                                     @Nullable @Field("userID") int id,
                                     @Nullable @Field("password") String password,
                                     @Nullable @Field("phone") String phone,
@@ -68,21 +68,21 @@ public interface WebServices {
                                     @Nullable @Field("city") String city);
     @FormUrlEncoded
     @POST("updateProfile/")
-    Call<UserDetails> updateProfilePass(@Nullable @Field("password") String name,
+    Call<UserDetail> updateProfilePass(@Nullable @Field("password") String name,
                                         @Nullable @Field("user_id") int id);
     @FormUrlEncoded
     @POST("updateProfile/")
-    Call<UserDetails> updateProfileName(@Nullable @Field("name") String name,
+    Call<UserDetail> updateProfileName(@Nullable @Field("name") String name,
                                         @Nullable @Field("user_id") int id,
                                         @Nullable @Field("password") String password,
                                         @Nullable @Field("city") String city);
     @FormUrlEncoded
     @POST("updateProfile/")
-    Call<UserDetails> updateProfilePhno(@Nullable @Field("phone") String name,
+    Call<UserDetail> updateProfilePhno(@Nullable @Field("phone") String name,
                                         @Nullable @Field("user_id") int id);
     @FormUrlEncoded
     @POST("updateProfile/")
-    Call<UserDetails> updateProfileCity(@Nullable @Field("city") String name,
+    Call<UserDetail> updateProfileCity(@Nullable @Field("city") String name,
                                         @Nullable @Field("user_id") int id);
     @FormUrlEncoded
     @POST("tripHistory/")
@@ -109,11 +109,11 @@ public interface WebServices {
 
     @FormUrlEncoded
     @POST("logout/")
-    Call<UserDetails> logOut(@Nullable @Field("user_id") int userId,
+    Call<UserDetail> logOut(@Nullable @Field("user_id") int userId,
                              @Nullable @Field("logout") int value);
 
     @POST("FCMUpdateServlet")
-    public Call<UserDetails> updateFCMId(@Nullable @Field("user_id") int userId,
+    public Call<UserDetail> updateFCMId(@Nullable @Field("user_id") int userId,
                                          @Nullable @Field("token") String token);
     @FormUrlEncoded
     @POST("confirmTrip/")
@@ -130,7 +130,7 @@ public interface WebServices {
 
     @Multipart
     @POST("updateProfile/")
-    public Call<UserDetails> uploadProfileImg(@Part MultipartBody.Part profileImg, @Part("user_id") RequestBody userID);
+    public Call<UserDetail> uploadProfileImg(@Part MultipartBody.Part profileImg, @Part("user_id") RequestBody userID);
 
     @GET("place/autocomplete/json?")
     Call<PlacesResults> getPlaceSearch(@Query("input") String input, @Query("types") String types, @Query("key") String key);

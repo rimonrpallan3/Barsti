@@ -55,7 +55,7 @@ public class Helper {
     public static int CONTACT_CARRIAGE_PERMIT = 9;
     public static int INSURANCE_CERTIFICATION = 10;
     public final static int REQUEST_READ_PHONE_STATE = 17;
-    public static final String UserDetails = "UserDetails";
+    public static final String UserDetails = "UserDetail";
     public static final String OnTripStartUp = "OnTripStartUp";
     public static final int UpdateContent = 22;
     public final static int CAMERA_STORAGE_PERMISSION = 73;

@@ -120,6 +120,7 @@
                 android:layout_height="@dimen/_40"
                 android:layout_marginRight="@dimen/_20"
                 android:text="Book Now"
+                android:clickable="false"
                 android:background="@drawable/rectangle_button2"
                 android:textColor="@color/splsh_bg"/>
 

@@ -8,10 +8,11 @@
 
     <TextView
         android:id="@+id/tvFooterHeading"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_10"
         android:text="Locations"
+        android:gravity="right"
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/_10"
         android:textSize="@dimen/_18"

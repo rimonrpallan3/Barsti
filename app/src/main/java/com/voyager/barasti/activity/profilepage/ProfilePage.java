@@ -7,11 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.MapView;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.login.LoginActivity;
 import com.voyager.barasti.activity.profilepage.adapter.ProfilePageAdapter;
 import com.voyager.barasti.activity.profilepage.model.HomeDetails;
 import com.voyager.barasti.activity.profilepage.presenter.IProfiePresenter;
@@ -40,6 +43,7 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
     int currentId=0;
     int priceValue=0;
     int reviewRate=0;
+    LinearLayout llContBtn;
 
 
     LocationManager locationManager;
@@ -51,6 +55,7 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
         rvProfilePage = (RecyclerView) findViewById(R.id.rvProfilePage);
         tvHomeAmt =findViewById(R.id.tvHomeAmt);
         tvFavValue =findViewById(R.id.tvFavValue);
+        llContBtn =findViewById(R.id.llContBtn);
 
         iProfiePresenter = new ProfilePresenter(this,this);
         Intent intent = getIntent();
@@ -66,6 +71,14 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
         }else {
             Toast.makeText(getApplication(), "Home Data Is not Present.",Toast.LENGTH_LONG).show();
         }
+
+        llContBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

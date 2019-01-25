@@ -10,50 +10,54 @@ public class HomeDetails {
 
 
     /**
-     * amenitis : Air Conditioning : Common Amenities,Kitchen : Common Amenities
-     * properties_id : 2
-     * property_name : Private room in Doha
+     * properties_id : 7
+     * property_name : 1270 Sq.Ft Apartment in Ajman
+     * id : 7
+     * property_id : 7
+     * cleaning_fee : 0
+     * guest_after : 1
+     * guest_fee : 0
+     * security_fee : 0
+     * price : 8
+     * weekend_price : 0
+     * weekly_discount : 0
+     * monthly_discount : 0
+     * currency_code : INR
      * property_status : Listed
-     * property_created_at : 2018-12-27 04:51:45
-     * property_updated_at : 2018-12-27 04:53:51
-     * id : 2
-     * name : Private room
+     * property_created_at : 2018-12-31 06:33:09
+     * property_updated_at : 2019-01-22 10:40:46
+     * name : Entire home/apt
      * url_name : null
      * host_id : 1
-     * bedrooms : 4
-     * beds : 3
-     * bed_type : 3
-     * bathrooms : 2
-     * amenities : 4,6
-     * property_type : 2
-     * space_type : 2
+     * bedrooms : 1
+     * beds : 1
+     * bed_type : 1
+     * bathrooms : 1
+     * amenities : [{"title":"Internet","id":7,"symbol":"internet","status":7},{"title":"Gym","id":8,"symbol":"gym","status":7}]
+     * property_type : 1
+     * space_type : 1
      * accommodates : 1
      * booking_type : request
      * cancellation : Flexible
      * status : Active
      * deleted_at : null
-     * created_at : 2018-12-20 10:22:47
-     * updated_at : 2018-12-20 10:22:47
+     * created_at : 2018-12-31 06:33:09
+     * updated_at : 2019-01-22 10:40:46
+     * userid : 1
      * first_name : User1
      * last_name : Test
      * email : user@barastiapp.com
-     * password : $2y$10$n.IkgtYJ7ORzeMDprxqO9uajhkYsDDfSVTHpghzJNenUrs5qHiTBu
-     * profile_image : null
-     * balance : 0
-     * remember_token : ZljQcYRnQkdiw9z8xFZiXRgHkL3mCL4gDpcd1e1RWbwO4aiSfZvIgUssyYb2
-     * api_token : null
-     * description : Private room
-     * bedtype : Double
-     * property_id : 2
-     * address_line_1 : Al Asmakh St, Doha, Qatar
-     * address_line_2 : s
-     * latitude : 25.2854473
-     * longitude : 51.53103979999992
-     * city : Doha
-     * state : Doha
-     * country : QA
-     * postal_code : 111
-     * summary : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+     * description : Entire home/apt
+     * bedtype : king
+     * address_line_1 : 18 شارع حاتم الطائي - Ajman - United Arab Emirates
+     * address_line_2 : asa
+     * latitude : 25.403747507528625
+     * longitude : 55.513679563614915
+     * city : Ajman
+     * state : Ajman
+     * country : AE
+     * postal_code : 1213
+     * summary : Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
      * place_is_great_for : null
      * about_place : null
      * guest_can_access : null
@@ -61,24 +65,35 @@ public class HomeDetails {
      * other : null
      * about_neighborhood : null
      * get_around : null
-     * recommend : [{"id":5,"name":"Entire home/apt in","url_name":null,"host_id":1,"bedrooms":8,"beds":8,"bed_type":1,"bathrooms":8,"amenities":"1,2","property_type":2,"space_type":1,"accommodates":1,"booking_type":"request","cancellation":"Flexible","status":"Listed","deleted_at":null,"created_at":"2018-12-31 06:26:25","updated_at":"2018-12-31 06:27:37","steps_completed":0,"space_type_name":"Entire home/apt","property_type_name":"Villa","property_photo":"1546237639_Desert.jpg","host_name":"User1","reviews_count":0,"overall_rating":0,"cover_photo":"http://betaholder.com/barastiapp/public/images/property/5/1546237639_Desert.jpg"},{"id":8,"name":"Entire home/apt in","url_name":null,"host_id":1,"bedrooms":4,"beds":7,"bed_type":4,"bathrooms":4,"amenities":"1,2,4","property_type":2,"space_type":1,"accommodates":1,"booking_type":"request","cancellation":"Flexible","status":"Listed","deleted_at":null,"created_at":"2018-12-31 06:36:48","updated_at":"2018-12-31 06:37:52","steps_completed":0,"space_type_name":"Entire home/apt","property_type_name":"Villa","property_photo":"1546238254_Lighthouse.jpg","host_name":"User1","reviews_count":0,"overall_rating":0,"cover_photo":"http://betaholder.com/barastiapp/public/images/property/8/1546238254_Lighthouse.jpg"},{"id":11,"name":"Entire home/apt in","url_name":null,"host_id":1,"bedrooms":3,"beds":3,"bed_type":3,"bathrooms":3,"amenities":"1,2","property_type":2,"space_type":1,"accommodates":3,"booking_type":"request","cancellation":"Flexible","status":"Listed","deleted_at":null,"created_at":"2018-12-31 07:46:55","updated_at":"2018-12-31 09:33:21","steps_completed":0,"space_type_name":"Entire home/apt","property_type_name":"Villa","property_photo":"1546242463_Lighthouse.jpg","host_name":"User1","reviews_count":0,"overall_rating":0,"cover_photo":"http://betaholder.com/barastiapp/public/images/property/11/1546242463_Lighthouse.jpg"}]
+     * safety_amenities : []
+     * recommend : [{"id":15,"name":"2000 Sq.Ft Room in Sharjah","space_type":2,"property_type":1,"host_id":1,"property_id":15,"cleaning_fee":2,"guest_after":1,"guest_fee":0,"security_fee":0,"price":35,"weekend_price":0,"weekly_discount":0,"monthly_discount":0,"currency_code":"INR","steps_completed":0,"space_type_name":"Private room","property_type_name":"Apartment","property_photo":"1547190326_Hydrangeas.jpg","host_name":"User1","reviews_count":0,"overall_rating":0,"cover_photo":"http://betaholder.com/barastiapp/public/images/property/15/1547190326_Jellyfish.jpg","photos":["http://betaholder.com/barastiapp/public/images/property/15/1547190326_Hydrangeas.jpg","http://betaholder.com/barastiapp/public/images/property/15/1547190326_Koala.jpg","http://betaholder.com/barastiapp/public/images/property/15/1548238574_1523431461_p19140h20i1mj91uid1djij2s1r8r41.jpg","http://betaholder.com/barastiapp/public/images/property/15/1548240648_1523431431_cambria-dbl.jpg"]},{"id":10,"name":"1000 Sq Ft Apartment in Doha","space_type":1,"property_type":1,"host_id":1,"property_id":10,"cleaning_fee":0,"guest_after":1,"guest_fee":0,"security_fee":0,"price":18,"weekend_price":0,"weekly_discount":0,"monthly_discount":0,"currency_code":"INR","steps_completed":0,"space_type_name":"Entire home/apt","property_type_name":"Apartment","property_photo":"1546238856_Chrysanthemum.jpg","host_name":"User1","reviews_count":0,"overall_rating":0,"cover_photo":"http://betaholder.com/barastiapp/public/images/property/10/1546238856_Chrysanthemum.jpg","photos":[]},{"id":4,"name":"3 Bed Private room in Abu Dhabi","space_type":2,"property_type":1,"host_id":1,"property_id":4,"cleaning_fee":0,"guest_after":1,"guest_fee":0,"security_fee":0,"price":15,"weekend_price":0,"weekly_discount":0,"monthly_discount":0,"currency_code":"USD","steps_completed":0,"space_type_name":"Private room","property_type_name":"Apartment","property_photo":"1545990356_Hydrangeas.jpg","host_name":"User1","reviews_count":0,"overall_rating":0,"cover_photo":"http://betaholder.com/barastiapp/public/images/property/4/1545990356_Hydrangeas.jpg","photos":[]},{"id":1,"name":"5 Bed Apartment","space_type":1,"property_type":1,"host_id":1,"property_id":1,"cleaning_fee":2000,"guest_after":1,"guest_fee":0,"security_fee":0,"price":9999,"weekend_price":0,"weekly_discount":0,"monthly_discount":0,"currency_code":"INR","steps_completed":0,"space_type_name":"Entire home/apt","property_type_name":"Apartment","property_photo":"1545307614_Jellyfish.jpg","host_name":"User1","reviews_count":0,"overall_rating":0,"cover_photo":"http://betaholder.com/barastiapp/public/images/property/1/1545307614_Jellyfish.jpg","photos":[]}]
      * steps_completed : 0
-     * space_type_name : Private room
-     * property_type_name : Villa
-     * property_photo : 1545886382_Koala.jpg
+     * space_type_name : Entire home/apt
+     * property_type_name : Apartment
+     * property_photo : 1546238057_Jellyfish.jpg
      * host_name : User1
      * reviews_count : 0
      * overall_rating : 0
-     * cover_photo : http://betaholder.com/barastiapp/public/images/property/2/1545886382_Koala.jpg
+     * cover_photo : http://betaholder.com/barastiapp/public/images/property/7/1546238057_Jellyfish.jpg
+     * photos : []
      */
-    private int viewType;
-    private String amenitis;
+
     private int properties_id;
     private String property_name;
+    private int id;
+    private int property_id;
+    private int cleaning_fee;
+    private int guest_after;
+    private int guest_fee;
+    private int security_fee;
+    private int price;
+    private int weekend_price;
+    private int weekly_discount;
+    private int monthly_discount;
+    private String currency_code;
     private String property_status;
     private String property_created_at;
     private String property_updated_at;
-    private int id;
     private String name;
     private Object url_name;
     private int host_id;
@@ -86,7 +101,6 @@ public class HomeDetails {
     private int beds;
     private int bed_type;
     private int bathrooms;
-    private String amenities;
     private int property_type;
     private int space_type;
     private int accommodates;
@@ -96,17 +110,12 @@ public class HomeDetails {
     private Object deleted_at;
     private String created_at;
     private String updated_at;
+    private int userid;
     private String first_name;
     private String last_name;
     private String email;
-    private String password;
-    private Object profile_image;
-    private int balance;
-    private String remember_token;
-    private Object api_token;
     private String description;
     private String bedtype;
-    private int property_id;
     private String address_line_1;
     private String address_line_2;
     private String latitude;
@@ -131,32 +140,10 @@ public class HomeDetails {
     private int reviews_count;
     private int overall_rating;
     private String cover_photo;
+    private List<Amenities> amenities;
+    private List<?> safety_amenities;
     private List<RecommendBean> recommend;
-    private List<String> photos;
-
-    public List<String> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(List<String> photos) {
-        this.photos = photos;
-    }
-
-    public int getViewType() {
-        return viewType;
-    }
-
-    public void setViewType(int viewType) {
-        this.viewType = viewType;
-    }
-
-    public String getAmenitis() {
-        return amenitis;
-    }
-
-    public void setAmenitis(String amenitis) {
-        this.amenitis = amenitis;
-    }
+    private List<?> photos;
 
     public int getProperties_id() {
         return properties_id;
@@ -172,6 +159,94 @@ public class HomeDetails {
 
     public void setProperty_name(String property_name) {
         this.property_name = property_name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getProperty_id() {
+        return property_id;
+    }
+
+    public void setProperty_id(int property_id) {
+        this.property_id = property_id;
+    }
+
+    public int getCleaning_fee() {
+        return cleaning_fee;
+    }
+
+    public void setCleaning_fee(int cleaning_fee) {
+        this.cleaning_fee = cleaning_fee;
+    }
+
+    public int getGuest_after() {
+        return guest_after;
+    }
+
+    public void setGuest_after(int guest_after) {
+        this.guest_after = guest_after;
+    }
+
+    public int getGuest_fee() {
+        return guest_fee;
+    }
+
+    public void setGuest_fee(int guest_fee) {
+        this.guest_fee = guest_fee;
+    }
+
+    public int getSecurity_fee() {
+        return security_fee;
+    }
+
+    public void setSecurity_fee(int security_fee) {
+        this.security_fee = security_fee;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getWeekend_price() {
+        return weekend_price;
+    }
+
+    public void setWeekend_price(int weekend_price) {
+        this.weekend_price = weekend_price;
+    }
+
+    public int getWeekly_discount() {
+        return weekly_discount;
+    }
+
+    public void setWeekly_discount(int weekly_discount) {
+        this.weekly_discount = weekly_discount;
+    }
+
+    public int getMonthly_discount() {
+        return monthly_discount;
+    }
+
+    public void setMonthly_discount(int monthly_discount) {
+        this.monthly_discount = monthly_discount;
+    }
+
+    public String getCurrency_code() {
+        return currency_code;
+    }
+
+    public void setCurrency_code(String currency_code) {
+        this.currency_code = currency_code;
     }
 
     public String getProperty_status() {
@@ -196,14 +271,6 @@ public class HomeDetails {
 
     public void setProperty_updated_at(String property_updated_at) {
         this.property_updated_at = property_updated_at;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -260,14 +327,6 @@ public class HomeDetails {
 
     public void setBathrooms(int bathrooms) {
         this.bathrooms = bathrooms;
-    }
-
-    public String getAmenities() {
-        return amenities;
-    }
-
-    public void setAmenities(String amenities) {
-        this.amenities = amenities;
     }
 
     public int getProperty_type() {
@@ -342,6 +401,14 @@ public class HomeDetails {
         this.updated_at = updated_at;
     }
 
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
+
     public String getFirst_name() {
         return first_name;
     }
@@ -366,46 +433,6 @@ public class HomeDetails {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Object getProfile_image() {
-        return profile_image;
-    }
-
-    public void setProfile_image(Object profile_image) {
-        this.profile_image = profile_image;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
-
-    public String getRemember_token() {
-        return remember_token;
-    }
-
-    public void setRemember_token(String remember_token) {
-        this.remember_token = remember_token;
-    }
-
-    public Object getApi_token() {
-        return api_token;
-    }
-
-    public void setApi_token(Object api_token) {
-        this.api_token = api_token;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -420,14 +447,6 @@ public class HomeDetails {
 
     public void setBedtype(String bedtype) {
         this.bedtype = bedtype;
-    }
-
-    public int getProperty_id() {
-        return property_id;
-    }
-
-    public void setProperty_id(int property_id) {
-        this.property_id = property_id;
     }
 
     public String getAddress_line_1() {
@@ -622,6 +641,22 @@ public class HomeDetails {
         this.cover_photo = cover_photo;
     }
 
+    public List<Amenities> getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(List<Amenities> amenities) {
+        this.amenities = amenities;
+    }
+
+    public List<?> getSafety_amenities() {
+        return safety_amenities;
+    }
+
+    public void setSafety_amenities(List<?> safety_amenities) {
+        this.safety_amenities = safety_amenities;
+    }
+
     public List<RecommendBean> getRecommend() {
         return recommend;
     }
@@ -629,5 +664,14 @@ public class HomeDetails {
     public void setRecommend(List<RecommendBean> recommend) {
         this.recommend = recommend;
     }
+
+    public List<?> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<?> photos) {
+        this.photos = photos;
+    }
+
 
 }

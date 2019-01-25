@@ -1,65 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-
-    <ImageView
-        android:layout_width="@dimen/_200"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_50"
-        android:src="@drawable/barasti_logo" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/signIn_btn"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_20" />
-
-    <FrameLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_18"
-        android:background="@android:color/white">
-        <!--Google Login layout -->
+        android:layout_height="match_parent">
+
         <LinearLayout
-            android:id="@+id/btnSignInGoogle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@android:color/white"
-            android:clickable="true"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
 
             <ImageView
-                android:id="@+id/imageview_google_icon"
-                android:layout_width="@dimen/_40"
-                android:layout_height="@dimen/_30"
-                android:layout_gravity="start"
-                android:background="@android:color/white"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/google_icon" />
+                android:layout_width="@dimen/_200"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_50"
+                android:src="@drawable/barasti_logo" />
 
             <TextView
-                android:id="@+id/textview_sign_in_button"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30"
-                android:background="@android:color/white"
-                android:gravity="center"
-                android:paddingRight="@dimen/_15"
-                android:text="@string/googleSignText"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/signIn_btn"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20" />
+
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_15"
+                android:layout_marginRight="@dimen/_15"
+                android:drawablePadding="@dimen/_20"
+                android:gravity="right"
+                android:hint="@string/ht_email"
+                android:lines="1"
+                android:paddingLeft="@dimen/_10"
+                android:textSize="@dimen/_12"
+                app:backgroundTint="@color/edt_txt_underline" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/etCPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_15"
+                    android:layout_marginRight="@dimen/_15"
+                    android:drawablePadding="@dimen/_20"
+                    android:gravity="right"
+                    android:hint="@string/ht_pass3"
+                    android:lines="1"
+                    android:paddingLeft="@dimen/_10"
+                    android:textSize="@dimen/_12"
+                    app:backgroundTint="@color/edt_txt_underline" />
+
+                <TextView
+                    android:id="@+id/tvForgotPswd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|bottom"
+                    android:layout_marginBottom="@dimen/_10"
+                    android:layout_marginLeft="@dimen/_24"
+                    android:onClick="tvForgotPswd"
+                    android:text="Forgot ?"
+                    android:textColor="@color/splsh_bg"
+                    android:textSize="@dimen/_16" />
+
+
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/btnSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40"
+                android:layout_marginLeft="@dimen/_15"
+                android:layout_marginRight="@dimen/_15"
+                android:layout_marginTop="@dimen/_10"
+                android:background="@drawable/rectangle_button"
+                android:onClick="btnSignIn"
+                android:text="@string/signIn_btn"
                 android:textAllCaps="false"
-                android:textColor="@android:color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_12" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_18"
+                    android:layout_marginTop="@dimen/_18"
+                    android:text="@string/tv_heading2"
+                    android:textSize="@dimen/_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_18"
+                    android:layout_marginTop="@dimen/_18"
+                    android:text="@string/tv_heading3"
+                    android:textColor="@color/splsh_bg"
+                    android:textSize="@dimen/_14" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_20"
+                    android:layout_marginRight="@dimen/_20"
+                    android:background="@color/dark_gray" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="@dimen/_20"
+                    android:layout_height="@dimen/_20"
+                    android:elevation="12dp"
+                    android:id="@+id/view2"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:innerRadius="0dp"
+                    android:background="@color/white"
+                    android:shape="ring"
+                    android:thicknessRatio="1.9">
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="OR"
+                        android:textColor="@color/dark_gray"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true">
+                    </TextView>
+                </android.support.v7.widget.CardView>
+
+
+
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_18"
+                android:layout_marginTop="@dimen/_10">
+                <!--Google Login layout -->
+                <LinearLayout
+                    android:id="@+id/btnSignInGoogle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/white"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageview_google_icon"
+                        android:layout_width="@dimen/_40"
+                        android:layout_height="@dimen/_30"
+                        android:layout_gravity="start"
+                        android:background="@android:color/white"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/google_icon" />
+
+                    <TextView
+                        android:id="@+id/textview_sign_in_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/_15"
+                        android:text="@string/googleSignText"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_12" />
+
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_18">
+                <!--Google Login layout -->
+
+                <LinearLayout
+                    android:id="@+id/btnSignInFB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/white"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivFBIcon"
+                        android:layout_width="@dimen/_40"
+                        android:layout_height="@dimen/_30"
+                        android:layout_gravity="start"
+                        android:background="@android:color/white"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/fb_icon2" />
+
+                    <TextView
+                        android:id="@+id/tvFbTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/_15"
+                        android:text="@string/fbSignText"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_12" />
+
+
+                </LinearLayout>
+
+
+            </FrameLayout>
 
 
         </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/loadingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_transparent"
+        android:visibility="gone">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="@dimen/_24"
+            android:layout_height="@dimen/_24"
+            android:layout_gravity="center"
+            android:src="@drawable/gallery_gif_loader" />
+
     </FrameLayout>
 
 
-</LinearLayout>
+</FrameLayout>

@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.google.gson.Gson;
-import com.voyager.barasti.activity.splashscreen.model.UserDetails;
+import com.voyager.barasti.activity.splashscreen.model.UserDetail;
 import com.voyager.barasti.activity.splashscreen.view.ISplashView;
 
 
@@ -40,10 +40,10 @@ public class SplashPresenter implements IConnectionStatus{
     public String getUserGsonInSharedPrefrences(){
         String emailAddress ="";
         Gson gson = new Gson();
-        String json = sharedPrefs.getString("UserDetails", null);
+        String json = sharedPrefs.getString("UserDetail", null);
         if(json!=null){
-            UserDetails userDetails = gson.fromJson(json, UserDetails.class);
-            emailAddress = userDetails.getEmail();
+            UserDetail userDetail = gson.fromJson(json, UserDetail.class);
+            emailAddress = userDetail.getEmail();
             System.out.println("--------- SplashPresenter getUserGsonInSharedPrefrences"+json);
         }
         return emailAddress;

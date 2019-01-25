@@ -22,10 +22,10 @@ import com.google.gson.Gson;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.splashscreen.model.UserDetail;
 import com.voyager.barasti.common.Helper;
 import com.voyager.barasti.activity.landingpage.helper.BackHandledFragment;
 import com.voyager.barasti.activity.landingpage.view.ILandingView;
-import com.voyager.barasti.activity.splashscreen.model.UserDetails;
 import com.voyager.barasti.fragment.explore.ExploreFrg;
 import com.voyager.barasti.fragment.fav.FavouriteFag;
 import com.voyager.barasti.fragment.inbox.InboxFrg;
@@ -48,7 +48,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
 
-    UserDetails userDetails;
+    UserDetail userDetail;
 
     ImageButton choseTripBackPress;
 
@@ -80,11 +80,11 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         Intent intent = getIntent();
         bundle = new Bundle();
         String hiddenBtn = intent.getStringExtra("btnHiddenBtn");
-        userDetails = (UserDetails) intent.getParcelableExtra("UserDetails");
-     /*   if (userDetails != null) {
-            System.out.println("LandingPage -- UserDetails- name : " + userDetails.getFName());
-            System.out.println("LandingPage -- UserDetails- Id : " + userDetails.getUserID());
-            System.out.println("LandingPage -- UserDetails- fcm : " + userDetails.getFcm());
+        userDetail = (UserDetail) intent.getParcelableExtra("UserDetail");
+     /*   if (userDetail != null) {
+            System.out.println("LandingPage -- UserDetail- name : " + userDetail.getFName());
+            System.out.println("LandingPage -- UserDetail- Id : " + userDetail.getUserID());
+            System.out.println("LandingPage -- UserDetail- fcm : " + userDetail.getFcm());
         } else if (hiddenBtn != null) {
             // do nothing //
         } else {
@@ -236,11 +236,11 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
 
     private void getUserSDetails() {
         Gson gson = new Gson();
-        String json = sharedPrefs.getString("UserDetails", null);
+        String json = sharedPrefs.getString("UserDetail", null);
         if (json != null) {
-            System.out.println("-----------LandingPage uploadProfileName UserDetails" + json);
-            userDetails = gson.fromJson(json, UserDetails.class);
-            //emailAddress = userDetails.getEmail();
+            System.out.println("-----------LandingPage uploadProfileName UserDetail" + json);
+            userDetail = gson.fromJson(json, UserDetail.class);
+            //emailAddress = userDetail.getEmail();
         }
 
     }
@@ -305,7 +305,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
                 }
                 break;
             case Helper.PROFILE_IMAGE_SET:
-                userDetails = getUserGsonInSharedPrefrences();
+                userDetail = getUserGsonInSharedPrefrences();
                 //drawerListAdapter.notifyDataSetChanged();
                 System.out.println("LandingPage -- onActivityResult PROFILE_IMAGE_SET -  : ");
                 break;
@@ -315,14 +315,14 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    public UserDetails getUserGsonInSharedPrefrences() {
+    public UserDetail getUserGsonInSharedPrefrences() {
         Gson gson = new Gson();
-        String json = sharedPrefs.getString("UserDetails", null);
+        String json = sharedPrefs.getString("UserDetail", null);
         if (json != null) {
-            UserDetails userDetails = gson.fromJson(json, UserDetails.class);
+            UserDetail userDetail = gson.fromJson(json, UserDetail.class);
             System.out.println("--------- SplashPresenter getUserGsonInSharedPrefrences" + json);
         }
-        return userDetails;
+        return userDetail;
 
     }
 
@@ -355,7 +355,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
                     if (mDrawerLayout != null)
                         mDrawerLayout.closeDrawers();
                     Intent intent = new Intent(LandingPage.this, TripHistory.class);
-                    intent.putExtra("UserDetails", userDetails);
+                    intent.putExtra("UserDetail", userDetail);
                     startActivity(intent);
 
                     break;
@@ -364,7 +364,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
                     if (mDrawerLayout != null)
                         mDrawerLayout.closeDrawers();
                     intent = new Intent(LandingPage.this, PaymentActivity.class);
-                    intent.putExtra("UserDetails", userDetails);
+                    intent.putExtra("UserDetail", userDetail);
                     startActivity(intent);
 
                     break;
@@ -373,7 +373,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
                     if (mDrawerLayout != null)
                         mDrawerLayout.closeDrawers();
                     intent = new Intent(LandingPage.this, HelpActivity.class);
-                    intent.putExtra("UserDetails", userDetails);
+                    intent.putExtra("UserDetail", userDetail);
                     startActivity(intent);
                     *//*
                     getSupportActionBar().setTitle(getResources().getString(R.string.help));
@@ -389,7 +389,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
                     if (mDrawerLayout != null)
                         mDrawerLayout.closeDrawers();
                     intent = new Intent(LandingPage.this, TermsAndConduction.class);
-                    intent.putExtra("UserDetails", userDetails);
+                    intent.putExtra("UserDetail", userDetail);
                     startActivity(intent);
 
                     break;
@@ -398,7 +398,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
                     if (mDrawerLayout != null)
                         mDrawerLayout.closeDrawers();
                     Intent intent2 = new Intent(LandingPage.this, Settings.class);
-                    intent2.putExtra("UserDetails", userDetails);
+                    intent2.putExtra("UserDetail", userDetail);
                     startActivityForResult(intent2,Helper.LOG_OUT);
 
                     break;

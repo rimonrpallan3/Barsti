@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Top Rated Home"
         android:textSize="@dimen/_18"
+        android:gravity="right"
         android:layout_marginLeft="@dimen/_10"
         android:layout_marginRight="@dimen/_10"
         android:textColor="@color/black"

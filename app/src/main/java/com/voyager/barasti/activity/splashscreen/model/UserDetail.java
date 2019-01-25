@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by User on 8/30/2017.
  */
 
-public class UserDetails  implements Parcelable,IUserValidate{
+public class UserDetail implements Parcelable,IUserValidate{
     @SerializedName("name")
     String FName;
     @SerializedName("password")
@@ -35,17 +35,17 @@ public class UserDetails  implements Parcelable,IUserValidate{
     public String imgPath;
     String fcm = "";
 
-    public UserDetails(){
+    public UserDetail(){
 
     }
 
 
-    public UserDetails(String email, String pswd) {
+    public UserDetail(String email, String pswd) {
         this.email = email;
         this.pswd = pswd;
     }
 
-    public UserDetails(String FName, String pswd,String retypePswd, String email, String phno, String city, String country) {
+    public UserDetail(String FName, String pswd, String retypePswd, String email, String phno, String city, String country) {
         this.FName = FName;
         this.pswd = pswd;
         this.retypePswd = retypePswd;
@@ -55,7 +55,7 @@ public class UserDetails  implements Parcelable,IUserValidate{
         this.country = country;
     }
 
-    protected UserDetails(Parcel in) {
+    protected UserDetail(Parcel in) {
         FName = in.readString();
         pswd = in.readString();
         retypePswd = in.readString();
@@ -73,13 +73,13 @@ public class UserDetails  implements Parcelable,IUserValidate{
 
     @Override
     public int describeContents() {
-        System.out.println("Describe the content UserDetails");
+        System.out.println("Describe the content UserDetail");
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        System.out.println("writeToParcel to UserDetails ");
+        System.out.println("writeToParcel to UserDetail ");
         dest.writeString(FName);
         dest.writeString(pswd);
         dest.writeString(retypePswd);
@@ -97,20 +97,20 @@ public class UserDetails  implements Parcelable,IUserValidate{
 
 
 
-    public static final Creator<UserDetails> CREATOR = new Creator<UserDetails>() {
+    public static final Creator<UserDetail> CREATOR = new Creator<UserDetail>() {
         @Override
-        public UserDetails createFromParcel(Parcel in) {
-            return new UserDetails(in);
+        public UserDetail createFromParcel(Parcel in) {
+            return new UserDetail(in);
         }
 
         @Override
-        public UserDetails[] newArray(int size) {
-            return new UserDetails[size];
+        public UserDetail[] newArray(int size) {
+            return new UserDetail[size];
         }
     };
 
 
-    public static Creator<UserDetails> getCREATOR() {
+    public static Creator<UserDetail> getCREATOR() {
         return CREATOR;
     }
 

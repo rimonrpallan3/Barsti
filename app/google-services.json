@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1028438421067",
+    "firebase_url": "https://barasti-app.firebaseio.com",
+    "project_id": "barasti-app",
+    "storage_bucket": "barasti-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028438421067:android:f27592057a1f52cc",
+        "android_client_info": {
+          "package_name": "com.voyager.barasti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028438421067-l9lrn8d10c6n9thm9ka6lgsh5jupn1il.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.voyager.barasti",
+            "certificate_hash": "afd966770f425d7bee55b6ab4a76eaaa9f285090"
+          }
+        },
+        {
+          "client_id": "1028438421067-cpv9p1d87mfh6n88en187nud7lfg88ao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDRnfXb70ngrkGMpVQfgFXHFMFum1pN-w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028438421067-cpv9p1d87mfh6n88en187nud7lfg88ao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

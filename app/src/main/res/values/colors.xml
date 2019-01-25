@@ -17,6 +17,7 @@
     <color name="yellow">#FFFF00</color>
     <color name="dark_gray">#a9a9a9</color>
     <color name="red_dull">#EF5350</color>
+    <color name="black_transparent">#70000000</color>
 
     <!-- Register Color-->
     <color name="edt_txt_underline">#acacac</color>

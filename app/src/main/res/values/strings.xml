@@ -29,9 +29,14 @@
     <string name="permission_location_check">We need this pemission to read documents from device.</string>
     <string name="snack_error_network">Please turn on your net.</string>
     <string name="googleSignText">Sign in with Google</string>
+    <string name="fbSignText">Sign in with Facebook</string>
+    <string name="snack_error_acct">An account already exists with the same email address but different provider.</string>
 
 
-
+    <string name="ht_email">Email Address</string>
+    <string name="ht_pass3">Password</string>
+    <string name="tv_heading2">Oh! Not Registered Yet?</string>
+    <string name="tv_heading3"> Register Now</string>
 
 
     <!--Opt First page -->
