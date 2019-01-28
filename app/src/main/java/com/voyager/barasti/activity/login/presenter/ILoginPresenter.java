@@ -10,4 +10,6 @@ import com.google.firebase.auth.FirebaseUser;
 public interface ILoginPresenter {
     void firebaseAuthWithGoogle(GoogleSignInAccount acct);
     void updateUI(FirebaseUser user);
+    void doLogin(String emailPhno, String passwd,String fireBaseToken);
+    void setProgressBarVisiblity(int visiblity);
 }

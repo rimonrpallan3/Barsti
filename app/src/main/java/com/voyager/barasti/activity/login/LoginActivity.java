@@ -1,33 +1,50 @@
 package com.voyager.barasti.activity.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatEditText;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.activity.login.presenter.ILoginPresenter;
 import com.voyager.barasti.activity.login.presenter.LoginPresenter;
 import com.voyager.barasti.activity.login.view.ILoginView;
+import com.voyager.barasti.activity.register.RegisterActivity;
+import com.voyager.barasti.common.Helper;
+import com.voyager.barasti.common.NetworkDetector;
 
 /**
  * Created by User on 23-Jan-19.
  */
 
-public class LoginActivity extends AppCompatActivity implements ILoginView{
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, ILoginView{
 
 
-    LinearLayout btnSignInGoogle;
+    Button btnSignInGoogle;
+    Button btnSignInFB;
+    Button btnSignIn;
+    AppCompatEditText etEmail;
+    AppCompatEditText etCPass;
     private GoogleSignInClient mGoogleSignInClient;
     private static final String TAG = "SignInPage";
     ILoginPresenter iLoginPresenter;
@@ -36,12 +53,25 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     private static final int RC_SIGN_IN = 9001;
     FrameLayout loadingLayout;
 
+    SharedPreferences sharedPrefs;
+    SharedPreferences.Editor editor;
+    String fireBaseToken="";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        btnSignInGoogle = (LinearLayout) findViewById(R.id.btnSignInGoogle);
+        btnSignInGoogle =  findViewById(R.id.btnSignInGoogle);
+        btnSignInFB =  findViewById(R.id.btnSignInFB);
+        btnSignIn =  findViewById(R.id.btnSignIn);
+        etEmail =  findViewById(R.id.etEmail);
+        etCPass =  findViewById(R.id.etCPass);
+        fireBaseToken = FirebaseInstanceId.getInstance().getToken();
+        sharedPrefs = getSharedPreferences(Helper.UserDetails,
+                Context.MODE_PRIVATE);
+        editor = sharedPrefs.edit();
         loadingLayout = (FrameLayout) findViewById(R.id.loadingLayout);
         // [START config_signin]
         // Configure Google Sign In
@@ -50,14 +80,78 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
                 .requestEmail()
                 .build();
         // [END config_signin]
-
+        mAuth = FirebaseAuth.getInstance();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        iLoginPresenter = new LoginPresenter(this, this,mGoogleSignInClient,mAuth);
+        iLoginPresenter = new LoginPresenter(this, this,mGoogleSignInClient,mAuth,sharedPrefs,editor);
         mAuth = FirebaseAuth.getInstance();
     }
 
     public void setLoader(int visibility){
         loadingLayout.setVisibility(visibility);
+    }
+
+    @Override
+    public void onSetProgressBarVisibility(int visibility) {
+        loadingLayout.setVisibility(visibility);
+    }
+
+    @Override
+    public void onLoginResult(Boolean result, int code) {
+
+    }
+
+    @Override
+    public void onLoginResponse(Boolean result, int code) {
+
+    }
+
+    @Override
+    public void sendPParcelableObj(UserDetails userDetails) {
+
+    }
+
+    public void btnSignIn(View v){
+        Helper.hideKeyboard(this);
+        if(NetworkDetector.haveNetworkConnection(this)){
+            //Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.snack_error_network_available), Snackbar.LENGTH_SHORT).show();
+            iLoginPresenter.setProgressBarVisiblity(View.VISIBLE);
+            btnSignIn.setEnabled(false);
+            iLoginPresenter.doLogin(etEmail.getText().toString(), etCPass.getText().toString(),fireBaseToken);
+        }else {
+            Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.snack_error_network), Snackbar.LENGTH_LONG).show();
+
+        }
+    }
+
+    public void registerTxtClick(View v){
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    public void btnSignInGoogle(View v){
+        if(NetworkDetector.haveNetworkConnection(this)){
+            Snackbar.make(findViewById(android.R.id.content),"Google Sign In btn", Snackbar.LENGTH_SHORT).show();
+            btnSignInGoogle.setEnabled(false);
+            signIn();
+        }else {
+            Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.snack_error_network), Snackbar.LENGTH_LONG).show();
+
+        }
+    }
+
+    public void btnSignInFB(View v){
+        Snackbar.make(findViewById(android.R.id.content),"Facebook Sign In btn", Snackbar.LENGTH_SHORT).show();
+    }
+
+
+
+    /**
+     * This method starts the google sign in process.
+     * It opens the dialog box for choosing google account.
+     */
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
 
@@ -100,4 +194,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         }
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }

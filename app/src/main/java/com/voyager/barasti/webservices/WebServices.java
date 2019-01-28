@@ -1,6 +1,9 @@
 package com.voyager.barasti.webservices;
 
 
+import android.support.annotation.Nullable;
+
+import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.activity.profilepage.model.HomeDetails;
 import com.voyager.barasti.activity.typelist.model.TypedDetail;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.Banner;
@@ -11,7 +14,10 @@ import com.voyager.barasti.fragment.explore.model.exploreList.NewList;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface WebServices {
@@ -39,6 +45,12 @@ public interface WebServices {
     Call<HomeDetails> doGetHomeDetails(@Path("propertyId") int propertyId);
     @GET("listings/{limit}/{offset}/{typeId}")
     Call<TypedDetail> doGetTypedDetails(@Path("limit") int limit, @Path("offset") int offset, @Path("typeId") int typeId);
+
+    @FormUrlEncoded
+    @POST("login/")
+    public Call<UserDetails> loginUser(@Nullable @Field("email") String email,
+                                       @Nullable @Field("password") String passwd,
+                                       @Nullable @Field("token") String fireBaseToken);
 
 /*
     @GET("webservice/getOffertypes")

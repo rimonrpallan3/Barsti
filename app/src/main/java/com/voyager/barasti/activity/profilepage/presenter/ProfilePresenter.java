@@ -73,4 +73,5 @@ public class ProfilePresenter implements IProfiePresenter{
         this.mvHouseDetail = mvHouseDetail;
         iProfileView.setMapViewP(mvHouseDetail);
     }
+
 }

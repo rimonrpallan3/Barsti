@@ -5,5 +5,7 @@ package com.voyager.barasti.activity.login.model;
  */
 
 public interface IUserDetials {
-    void getUserDetials(String userId, String email, String userName, String userPhotoUrl);
+    int checkUserValidity(String name, String passwd);
+    int validateLoginResponseError(String errorMsg);
+
 }

@@ -11,6 +11,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:background="@color/light_gray_white"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -112,6 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_18"
                     android:layout_marginTop="@dimen/_18"
+                    android:onClick="registerTxtClick"
                     android:text="@string/tv_heading3"
                     android:textColor="@color/splsh_bg"
                     android:textSize="@dimen/_14" />
@@ -165,13 +167,25 @@
                 android:layout_marginBottom="@dimen/_18"
                 android:layout_marginTop="@dimen/_10">
                 <!--Google Login layout -->
-                <LinearLayout
+
+                <Button
                     android:id="@+id/btnSignInGoogle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40"
+                    android:layout_marginLeft="@dimen/_15"
+                    android:layout_marginRight="@dimen/_15"
+                    android:onClick="btnSignInGoogle"
+                    android:drawableLeft="@drawable/google_icon"
+                    android:background="@drawable/rectangle_button2"
+                    android:text="@string/googleSignText"
+                    android:layout_gravity="center"/>
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@android:color/white"
                     android:clickable="true"
+                    android:visibility="gone"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -204,10 +218,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_18">
-                <!--Google Login layout -->
+                <!--Facebook Login layout -->
+
+                <Button
+                    android:id="@+id/btnSignInFB"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40"
+                    android:layout_marginLeft="@dimen/_15"
+                    android:layout_marginRight="@dimen/_15"
+                    android:onClick="btnSignInFB"
+                    android:drawableLeft="@drawable/fb_icon2"
+                    android:background="@drawable/rectangle_button2"
+                    android:text="@string/fbSignText"
+                    android:layout_gravity="center"/>
 
                 <LinearLayout
-                    android:id="@+id/btnSignInFB"
+                    android:id="@+id/btnSignInFB2"
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
