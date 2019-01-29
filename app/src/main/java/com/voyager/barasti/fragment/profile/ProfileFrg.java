@@ -3,20 +3,35 @@ package com.voyager.barasti.fragment.profile;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.voyager.barasti.R;
+import com.voyager.barasti.fragment.profile.adapter.RecyclerViewProfileServiceListAdapter;
+import com.voyager.barasti.fragment.profile.model.PServiceList;
+import com.voyager.barasti.fragment.profile.presenter.IProfileFrgPresenter;
+import com.voyager.barasti.fragment.profile.presenter.ProfileFrgPresenter;
+import com.voyager.barasti.fragment.profile.view.IProfileFragView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 11-Dec-18.
  */
 
-public class ProfileFrg extends Fragment {
+public class ProfileFrg extends Fragment implements IProfileFragView{
 
 
     private Activity activity;
+    IProfileFrgPresenter iProfileFrgPresenter;
+    RecyclerView rvProfileListItems;
+    List<PServiceList> pServiceLists;
+    RecyclerViewProfileServiceListAdapter recyclerViewProfileServiceListAdapter;
     public ProfileFrg() {
     }
 
@@ -32,11 +47,54 @@ public class ProfileFrg extends Fragment {
         View rootView;
         rootView   = inflater.inflate(R.layout.fragment_profile, container, false);
         activity = getActivity();
+        pServiceLists = new ArrayList<>();
+        iProfileFrgPresenter = new ProfileFrgPresenter(this, activity);
+
+        setProfileServiceList(rootView);
+
         return rootView;
     }
 
 
+    public void setProfileServiceList(View rootView){
+        rvProfileListItems = rootView.findViewById(R.id.rvProfileListItems);
+        recyclerViewProfileServiceListAdapter = new RecyclerViewProfileServiceListAdapter(pServiceLists, activity);
+        rvProfileListItems.setLayoutFrozen(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        rvProfileListItems.setLayoutManager(mLayoutManager);
+        rvProfileListItems.setItemAnimator(new DefaultItemAnimator());
+        rvProfileListItems.setAdapter(recyclerViewProfileServiceListAdapter);
+        populateProfileListService();
+    }
 
+
+    private void populateProfileListService(){
+        PServiceList firstValue = new PServiceList("Notification","");
+        PServiceList SecondValue = new PServiceList("Travel for work?","");
+        PServiceList ThirdValue = new PServiceList("Credits and coupons","");
+        PServiceList FourthValue = new PServiceList("invite friends","");
+        PServiceList FifthValue = new PServiceList("Refer a host","");
+        PServiceList SixthValue = new PServiceList("Payment","");
+        PServiceList SeventhValue = new PServiceList("Learn About Hosting","Earn upto 20BD per month");
+        PServiceList EightValue = new PServiceList("List your space","");
+        PServiceList ninethValue = new PServiceList("Host an experience","");
+        PServiceList TenthValue = new PServiceList("Settings","");
+        PServiceList eleventhValue = new PServiceList("Get Help","");
+        PServiceList TwelveValue = new PServiceList("Give us Feedback","");
+        pServiceLists.add(firstValue);
+        pServiceLists.add(SecondValue);
+        pServiceLists.add(ThirdValue);
+        pServiceLists.add(FourthValue);
+        pServiceLists.add(FifthValue);
+        pServiceLists.add(SixthValue);
+        pServiceLists.add(SeventhValue);
+        pServiceLists.add(EightValue);
+        pServiceLists.add(ninethValue);
+        pServiceLists.add(TenthValue);
+        pServiceLists.add(eleventhValue);
+        pServiceLists.add(TwelveValue);
+        recyclerViewProfileServiceListAdapter.notifyDataSetChanged();
+    }
 
 
     @Override

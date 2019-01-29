@@ -36,10 +36,12 @@
     <string name="ht_email">Email Address</string>
     <string name="ht_pass3">Password</string>
     <string name="ht_name">Full Name</string>
+    <string name="name">Name</string>
     <string name="ht_phone">Phone number</string>
     <string name="ht_pass1">Create Password</string>
     <string name="ht_pass2">Confirm Password</string>
     <string name="photo_txt">Add Photo</string>
+    <string name="photo_txt2">View and edit profile</string>
     <string name="tv_heading2">Oh! Not Registered Yet?</string>
     <string name="tv_heading3"> Register Now</string>
 

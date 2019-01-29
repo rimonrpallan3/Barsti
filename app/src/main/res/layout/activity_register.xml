@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.voyager.laundry.costom.CircleImageView
+                <com.voyager.barasti.custom.CircleImageView
                     android:id="@+id/profileImg"
                     android:layout_width="@dimen/_100"
                     android:layout_height="@dimen/_100"
@@ -80,6 +80,7 @@
                     android:layout_marginLeft="@dimen/_15"
                     android:layout_marginRight="@dimen/_15"
                     android:drawablePadding="@dimen/_20"
+                    android:gravity="right"
                     android:hint="@string/ht_name"
                     android:paddingLeft="@dimen/_10"
                     android:textSize="@dimen/_12"
@@ -93,6 +94,7 @@
                     android:layout_marginRight="@dimen/_15"
                     android:drawablePadding="@dimen/_20"
                     android:hint="@string/ht_email"
+                    android:gravity="right"
                     android:paddingLeft="@dimen/_10"
                     android:textSize="@dimen/_12"
                     app:backgroundTint="@color/edt_txt_underline" />
@@ -105,6 +107,7 @@
                     android:layout_marginRight="@dimen/_15"
                     android:drawablePadding="@dimen/_20"
                     android:hint="@string/ht_phone"
+                    android:gravity="right"
                     android:paddingLeft="@dimen/_10"
                     android:textSize="@dimen/_12"
                     app:backgroundTint="@color/edt_txt_underline" />
@@ -118,6 +121,7 @@
                     android:layout_marginRight="@dimen/_15"
                     android:drawablePadding="@dimen/_20"
                     android:hint="@string/ht_pass1"
+                    android:gravity="right"
                     android:paddingLeft="@dimen/_10"
                     android:textSize="@dimen/_12"
                     app:backgroundTint="@color/edt_txt_underline" />
@@ -132,6 +136,7 @@
                     android:drawablePadding="@dimen/_20"
                     android:hint="@string/ht_pass2"
                     android:paddingLeft="@dimen/_10"
+                    android:gravity="right"
                     android:textSize="@dimen/_12"
                     app:backgroundTint="@color/edt_txt_underline" />
 
