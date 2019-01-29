@@ -20,14 +20,27 @@
                 android:id="@+id/ivHomeImg"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150"
-                android:layout_marginTop="@dimen/_10"
+                android:scaleType="centerCrop"
                 android:src="@drawable/barasti_logo" />
+
+            <TextView
+                android:id="@+id/tvHomeMainHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10"
+                android:layout_marginRight="@dimen/_10"
+                android:layout_marginTop="@dimen/_10"
+                android:gravity="right"
+                android:text="Home Heading"
+                android:textSize="@dimen/_10"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvHomeHeading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10"
+                android:layout_marginLeft="@dimen/_10"
+                android:layout_marginRight="@dimen/_10"
                 android:gravity="right"
                 android:text="Home Heading 1"
                 android:textColor="@color/black"
@@ -42,12 +55,25 @@
                 android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
                 android:textColor="@color/black" />
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvHouseRooms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_20" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvHouseImages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10"
+                android:layout_marginRight="@dimen/_10" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10"
-                android:text="Location"
                 android:gravity="right"
+                android:text="Location"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -56,8 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/_10"
-                android:text="Location"
                 android:gravity="right"
+                android:text="Location"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12" />
 
@@ -65,14 +91,14 @@
                 android:id="@+id/flAdapterContainer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150"
-                android:layout_margin="@dimen/_10"/>
+                android:layout_margin="@dimen/_10" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10"
-                android:text="Recommended for You"
                 android:gravity="right"
+                android:text="Recommended for You"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12"
                 android:textStyle="bold" />

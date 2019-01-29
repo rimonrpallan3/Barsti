@@ -1,5 +1,7 @@
 package com.voyager.barasti.activity.profilepage.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -78,6 +80,8 @@ public class HomeDetails {
      * photos : []
      */
 
+
+
     private int properties_id;
     private String property_name;
     private int id;
@@ -95,7 +99,7 @@ public class HomeDetails {
     private String property_created_at;
     private String property_updated_at;
     private String name;
-    private Object url_name;
+    private String url_name;
     private int host_id;
     private int bedrooms;
     private int beds;
@@ -107,7 +111,7 @@ public class HomeDetails {
     private String booking_type;
     private String cancellation;
     private String status;
-    private Object deleted_at;
+    private String  deleted_at;
     private String created_at;
     private String updated_at;
     private int userid;
@@ -125,13 +129,13 @@ public class HomeDetails {
     private String country;
     private String postal_code;
     private String summary;
-    private Object place_is_great_for;
-    private Object about_place;
-    private Object guest_can_access;
-    private Object interaction_guests;
-    private Object other;
-    private Object about_neighborhood;
-    private Object get_around;
+    private String  place_is_great_for;
+    private String  about_place;
+    private String  guest_can_access;
+    private String interaction_guests;
+    private String other;
+    private String about_neighborhood;
+    private String get_around;
     private int steps_completed;
     private String space_type_name;
     private String property_type_name;
@@ -143,7 +147,87 @@ public class HomeDetails {
     private List<Amenities> amenities;
     private List<?> safety_amenities;
     private List<RecommendBean> recommend;
-    private List<?> photos;
+    private List<String> photos;
+
+    public String getUrl_name() {
+        return url_name;
+    }
+
+    public void setUrl_name(String url_name) {
+        this.url_name = url_name;
+    }
+
+    public String getDeleted_at() {
+        return deleted_at;
+    }
+
+    public void setDeleted_at(String deleted_at) {
+        this.deleted_at = deleted_at;
+    }
+
+    public String getPlace_is_great_for() {
+        return place_is_great_for;
+    }
+
+    public void setPlace_is_great_for(String place_is_great_for) {
+        this.place_is_great_for = place_is_great_for;
+    }
+
+    public String getAbout_place() {
+        return about_place;
+    }
+
+    public void setAbout_place(String about_place) {
+        this.about_place = about_place;
+    }
+
+    public String getGuest_can_access() {
+        return guest_can_access;
+    }
+
+    public void setGuest_can_access(String guest_can_access) {
+        this.guest_can_access = guest_can_access;
+    }
+
+    public String getInteraction_guests() {
+        return interaction_guests;
+    }
+
+    public void setInteraction_guests(String interaction_guests) {
+        this.interaction_guests = interaction_guests;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
+    }
+
+    public String getAbout_neighborhood() {
+        return about_neighborhood;
+    }
+
+    public void setAbout_neighborhood(String about_neighborhood) {
+        this.about_neighborhood = about_neighborhood;
+    }
+
+    public String getGet_around() {
+        return get_around;
+    }
+
+    public void setGet_around(String get_around) {
+        this.get_around = get_around;
+    }
+
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
 
     public int getProperties_id() {
         return properties_id;
@@ -281,13 +365,7 @@ public class HomeDetails {
         this.name = name;
     }
 
-    public Object getUrl_name() {
-        return url_name;
-    }
 
-    public void setUrl_name(Object url_name) {
-        this.url_name = url_name;
-    }
 
     public int getHost_id() {
         return host_id;
@@ -377,13 +455,6 @@ public class HomeDetails {
         this.status = status;
     }
 
-    public Object getDeleted_at() {
-        return deleted_at;
-    }
-
-    public void setDeleted_at(Object deleted_at) {
-        this.deleted_at = deleted_at;
-    }
 
     public String getCreated_at() {
         return created_at;
@@ -521,61 +592,9 @@ public class HomeDetails {
         this.summary = summary;
     }
 
-    public Object getPlace_is_great_for() {
-        return place_is_great_for;
-    }
 
-    public void setPlace_is_great_for(Object place_is_great_for) {
-        this.place_is_great_for = place_is_great_for;
-    }
 
-    public Object getAbout_place() {
-        return about_place;
-    }
 
-    public void setAbout_place(Object about_place) {
-        this.about_place = about_place;
-    }
-
-    public Object getGuest_can_access() {
-        return guest_can_access;
-    }
-
-    public void setGuest_can_access(Object guest_can_access) {
-        this.guest_can_access = guest_can_access;
-    }
-
-    public Object getInteraction_guests() {
-        return interaction_guests;
-    }
-
-    public void setInteraction_guests(Object interaction_guests) {
-        this.interaction_guests = interaction_guests;
-    }
-
-    public Object getOther() {
-        return other;
-    }
-
-    public void setOther(Object other) {
-        this.other = other;
-    }
-
-    public Object getAbout_neighborhood() {
-        return about_neighborhood;
-    }
-
-    public void setAbout_neighborhood(Object about_neighborhood) {
-        this.about_neighborhood = about_neighborhood;
-    }
-
-    public Object getGet_around() {
-        return get_around;
-    }
-
-    public void setGet_around(Object get_around) {
-        this.get_around = get_around;
-    }
 
     public int getSteps_completed() {
         return steps_completed;
@@ -665,13 +684,8 @@ public class HomeDetails {
         this.recommend = recommend;
     }
 
-    public List<?> getPhotos() {
-        return photos;
-    }
 
-    public void setPhotos(List<?> photos) {
-        this.photos = photos;
-    }
+
 
 
 }

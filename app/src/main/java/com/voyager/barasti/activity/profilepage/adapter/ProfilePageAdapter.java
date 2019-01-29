@@ -34,7 +34,9 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
 import com.voyager.barasti.activity.profilepage.model.HomeDetails;
+import com.voyager.barasti.activity.profilepage.model.HomeRooms;
 import com.voyager.barasti.activity.profilepage.presenter.IProfiePresenter;
+import com.voyager.barasti.fragment.explore.adapter.FooterListAdapter;
 import com.voyager.barasti.fragment.mapFg.MapFrg;
 
 import java.util.ArrayList;
@@ -56,7 +58,8 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
     LinearLayoutManager HorizontalView;
     String json;
     RecommendedListAdapter recommendedListAdapter;
-
+    RecyclerViewHomeRoomAdapter recyclerViewHomeRoomAdapter;
+    RvHomeRoomImgAdapter rvHomeRoomImgAdapter;
     private GoogleMap mMap;
 
     double lat = 26.2285;
@@ -66,14 +69,16 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
     private int NUM_PAGES = 0;
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
     IProfiePresenter iProfiePresenter;
+    List<HomeRooms> homeRoomsList;
 
     MapFrg mapFragmentView;
     Bundle bundle;
 
 
-    public ProfilePageAdapter(List<HomeDetails> homeDetailsList, Activity activity,IProfiePresenter iProfiePresenter) {
+    public ProfilePageAdapter(List<HomeDetails> homeDetailsList, Activity activity,IProfiePresenter iProfiePresenter,List<HomeRooms> homeRoomsList) {
         this.homeDetailsList = homeDetailsList;
         this.iProfiePresenter = iProfiePresenter;
+        this.homeRoomsList = homeRoomsList;
         this.infalter = LayoutInflater.from(activity);
         this.activity = activity;
         bundle = new Bundle();
@@ -110,7 +115,30 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
                     .load(homeDetailsList1.getCover_photo())
                     .placeholder(R.drawable.placeholder_image)
                     .into(holderViews.ivHomeImg);
+            holderViews.tvHomeMainHeading.setText(homeDetailsList1.getProperty_type_name());
+            holderViews.tvHomeHeading.setText(homeDetailsList1.getProperty_name());
             holderViews.tvLocAddress.setText(homeDetailsList1.getAddress_line_1());
+
+
+            recyclerViewHomeRoomAdapter = new RecyclerViewHomeRoomAdapter(homeRoomsList, activity,homeDetailsList1);
+            HorizontalView = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+            holderViews.rvHouseRooms.setLayoutManager(HorizontalView);
+            holderViews.rvHouseRooms.setItemAnimator(new DefaultItemAnimator());
+            holderViews.rvHouseRooms.setAdapter(recyclerViewHomeRoomAdapter);
+            holderViews.rvHouseRooms.setNestedScrollingEnabled(true);
+
+            if(homeDetailsList1.getPhotos().size()>0) {
+                rvHomeRoomImgAdapter = new RvHomeRoomImgAdapter(homeDetailsList1.getPhotos(), activity);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity.getApplicationContext());
+                holderViews.rvHouseImages.setLayoutManager(mLayoutManager);
+                holderViews.rvHouseImages.setItemAnimator(new DefaultItemAnimator());
+                holderViews.rvHouseImages.setLayoutManager(new GridLayoutManager(activity, 3));
+                holderViews.rvHouseImages.setAdapter(rvHomeRoomImgAdapter);
+                holderViews.rvHouseImages.setLayoutFrozen(true);
+            }else {
+                holderViews.rvHouseImages.setVisibility(View.GONE);
+            }
+
             recommendedListAdapter = new RecommendedListAdapter(homeDetailsList1.getRecommend(), activity);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity.getApplicationContext());
             holderViews.rvHomeRecommended.setLayoutManager(mLayoutManager);
@@ -162,16 +190,24 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
         LinearLayout llHomeProfile;
         FrameLayout flAdapterContainer;
         ImageView ivHomeImg;
+        TextView tvHomeMainHeading;
+        TextView tvHomeHeading;
         TextView tvDescription;
         TextView tvLocAddress;
         RecyclerView rvHomeRecommended;
+        RecyclerView rvHouseRooms;
+        RecyclerView rvHouseImages;
         View root;
 
         public ViewHolder(View itemView) {
             super(itemView);
             root = itemView;
             itemView.setOnClickListener(this);
+            tvHomeMainHeading = itemView.findViewById(R.id.tvHomeMainHeading);
+            tvHomeHeading = itemView.findViewById(R.id.tvHomeHeading);
             rvHomeRecommended = itemView.findViewById(R.id.rvHomeRecommended);
+            rvHouseImages = itemView.findViewById(R.id.rvHouseImages);
+            rvHouseRooms = itemView.findViewById(R.id.rvHouseRooms);
             flAdapterContainer = itemView.findViewById(R.id.flAdapterContainer);
             llHomeProfile = itemView.findViewById(R.id.llHomeProfile);
             ivHomeImg = itemView.findViewById(R.id.ivHomeImg);

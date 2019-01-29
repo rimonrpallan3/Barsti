@@ -17,6 +17,7 @@ import com.voyager.barasti.R;
 import com.voyager.barasti.activity.login.LoginActivity;
 import com.voyager.barasti.activity.profilepage.adapter.ProfilePageAdapter;
 import com.voyager.barasti.activity.profilepage.model.HomeDetails;
+import com.voyager.barasti.activity.profilepage.model.HomeRooms;
 import com.voyager.barasti.activity.profilepage.presenter.IProfiePresenter;
 import com.voyager.barasti.activity.profilepage.presenter.ProfilePresenter;
 import com.voyager.barasti.activity.profilepage.view.IProfileView;
@@ -44,7 +45,7 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
     int priceValue=0;
     int reviewRate=0;
     LinearLayout llContBtn;
-
+    List<HomeRooms> homeRoomsList;
 
     LocationManager locationManager;
 
@@ -82,11 +83,24 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
 
     }
 
+    public void getHouseRomeDetials(){
+        homeRoomsList = new ArrayList<>();
+        HomeRooms Bedrooms =new HomeRooms(R.drawable.inbox_icon,"Bedrooms");
+        HomeRooms Beds = new HomeRooms(R.drawable.inbox_icon,"Beds");
+        HomeRooms Bathrooms =new HomeRooms(R.drawable.inbox_icon,"Bathrooms");
+        HomeRooms Accommodates =new HomeRooms(R.drawable.inbox_icon,"Accommodates");
+        homeRoomsList.add(Bedrooms);
+        homeRoomsList.add(Beds);
+        homeRoomsList.add(Bathrooms);
+        homeRoomsList.add(Accommodates);
+    }
+
     @Override
     public void setHomeDetail(HomeDetails homeDetails) {
         this.homeDetails = homeDetails;
         homeDetailsList.add(homeDetails);
-        profilePageAdapter = new ProfilePageAdapter(homeDetailsList,this,iProfiePresenter);
+        getHouseRomeDetials();
+        profilePageAdapter = new ProfilePageAdapter(homeDetailsList,this,iProfiePresenter,homeRoomsList);
         rvProfilePage.setLayoutFrozen(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         rvProfilePage.setLayoutManager(mLayoutManager);
