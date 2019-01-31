@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:layout_gravity="right"
+    android:layout_marginRight="@dimen/_10"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvAmenities"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:drawableRight="@drawable/favourite_icon"
+        android:layout_gravity="right"
+        android:drawablePadding="@dimen/_10"
+        android:text="Amenities"
+        android:gravity="right|center"
+        android:textSize="@dimen/_12"/>
+
+
+
+
+</LinearLayout>

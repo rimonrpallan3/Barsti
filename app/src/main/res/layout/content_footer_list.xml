@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_10"
+    android:maxHeight="150dp"
+    android:minHeight="150dp"
     android:orientation="vertical">
 
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="150dp"
+        android:minHeight="150dp">
 
         <ImageView
+            android:maxHeight="150dp"
+            android:minHeight="150dp"
             android:id="@+id/ivFooterHome"
-            android:layout_width="@dimen/_150"
-            android:layout_height="@dimen/_150"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder_image" />
 

@@ -7,10 +7,12 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,10 +58,12 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
     private LayoutInflater infalter;
     private static final int TYPE_BODY = 0;
     LinearLayoutManager HorizontalView;
+    LinearLayoutManager VerticalView;
     String json;
     RecommendedListAdapter recommendedListAdapter;
     RecyclerViewHomeRoomAdapter recyclerViewHomeRoomAdapter;
     RvHomeRoomImgAdapter rvHomeRoomImgAdapter;
+    RvHomeAmenitiesAdapter rvHomeAmenitiesAdapter;
     private GoogleMap mMap;
 
     double lat = 26.2285;
@@ -118,19 +122,43 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
             holderViews.tvHomeMainHeading.setText(homeDetailsList1.getProperty_type_name());
             holderViews.tvHomeHeading.setText(homeDetailsList1.getProperty_name());
             holderViews.tvLocAddress.setText(homeDetailsList1.getAddress_line_1());
+            holderViews.tvCity.setText(homeDetailsList1.getCity());
+            holderViews.tvState.setText(homeDetailsList1.getState());
+            holderViews.tvPCode.setText(homeDetailsList1.getPostal_code());
+            holderViews.tvCountry.setText(homeDetailsList1.getCountry());
+            holderViews.tvUserName.setText(homeDetailsList1.getHost_name());
+            holderViews.tvEmail.setText(homeDetailsList1.getEmail());
+            holderViews.tvPhone.setText("000000000");
 
 
             recyclerViewHomeRoomAdapter = new RecyclerViewHomeRoomAdapter(homeRoomsList, activity,homeDetailsList1);
             HorizontalView = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+            //HorizontalView.setInitialPrefetchItemCount(2);
             holderViews.rvHouseRooms.setLayoutManager(HorizontalView);
             holderViews.rvHouseRooms.setItemAnimator(new DefaultItemAnimator());
             holderViews.rvHouseRooms.setAdapter(recyclerViewHomeRoomAdapter);
             holderViews.rvHouseRooms.setNestedScrollingEnabled(true);
 
+
+            if(homeDetailsList1.getAmenities().size()>0){
+                rvHomeAmenitiesAdapter = new RvHomeAmenitiesAdapter(homeDetailsList1.getAmenities(), activity);
+                HorizontalView = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true);
+                HorizontalView.setInitialPrefetchItemCount(2);
+                HorizontalView.setStackFromEnd(true);
+                if(homeDetailsList1.getAmenities().size()==1){
+                    holderViews.rvHouseAmenities.setLayoutManager(HorizontalView);
+                }else {
+                    holderViews.rvHouseAmenities.setLayoutManager(new GridLayoutManager(activity, 2));
+                }
+                holderViews.rvHouseAmenities.setHasFixedSize(true);
+                holderViews.rvHouseAmenities.setAdapter(rvHomeAmenitiesAdapter);
+                holderViews.rvHouseAmenities.setLayoutFrozen(true);
+            }else {
+                holderViews.rvHouseAmenities.setVisibility(View.GONE);
+            }
+
             if(homeDetailsList1.getPhotos().size()>0) {
                 rvHomeRoomImgAdapter = new RvHomeRoomImgAdapter(homeDetailsList1.getPhotos(), activity);
-                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity.getApplicationContext());
-                holderViews.rvHouseImages.setLayoutManager(mLayoutManager);
                 holderViews.rvHouseImages.setItemAnimator(new DefaultItemAnimator());
                 holderViews.rvHouseImages.setLayoutManager(new GridLayoutManager(activity, 3));
                 holderViews.rvHouseImages.setAdapter(rvHomeRoomImgAdapter);
@@ -197,6 +225,14 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
         RecyclerView rvHomeRecommended;
         RecyclerView rvHouseRooms;
         RecyclerView rvHouseImages;
+        RecyclerView rvHouseAmenities;
+        AppCompatTextView tvCity;
+        AppCompatTextView tvState;
+        AppCompatTextView tvPCode;
+        AppCompatTextView tvCountry;
+        AppCompatTextView tvEmail;
+        AppCompatTextView tvPhone;
+        AppCompatTextView tvUserName;
         View root;
 
         public ViewHolder(View itemView) {
@@ -208,11 +244,19 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
             rvHomeRecommended = itemView.findViewById(R.id.rvHomeRecommended);
             rvHouseImages = itemView.findViewById(R.id.rvHouseImages);
             rvHouseRooms = itemView.findViewById(R.id.rvHouseRooms);
+            rvHouseAmenities = itemView.findViewById(R.id.rvHouseAmenities);
             flAdapterContainer = itemView.findViewById(R.id.flAdapterContainer);
             llHomeProfile = itemView.findViewById(R.id.llHomeProfile);
             ivHomeImg = itemView.findViewById(R.id.ivHomeImg);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvLocAddress = itemView.findViewById(R.id.tvLocAddress);
+            tvCity = itemView.findViewById(R.id.tvCity);
+            tvState = itemView.findViewById(R.id.tvState);
+            tvPCode = itemView.findViewById(R.id.tvPCode);
+            tvCountry = itemView.findViewById(R.id.tvCountry);
+            tvEmail = itemView.findViewById(R.id.tvEmail);
+            tvPhone = itemView.findViewById(R.id.tvPhone);
+            tvUserName = itemView.findViewById(R.id.tvUserName);
 
         }
 

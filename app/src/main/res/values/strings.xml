@@ -45,6 +45,10 @@
     <string name="tv_heading2">Oh! Not Registered Yet?</string>
     <string name="tv_heading3"> Register Now</string>
 
+    <!--Add content-->
+    <string name="tv_AddContent"> Do you Like this Property?</string>
+    <string name="tv_AddContent2"> Book for Verification.</string>
+
 
     <!--Opt First page -->
     <string name="otp_no">OTP Number</string>

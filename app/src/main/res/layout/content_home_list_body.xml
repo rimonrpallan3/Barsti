@@ -57,8 +57,9 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvHouseRooms"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:layout_marginBottom="@dimen/_20" />
 
             <android.support.v7.widget.RecyclerView
@@ -67,6 +68,101 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10"
                 android:layout_marginRight="@dimen/_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tvAmenitiesHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="@dimen/_10"
+                    android:layout_marginLeft="@dimen/_10"
+                    android:layout_marginRight="@dimen/_10"
+                    android:layout_marginTop="@dimen/_10"
+                    android:gravity="right|center"
+                    android:text="Amenities"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12"
+                    android:textStyle="bold" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvHouseAmenities"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center"
+                android:layout_margin="@dimen/_10"
+                android:gravity="right|center"
+                android:background="@color/splsh_bg"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10"
+                    android:weightSum="100">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="20"
+                    android:layout_marginLeft="@dimen/_20"
+                    android:layout_height="@dimen/_40"
+                    android:text="Book"
+                    android:textColor="@color/splsh_bg"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rectangle_button2"/>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="80"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tvAddContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:gravity="right|center"
+                        android:text="@string/tv_AddContent"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tvAddContent2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:gravity="right|center"
+                        android:text="@string/tv_AddContent2"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -81,11 +177,153 @@
                 android:id="@+id/tvLocAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10"
                 android:layout_marginRight="@dimen/_10"
                 android:gravity="right"
                 android:text="Location"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tvCity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10"
+                    android:layout_marginRight="@dimen/_10"
+                    android:layout_weight="50"
+                    android:gravity="right|center"
+                    android:text="SecondItem"
+                    android:textSize="@dimen/_12" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_10"
+                    android:layout_marginRight="@dimen/_10"
+                    android:layout_weight="50"
+                    android:gravity="right|center"
+                    android:hint="@string/ht_pass1"
+                    android:paddingLeft="@dimen/_10"
+                    android:text="City "
+                    android:textSize="@dimen/_12" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tvState"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10"
+                    android:layout_marginRight="@dimen/_10"
+                    android:layout_weight="50"
+                    android:gravity="right|center"
+                    android:text="SecondItem"
+                    android:textSize="@dimen/_12" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_10"
+                    android:layout_marginRight="@dimen/_10"
+                    android:layout_weight="50"
+                    android:gravity="right|center"
+                    android:hint="@string/ht_pass1"
+                    android:paddingLeft="@dimen/_10"
+                    android:text="State "
+                    android:textSize="@dimen/_12" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tvCountry"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10"
+                    android:layout_marginRight="@dimen/_10"
+                    android:layout_weight="50"
+                    android:gravity="right|center"
+                    android:text="SecondItem"
+                    android:textSize="@dimen/_12" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_10"
+                    android:layout_marginRight="@dimen/_10"
+                    android:layout_weight="50"
+                    android:gravity="right|center"
+                    android:hint="@string/ht_pass1"
+                    android:paddingLeft="@dimen/_10"
+                    android:text="Country "
+                    android:textSize="@dimen/_12" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tvPCode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10"
+                    android:layout_marginRight="@dimen/_10"
+                    android:layout_weight="50"
+                    android:gravity="right|center"
+                    android:text="SecondItem"
+                    android:textSize="@dimen/_12" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_10"
+                    android:layout_marginRight="@dimen/_10"
+                    android:layout_weight="50"
+                    android:gravity="right|center"
+                    android:hint="@string/ht_pass1"
+                    android:paddingLeft="@dimen/_10"
+                    android:text="Postal_Code "
+                    android:textSize="@dimen/_12" />
+
+
+            </LinearLayout>
+
 
             <FrameLayout
                 android:id="@+id/flAdapterContainer"
@@ -94,9 +332,132 @@
                 android:layout_margin="@dimen/_10" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10"
+                android:layout_marginRight="@dimen/_10"
+                android:gravity="right"
+                android:text="Owner Info / Agent Info"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginLeft="@dimen/_10"
+                android:layout_marginRight="@dimen/_10"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_10"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/tvUserName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center"
+                                android:text="SecondItem"
+                                android:textSize="@dimen/_12" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:layout_marginBottom="@dimen/_10"
+                            android:orientation="horizontal">
+
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/tvPhone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center"
+                                android:text="SecondItem"
+                                android:textSize="@dimen/_12" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="right|center"
+                                android:hint="@string/ht_pass1"
+                                android:text=" : Call"
+                                android:textSize="@dimen/_12" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_10"
+                            android:orientation="horizontal">
+
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/tvEmail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center"
+                                android:text="SecondItem"
+                                android:textSize="@dimen/_12" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="right|center"
+                                android:hint="@string/ht_pass1"
+                                android:text=" : Email"
+                                android:textSize="@dimen/_12" />
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_10"
+                        android:layout_marginLeft="@dimen/_10"
+                        android:src="@drawable/profile_icon"/>
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10"
+                android:layout_marginRight="@dimen/_10"
                 android:gravity="right"
                 android:text="Recommended for You"
                 android:textColor="@color/black"
