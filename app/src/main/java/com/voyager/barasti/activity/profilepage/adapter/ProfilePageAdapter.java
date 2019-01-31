@@ -187,7 +187,12 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
             //fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
 
+            holderViews.addBtnClick.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                }
+            });
             //holderViews.mvHouseDetail.getMapAsync(this);
             //iProfiePresenter.setMapView(holderViews.mvHouseDetail);
 
@@ -218,6 +223,7 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
         LinearLayout llHomeProfile;
         FrameLayout flAdapterContainer;
         ImageView ivHomeImg;
+        Button addBtnClick;
         TextView tvHomeMainHeading;
         TextView tvHomeHeading;
         TextView tvDescription;
@@ -248,6 +254,7 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
             flAdapterContainer = itemView.findViewById(R.id.flAdapterContainer);
             llHomeProfile = itemView.findViewById(R.id.llHomeProfile);
             ivHomeImg = itemView.findViewById(R.id.ivHomeImg);
+            addBtnClick = itemView.findViewById(R.id.addBtnClick);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvLocAddress = itemView.findViewById(R.id.tvLocAddress);
             tvCity = itemView.findViewById(R.id.tvCity);

@@ -31,7 +31,8 @@
     <string name="googleSignText">Sign in with Google</string>
     <string name="fbSignText">Sign in with Facebook</string>
     <string name="snack_error_acct">An account already exists with the same email address but different provider.</string>
-
+    <string name="sign_snack_error_message">An account already exists with the same email address but different provider.</string>
+    <string name="sign_snack_ok_button">ok</string>
 
     <string name="ht_email">Email Address</string>
     <string name="ht_pass3">Password</string>

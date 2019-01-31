@@ -118,6 +118,8 @@
                     android:weightSum="100">
 
                 <Button
+                    android:id="@+id/addBtnClick"
+                    android:onClick="addBtnClick"
                     android:layout_width="0dp"
                     android:layout_weight="20"
                     android:layout_marginLeft="@dimen/_20"
@@ -328,7 +330,7 @@
             <FrameLayout
                 android:id="@+id/flAdapterContainer"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150"
+                android:layout_height="@dimen/_200"
                 android:layout_margin="@dimen/_10" />
 
             <TextView

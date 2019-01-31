@@ -13,6 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -51,11 +57,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static final int RC_SIGN_IN = 9001;
+    private static final int FB_SIGN_IN = 9002;
     FrameLayout loadingLayout;
 
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
     String fireBaseToken="";
+    CallbackManager mCallbackManager;
+
 
 
     @Override
@@ -82,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         // [END config_signin]
         mAuth = FirebaseAuth.getInstance();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        iLoginPresenter = new LoginPresenter(this, this,mGoogleSignInClient,mAuth,sharedPrefs,editor);
+        iLoginPresenter = new LoginPresenter(this, this,mGoogleSignInClient,mAuth,sharedPrefs,editor,fireBaseToken);
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -140,6 +149,28 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     public void btnSignInFB(View v){
+        // Initialize Facebook Login button
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                iLoginPresenter.firebaseAuthWithFB(loginResult);
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+                // ...
+            }
+        });
         Snackbar.make(findViewById(android.R.id.content),"Facebook Sign In btn", Snackbar.LENGTH_SHORT).show();
     }
 
@@ -191,6 +222,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 System.out.println("-----------GoogleSignInAccount onActivityResult error : " +e.getMessage());
                 // ...
             }
+        }else{
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
+
         }
     }
 

@@ -47,9 +47,26 @@ public interface WebServices {
     Call<TypedDetail> doGetTypedDetails(@Path("limit") int limit, @Path("offset") int offset, @Path("typeId") int typeId);
 
     @FormUrlEncoded
-    @POST("login/")
-    public Call<UserDetails> loginUser(@Nullable @Field("email") String email,
+    @POST("mobileLogin")
+    public Call<UserDetails> loginNormalUser(@Nullable @Field("email") String email,
                                        @Nullable @Field("password") String passwd,
+                                       @Nullable @Field("login_type") String type,
+                                       @Nullable @Field("token") String fireBaseToken);
+    @FormUrlEncoded
+    @POST("mobileLogin")
+    public Call<UserDetails> loginGoogleUser(@Nullable @Field("email") String email,
+                                       @Nullable @Field("login_type") String type,
+                                       @Nullable @Field("profile_image") String imageP,
+                                       @Nullable @Field("phonenumber") String mobNo,
+                                       @Nullable @Field("userName") String userName,
+                                       @Nullable @Field("token") String fireBaseToken);
+    @FormUrlEncoded
+    @POST("mobileLogin")
+    public Call<UserDetails> loginFBUser(@Nullable @Field("email") String email,
+                                       @Nullable @Field("login_type") String type,
+                                       @Nullable @Field("profile_image") String imageP,
+                                       @Nullable @Field("phonenumber") String mobNo,
+                                       @Nullable @Field("userName") String userName,
                                        @Nullable @Field("token") String fireBaseToken);
 
 /*

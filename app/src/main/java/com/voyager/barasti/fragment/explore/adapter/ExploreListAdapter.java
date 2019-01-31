@@ -2,6 +2,7 @@ package com.voyager.barasti.fragment.explore.adapter;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.login.LoginActivity;
+import com.voyager.barasti.activity.profilepage.ProfilePage;
 import com.voyager.barasti.custom.viewpagerindicator.CirclePageIndicator;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocList;
@@ -183,7 +186,8 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     bodyHolder.btnExpandView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            Intent intent = new Intent(activity, LoginActivity.class);
+                            activity.startActivity(intent);
                         }
                     });
                     //bodyListAdapter.setClickListener(this);

@@ -8,24 +8,26 @@ import android.os.Parcelable;
  */
 
 public class UserDetails implements IUserDetials,Parcelable {
-
-
     /**
-     * id : 1
-     * first_name : User1
-     * last_name : Test
-     * email : user@barastiapp.com
-     * profile_image : null
+     * id : 3
+     * first_name : Jeevan
+     * last_name : Mathews
+     * phone_num :
+     * email : itsmejeevans@gmail.com
+     * profile_image :
      * balance : 0
      * status : Active
-     * api_token : null
-     * created_at : 2018-12-20 10:22:47
-     * updated_at : 2018-12-20 10:22:47
+     * fcm :
+     * api_token :
+     * created_at : 2019-01-18 07:28:36
+     * updated_at : 2019-01-18 07:28:36
      * login_status : success
      * profile_src : http://betaholder.com/barastiapp/public/images/user_pic-225x225.png
      */
 
     private int id;
+    private String phone_num;
+    private String fcm;
     private String first_name;
     private String last_name;
     private String email;
@@ -38,18 +40,31 @@ public class UserDetails implements IUserDetials,Parcelable {
     private String login_status;
     private String profile_src;
     public String fcmId;
+    public String userName;
+    public String googleId;
+    String passwd;
     String usermob;
     String pswd;
-
+    Boolean state;
+    String loginType;
 
     public UserDetails() {
     }
 
+    public UserDetails(String googleId, String email, String profile_image, String userName, String usermob, Boolean state) {
+        this.googleId = googleId;
+        this.email = email;
+        this.profile_image = profile_image;
+        this.userName = userName;
+        this.usermob = usermob;
+        this.state = state;
+    }
 
     public UserDetails(String email, String pswd) {
         this.email = email;
         this.pswd = pswd;
     }
+
 
     public String getFcmId() {
         return fcmId;
@@ -59,12 +74,28 @@ public class UserDetails implements IUserDetials,Parcelable {
         this.fcmId = fcmId;
     }
 
-    public void setProfile_image(String profile_image) {
-        this.profile_image = profile_image;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setApi_token(String api_token) {
-        this.api_token = api_token;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
+    }
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
 
     public String getUsermob() {
@@ -81,6 +112,22 @@ public class UserDetails implements IUserDetials,Parcelable {
 
     public void setPswd(String pswd) {
         this.pswd = pswd;
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
+    }
+
+    public String getLoginType() {
+        return loginType;
+    }
+
+    public void setLoginType(String loginType) {
+        this.loginType = loginType;
     }
 
     public int getId() {
@@ -107,6 +154,14 @@ public class UserDetails implements IUserDetials,Parcelable {
         this.last_name = last_name;
     }
 
+    public String getPhone_num() {
+        return phone_num;
+    }
+
+    public void setPhone_num(String phone_num) {
+        this.phone_num = phone_num;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -115,11 +170,13 @@ public class UserDetails implements IUserDetials,Parcelable {
         this.email = email;
     }
 
-    public Object getProfile_image() {
+    public String getProfile_image() {
         return profile_image;
     }
 
-
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
+    }
 
     public int getBalance() {
         return balance;
@@ -137,10 +194,21 @@ public class UserDetails implements IUserDetials,Parcelable {
         this.status = status;
     }
 
-    public Object getApi_token() {
+    public String getFcm() {
+        return fcm;
+    }
+
+    public void setFcm(String fcm) {
+        this.fcm = fcm;
+    }
+
+    public String getApi_token() {
         return api_token;
     }
 
+    public void setApi_token(String api_token) {
+        this.api_token = api_token;
+    }
 
     public String getCreated_at() {
         return created_at;
@@ -199,6 +267,8 @@ public class UserDetails implements IUserDetials,Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
+        dest.writeString(this.phone_num);
+        dest.writeString(this.fcm);
         dest.writeString(this.first_name);
         dest.writeString(this.last_name);
         dest.writeString(this.email);
@@ -210,12 +280,20 @@ public class UserDetails implements IUserDetials,Parcelable {
         dest.writeString(this.updated_at);
         dest.writeString(this.login_status);
         dest.writeString(this.profile_src);
+        dest.writeString(this.fcmId);
+        dest.writeString(this.userName);
+        dest.writeString(this.googleId);
+        dest.writeString(this.passwd);
         dest.writeString(this.usermob);
         dest.writeString(this.pswd);
+        dest.writeValue(this.state);
+        dest.writeString(this.loginType);
     }
 
     protected UserDetails(Parcel in) {
         this.id = in.readInt();
+        this.phone_num = in.readString();
+        this.fcm = in.readString();
         this.first_name = in.readString();
         this.last_name = in.readString();
         this.email = in.readString();
@@ -227,8 +305,14 @@ public class UserDetails implements IUserDetials,Parcelable {
         this.updated_at = in.readString();
         this.login_status = in.readString();
         this.profile_src = in.readString();
+        this.fcmId = in.readString();
+        this.userName = in.readString();
+        this.googleId = in.readString();
+        this.passwd = in.readString();
         this.usermob = in.readString();
         this.pswd = in.readString();
+        this.state = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.loginType = in.readString();
     }
 
     public static final Creator<UserDetails> CREATOR = new Creator<UserDetails>() {
