@@ -33,6 +33,7 @@
                 android:layout_marginLeft="@dimen/_10"
                 android:layout_marginRight="@dimen/_04"
                 android:layout_marginTop="@dimen/_04"
+                android:focusable="false"
                 android:background="@drawable/bg_search_edittext"
                 android:drawableRight="@drawable/places_ic_search"
                 android:gravity="right|center"

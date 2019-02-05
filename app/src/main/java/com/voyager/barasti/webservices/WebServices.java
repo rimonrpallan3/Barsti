@@ -22,7 +22,7 @@ import retrofit2.http.Path;
 
 public interface WebServices {
     //@GET("driver/getDriver/")
-   // Call<MainClass> doGetUserList(@Query("page") String page);
+    // Call<MainClass> doGetUserList(@Query("page") String page);
     //http://10.1.1.18/sayara/user/booking/--pickup_loc: 9.731235,76.355463 -- user_id 89
 
 
@@ -36,38 +36,45 @@ public interface WebServices {
     Call<HomeDetails> doGetHomeDetails(@Path("id") int id);*/
 
     @GET("listings/{limit}/{offset}")
-    Call<NewList> doGetHouseList(@Path("limit") int limit,@Path("offset") int offset);
+    Call<NewList> doGetHouseList(@Path("limit") int limit, @Path("offset") int offset);
+
     @GET("sliders")
     Call<ArrayList<Banner>> doGetbannerlist();
+
     @GET("locations/{limit}/{offset}")
-    Call<ArrayList<LocItems>> doGetLocList(@Path("limit") int limit,@Path("offset") int offset);
+    Call<ArrayList<LocItems>> doGetLocList(@Path("limit") int limit, @Path("offset") int offset);
+
     @GET("listings/{propertyId}")
     Call<HomeDetails> doGetHomeDetails(@Path("propertyId") int propertyId);
+
     @GET("listings/{limit}/{offset}/{typeId}")
     Call<TypedDetail> doGetTypedDetails(@Path("limit") int limit, @Path("offset") int offset, @Path("typeId") int typeId);
 
     @FormUrlEncoded
     @POST("mobileLogin")
     public Call<UserDetails> loginNormalUser(@Nullable @Field("email") String email,
-                                       @Nullable @Field("password") String passwd,
-                                       @Nullable @Field("login_type") String type,
-                                       @Nullable @Field("token") String fireBaseToken);
+                                             @Nullable @Field("password") String passwd,
+                                             @Nullable @Field("login_type") String type,
+                                             @Nullable @Field("fcm") String fireBaseToken);
+
     @FormUrlEncoded
     @POST("mobileLogin")
     public Call<UserDetails> loginGoogleUser(@Nullable @Field("email") String email,
-                                       @Nullable @Field("login_type") String type,
-                                       @Nullable @Field("profile_image") String imageP,
-                                       @Nullable @Field("phonenumber") String mobNo,
-                                       @Nullable @Field("userName") String userName,
-                                       @Nullable @Field("token") String fireBaseToken);
+                                             @Nullable @Field("login_type") String type,
+                                             @Nullable @Field("profile_image") String imageP,
+                                             @Nullable @Field("phonenumber") String mobNo,
+                                             @Nullable @Field("userName") String userName,
+                                             @Nullable @Field("googleId") String googleId,
+                                             @Nullable @Field("fcm") String fireBaseToken);
+
     @FormUrlEncoded
     @POST("mobileLogin")
     public Call<UserDetails> loginFBUser(@Nullable @Field("email") String email,
-                                       @Nullable @Field("login_type") String type,
-                                       @Nullable @Field("profile_image") String imageP,
-                                       @Nullable @Field("phonenumber") String mobNo,
-                                       @Nullable @Field("userName") String userName,
-                                       @Nullable @Field("token") String fireBaseToken);
+                                         @Nullable @Field("login_type") String type,
+                                         @Nullable @Field("profile_image") String imageP,
+                                         @Nullable @Field("phonenumber") String mobNo,
+                                         @Nullable @Field("userName") String userName,
+                                         @Nullable @Field("token") String fireBaseToken);
 
 /*
     @GET("webservice/getOffertypes")

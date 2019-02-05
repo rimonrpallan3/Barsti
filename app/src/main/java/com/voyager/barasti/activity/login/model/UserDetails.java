@@ -3,6 +3,9 @@ package com.voyager.barasti.activity.login.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+
+import java.util.List;
+
 /**
  * Created by rimon on 18-03-2018.
  */
@@ -25,6 +28,8 @@ public class UserDetails implements IUserDetials,Parcelable {
      * profile_src : http://betaholder.com/barastiapp/public/images/user_pic-225x225.png
      */
 
+
+
     private int id;
     private String phone_num;
     private String fcm;
@@ -39,14 +44,15 @@ public class UserDetails implements IUserDetials,Parcelable {
     private String updated_at;
     private String login_status;
     private String profile_src;
-    public String fcmId;
     public String userName;
     public String googleId;
+    public String error_status;
     String passwd;
     String usermob;
     String pswd;
     Boolean state;
     String loginType;
+    private List<LikedBean> liked;
 
     public UserDetails() {
     }
@@ -65,13 +71,12 @@ public class UserDetails implements IUserDetials,Parcelable {
         this.pswd = pswd;
     }
 
-
-    public String getFcmId() {
-        return fcmId;
+    public String getError_status() {
+        return error_status;
     }
 
-    public void setFcmId(String fcmId) {
-        this.fcmId = fcmId;
+    public void setError_status(String error_status) {
+        this.error_status = error_status;
     }
 
     public String getUserName() {
@@ -280,7 +285,6 @@ public class UserDetails implements IUserDetials,Parcelable {
         dest.writeString(this.updated_at);
         dest.writeString(this.login_status);
         dest.writeString(this.profile_src);
-        dest.writeString(this.fcmId);
         dest.writeString(this.userName);
         dest.writeString(this.googleId);
         dest.writeString(this.passwd);
@@ -305,7 +309,6 @@ public class UserDetails implements IUserDetials,Parcelable {
         this.updated_at = in.readString();
         this.login_status = in.readString();
         this.profile_src = in.readString();
-        this.fcmId = in.readString();
         this.userName = in.readString();
         this.googleId = in.readString();
         this.passwd = in.readString();
@@ -326,4 +329,14 @@ public class UserDetails implements IUserDetials,Parcelable {
             return new UserDetails[size];
         }
     };
+
+    public List<LikedBean> getLiked() {
+        return liked;
+    }
+
+    public void setLiked(List<LikedBean> liked) {
+        this.liked = liked;
+    }
+
+
 }

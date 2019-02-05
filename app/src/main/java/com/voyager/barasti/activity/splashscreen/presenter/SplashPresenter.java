@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.google.gson.Gson;
-import com.voyager.barasti.activity.splashscreen.model.UserDetail;
+import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.activity.splashscreen.view.ISplashView;
 
 
@@ -21,7 +21,7 @@ public class SplashPresenter implements IConnectionStatus{
     Context context;
     ISplashView splashView;
     Activity activity;
-    String emailAddress;
+    String emailAddress="";
 
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
@@ -40,10 +40,14 @@ public class SplashPresenter implements IConnectionStatus{
     public String getUserGsonInSharedPrefrences(){
         String emailAddress ="";
         Gson gson = new Gson();
-        String json = sharedPrefs.getString("UserDetail", null);
+        String json = sharedPrefs.getString("UserDetails", null);
         if(json!=null){
-            UserDetail userDetail = gson.fromJson(json, UserDetail.class);
-            emailAddress = userDetail.getEmail();
+            UserDetails userDetail = gson.fromJson(json, UserDetails.class);
+            if(userDetail.getEmail()!=null) {
+                emailAddress = userDetail.getEmail();
+            }else {
+                emailAddress = "";
+            }
             System.out.println("--------- SplashPresenter getUserGsonInSharedPrefrences"+json);
         }
         return emailAddress;
@@ -57,7 +61,12 @@ public class SplashPresenter implements IConnectionStatus{
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                splashView.moveToLanding();
+                //splashView.moveToLanding();
+                if(emailAddress!=null&&emailAddress.length()>0){
+                    splashView.moveToLanding();
+                }else{
+                    splashView.moveToSignUpLogin();
+                }
                 /*if(Helper.isLocationEnabled(context)) {
 
                     if(emailAddress.length()>0){

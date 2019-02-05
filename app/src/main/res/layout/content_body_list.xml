@@ -3,46 +3,62 @@
     android:id="@+id/llHome"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="right"
     android:layout_margin="@dimen/_10"
+    android:gravity="right"
     android:orientation="vertical">
 
-    <ImageView
-        android:maxHeight="150dp"
-        android:minHeight="150dp"
-        android:id="@+id/ivHome"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_150"
-        android:scaleType="centerCrop"
-        android:src="@drawable/placeholder_image"/>
+        android:layout_height="wrap_content"
+        android:maxHeight="@dimen/_150"
+        android:minHeight="@dimen/_150">
+
+        <ImageView
+            android:id="@+id/ivHome"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150"
+            android:maxHeight="@dimen/_150"
+            android:minHeight="@dimen/_150"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_image" />
+
+        <com.like.LikeButton xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/lbHomeFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:anim_scale_factor="2.5"
+            app:icon_size="@dimen/_16"
+            app:icon_type="heart" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tvHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Heading"
-        android:gravity="right"
-        android:layout_marginTop="@dimen/_04"
-        android:textColor="@color/black"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:ems="3"
         android:layout_marginBottom="@dimen/_04"
-        android:textSize="@dimen/_14"/>
+        android:layout_marginTop="@dimen/_04"
+        android:ellipsize="end"
+        android:ems="3"
+        android:gravity="right"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Heading"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14" />
 
     <TextView
         android:id="@+id/tvHomeAmt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/_10"
+        android:ellipsize="end"
+        android:ems="3"
         android:gravity="right"
         android:maxLines="1"
-        android:ellipsize="end"
         android:singleLine="true"
-        android:ems="3"
+        android:text="90BD Per Night"
         android:textColor="@color/black"
-        android:text="90BD Per Night"/>
+        android:textSize="@dimen/_10" />
 
 
     <LinearLayout
@@ -56,41 +72,42 @@
             android:id="@+id/ivFav1"
             android:layout_width="@dimen/_20"
             android:layout_height="@dimen/_20"
-            android:src="@drawable/favourite_icon"/>
+            android:src="@drawable/favourite_icon" />
 
         <ImageView
             android:id="@+id/ivFav2"
             android:layout_width="@dimen/_20"
             android:layout_height="@dimen/_20"
-            android:src="@drawable/favourite_icon"/>
+            android:src="@drawable/favourite_icon" />
 
         <ImageView
             android:id="@+id/ivFav3"
             android:layout_width="@dimen/_20"
             android:layout_height="@dimen/_20"
-            android:src="@drawable/favourite_icon"/>
+            android:src="@drawable/favourite_icon" />
 
         <ImageView
             android:id="@+id/ivFav4"
             android:layout_width="@dimen/_20"
             android:layout_height="@dimen/_20"
-            android:src="@drawable/favourite_icon"/>
+            android:src="@drawable/favourite_icon" />
 
         <ImageView
             android:id="@+id/ivFav5"
             android:layout_width="@dimen/_20"
             android:layout_height="@dimen/_20"
-            android:src="@drawable/favourite_icon"/>
+            android:src="@drawable/favourite_icon" />
+
         <TextView
             android:id="@+id/tvFavValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10"
+            android:layout_marginLeft="@dimen/_10"
+            android:gravity="center"
             android:text="200"
-            android:layout_marginLeft="@dimen/_10"/>
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10" />
 
     </LinearLayout>
 

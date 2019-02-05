@@ -76,8 +76,8 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
         llContBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+               /* Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);*/
             }
         });
 
@@ -85,10 +85,10 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
 
     public void getHouseRomeDetials(){
         homeRoomsList = new ArrayList<>();
-        HomeRooms Bedrooms =new HomeRooms(R.drawable.inbox_icon,"Bedrooms");
-        HomeRooms Beds = new HomeRooms(R.drawable.inbox_icon,"Beds");
-        HomeRooms Bathrooms =new HomeRooms(R.drawable.inbox_icon,"Bathrooms");
-        HomeRooms Accommodates =new HomeRooms(R.drawable.inbox_icon,"Accommodates");
+        HomeRooms Bedrooms =new HomeRooms(R.drawable.bedroom_icon,"Bedrooms");
+        HomeRooms Beds = new HomeRooms(R.drawable.beds_icon,"Beds");
+        HomeRooms Bathrooms =new HomeRooms(R.drawable.bathroom_icon,"Bathrooms");
+        HomeRooms Accommodates =new HomeRooms(R.drawable.accommodates_icon,"Accommodates");
         homeRoomsList.add(Bedrooms);
         homeRoomsList.add(Beds);
         homeRoomsList.add(Bathrooms);

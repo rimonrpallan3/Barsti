@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@color/black"
-        android:drawableRight="@drawable/favourite_icon"
+        android:drawableRight="@drawable/bullet_1"
         android:layout_gravity="right"
-        android:drawablePadding="@dimen/_10"
+        android:drawablePadding="@dimen/_04"
         android:text="Amenities"
         android:gravity="right|center"
         android:textSize="@dimen/_12"/>

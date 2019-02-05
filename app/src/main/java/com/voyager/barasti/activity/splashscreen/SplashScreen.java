@@ -17,6 +17,7 @@ import android.telephony.TelephonyManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.login.LoginActivity;
 import com.voyager.barasti.appconfig.AppConfig;
 import com.voyager.barasti.common.Helper;
 import com.voyager.barasti.activity.landingpage.LandingPage;
@@ -136,9 +137,9 @@ public class SplashScreen extends AppCompatActivity implements ISplashView,EasyP
 
     @Override
     public void moveToSignUpLogin() {
-        /*Intent intent = new Intent(this, LoginSignUpPage.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-        finish();*/
+        finish();
     }
 
     @Override

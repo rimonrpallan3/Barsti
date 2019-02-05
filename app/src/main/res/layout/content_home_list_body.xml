@@ -461,7 +461,7 @@
                 android:layout_marginLeft="@dimen/_10"
                 android:layout_marginRight="@dimen/_10"
                 android:gravity="right"
-                android:text="Recommended for You"
+                android:text="Similar Properties"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12"
                 android:textStyle="bold" />

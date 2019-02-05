@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -31,6 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.landingpage.LandingPage;
 import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.activity.login.presenter.ILoginPresenter;
 import com.voyager.barasti.activity.login.presenter.LoginPresenter;
@@ -38,6 +41,8 @@ import com.voyager.barasti.activity.login.view.ILoginView;
 import com.voyager.barasti.activity.register.RegisterActivity;
 import com.voyager.barasti.common.Helper;
 import com.voyager.barasti.common.NetworkDetector;
+
+import java.util.Arrays;
 
 /**
  * Created by User on 23-Jan-19.
@@ -67,6 +72,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +99,37 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         iLoginPresenter = new LoginPresenter(this, this,mGoogleSignInClient,mAuth,sharedPrefs,editor,fireBaseToken);
         mAuth = FirebaseAuth.getInstance();
+
+
+        // Initialize Facebook Login button
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginResult loginResult;
+        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+
+
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                iLoginPresenter.firebaseFacebookAuthWithAnonymous(loginResult.getAccessToken());
+                System.out.println("facebook:onSuccess : ");
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                System.out.println("facebook:onError : onCancel : ");
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+                System.out.println("facebook:onError : error : "+error.getMessage());
+                // ...
+            }
+        });
+
     }
 
     public void setLoader(int visibility){
@@ -106,17 +143,47 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onLoginResult(Boolean result, int code) {
-
+        iLoginPresenter.setProgressBarVisiblity(View.INVISIBLE);
+        btnSignInGoogle.setEnabled(true);
+        btnSignInFB.setEnabled(true);
+        btnSignIn.setEnabled(true);
+        if (result){
+        }
+        else {
+            //Toast.makeText(this, "Please input Values, code = " + code, Toast.LENGTH_SHORT).show();
+            btnSignInGoogle.setEnabled(true);
+            btnSignInFB.setEnabled(true);
+            btnSignIn.setEnabled(true);
+        }
     }
 
     @Override
     public void onLoginResponse(Boolean result, int code) {
+        iLoginPresenter.setProgressBarVisiblity(View.INVISIBLE);
+        btnSignInGoogle.setEnabled(true);
+        btnSignInFB.setEnabled(true);
+        btnSignIn.setEnabled(true);
+        if (result){
+            iLoginPresenter.onLoginSucuess();
+        }
+        else {
+            Toast.makeText(this, "Please input correct UserName and Password, code = " + code, Toast.LENGTH_SHORT).show();
 
+            btnSignInGoogle.setEnabled(true);
+            btnSignInFB.setEnabled(true);
+            btnSignIn.setEnabled(true);
+
+        }
     }
 
     @Override
     public void sendPParcelableObj(UserDetails userDetails) {
-
+        Intent intent = new Intent(this, LandingPage.class);
+        intent.putExtra("LoginDone", "Done");
+        setResult(Helper.REQUEST_LOGEDIN, intent);
+        intent.putExtra("UserDetails", userDetails);
+        startActivity(intent);
+        finish();
     }
 
     public void btnSignIn(View v){
@@ -149,25 +216,30 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     public void btnSignInFB(View v){
-        // Initialize Facebook Login button
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
-        mCallbackManager = CallbackManager.Factory.create();
+        System.out.println("facebook:onClick");
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
         LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            public LoginResult loginResult;
+
             @Override
             public void onSuccess(LoginResult loginResult) {
+                this.loginResult=loginResult;
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 iLoginPresenter.firebaseAuthWithFB(loginResult);
+                System.out.println("facebook:onSuccess : ");
             }
 
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
+                System.out.println("facebook:onError : onCancel : ");
                 // ...
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
+                System.out.println("facebook:onError : error : "+error.getMessage());
                 // ...
             }
         });

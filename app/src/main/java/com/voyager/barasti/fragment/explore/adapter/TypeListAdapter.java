@@ -52,11 +52,11 @@ public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.ViewHo
         System.out.println("FooterListAdapter has ben   onBindViewHolder");
         final TypeList typeList = typeLists.get(position);
         if(typeList.getName().equals("Apartment")){
-            typeList.setImgId(R.drawable.apartment);
+            typeList.setImgId(R.drawable.apartment_1);
         }else  if(typeList.getName().equals("Villa")){
-            typeList.setImgId(R.drawable.penthouse);
+            typeList.setImgId(R.drawable.penthouse_1);
         }else  if(typeList.getName().equals("Penthouse")){
-            typeList.setImgId(R.drawable.villa);
+            typeList.setImgId(R.drawable.villa_1);
         }
         holder.ivTypeHome.setImageResource(typeList.getImgId());
         /*Picasso.with(activity)

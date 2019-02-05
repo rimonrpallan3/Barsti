@@ -1,17 +1,24 @@
 package com.voyager.barasti.activity.profilepage.adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
 import com.voyager.barasti.activity.profilepage.model.HomeDetails;
 import com.voyager.barasti.activity.profilepage.model.HomeRooms;
+import com.voyager.barasti.common.FileUtils;
 
 import java.util.List;
 
@@ -23,6 +30,7 @@ public class RvHomeRoomImgAdapter extends RecyclerView.Adapter<RvHomeRoomImgAdap
 
     Activity activity;
     List<String> photos;
+    RvPopUpImgAdapter rvPopUpImgAdapter;
 
     public RvHomeRoomImgAdapter(List<String> photos, Activity activity){
         this.photos = photos;
@@ -45,9 +53,39 @@ public class RvHomeRoomImgAdapter extends RecyclerView.Adapter<RvHomeRoomImgAdap
                 .load(photos.get(position))
                 .placeholder(R.drawable.placeholder_image)
                 .into(holder.ivRoomImages);
-
+        holder.llRoomImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profileImgViewerPopup(activity, "", position);
+            }
+        });
 
     }
+
+    public void profileImgViewerPopup(Activity activity, String unitName, int currentPos){
+        Dialog dialogs = new Dialog(activity, R.style.HomeImageAnimation);
+        dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogs.setContentView(R.layout.content_home_img_viewer_popup);
+
+        ImageView ivHome = (ImageView) dialogs.findViewById(R.id.ivHome);
+        RecyclerView rvImageViewer = dialogs.findViewById(R.id.rvImageViewer);
+        TextView tvImgName;
+        LinearLayoutManager horizontalView;
+        tvImgName = (TextView) dialogs.findViewById(R.id.tvImgName);
+        rvPopUpImgAdapter = new RvPopUpImgAdapter(photos, activity,currentPos);
+        horizontalView = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true);
+        rvImageViewer.setLayoutManager(horizontalView);
+        rvImageViewer.setItemAnimator(new DefaultItemAnimator());
+        rvImageViewer.setAdapter(rvPopUpImgAdapter);
+        rvImageViewer.smoothScrollToPosition(currentPos);
+        tvImgName.setText(unitName);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialogs.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        dialogs.show();
+        dialogs.getWindow().setAttributes(lp);
+    }
+
 
     @Override
     public int getItemCount() {
@@ -56,9 +94,11 @@ public class RvHomeRoomImgAdapter extends RecyclerView.Adapter<RvHomeRoomImgAdap
 
     public class ServiceViewHolder extends RecyclerView.ViewHolder {
         ImageView ivRoomImages;
+        LinearLayout llRoomImg;
         public ServiceViewHolder(View view) {
             super(view);
             ivRoomImages=view.findViewById(R.id.ivRoomImages);
+            llRoomImg=view.findViewById(R.id.llRoomImg);
         }
     }
 }

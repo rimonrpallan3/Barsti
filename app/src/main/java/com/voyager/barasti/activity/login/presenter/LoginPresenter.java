@@ -25,7 +25,7 @@ import com.google.gson.Gson;
 import com.voyager.barasti.R;
 import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.activity.login.view.ILoginView;
-import com.voyager.barasti.activity.splashscreen.model.UserDetail;
+
 import com.voyager.barasti.webservices.ApiClient;
 import com.voyager.barasti.webservices.WebServices;
 
@@ -81,6 +81,12 @@ public class LoginPresenter implements ILoginPresenter{
         this.fireBaseToken = fireBaseToken;
     }
 
+
+    @Override
+    public void onLoginSucuess() {
+        iLoginView.sendPParcelableObj(userDetails);
+    }
+
     /**
      * Once the Google Sign in is successful,
      * Firebase authentication is done using Google's Sign In credentials.
@@ -104,12 +110,12 @@ public class LoginPresenter implements ILoginPresenter{
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            updateUI(user,"google");
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Snackbar.make(activity.findViewById(android.R.id.content), activity.getResources().getString(R.string.snack_error_acct), Snackbar.LENGTH_SHORT).show();
-                            updateUI(null);
+                            updateUI(null,"google");
                         }
                         // [START_EXCLUDE]
                         iLoginView.setLoader(View.GONE);
@@ -118,10 +124,30 @@ public class LoginPresenter implements ILoginPresenter{
                 });
     }
 
+    public void firebaseFacebookAuthWithAnonymous(final AccessToken token) {
+        final AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.getCurrentUser().linkWithCredential(credential)
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        System.out.println("Login Anonymous Linking Facebook: "+task.isSuccessful());
+                        Log.d(TAG, "linkWithCredential:onComplete:" + task.isSuccessful());
+
+                        if (!task.isSuccessful()) {
+                            System.out.println("Login initate login with Facebook");
+                            handleFacebookAccessToken(token);
+                        }
+
+                    }
+                });
+    }
+
+
     @Override
     public void firebaseAuthWithFB(final LoginResult loginResult) {
         Log.d(TAG, "handleFacebookAccessToken:" + loginResult.getAccessToken());
         final AccessToken token =loginResult.getAccessToken();
+        System.out.println("firebaseAuthWithFB : handleFacebookAccessToken success token : "+loginResult.getAccessToken());
         /*final AuthCredential credential = FacebookAuthProvider.getCredential(loginResult.getAccessToken().getToken());
         mAuth.getCurrentUser().linkWithCredential(credential)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
@@ -148,14 +174,16 @@ public class LoginPresenter implements ILoginPresenter{
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            System.out.println("firebaseAuthWithFB : success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            updateUI(user,"fb");
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(activity, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            System.out.println("Authentication : success");
+                            updateUI(null,"fb");
                         }
 
                         // ...
@@ -197,6 +225,9 @@ public class LoginPresenter implements ILoginPresenter{
         this.name = name;
         this.passwd = passwd;
         this.fireBaseToken = fireBaseToken;
+        UserDetails userDetails = new UserDetails();
+        userDetails.setLoginType("normal");
+        userDetails.setFcm(fireBaseToken);
         System.out.println("-------doLogin  email : " + name +
                 " Password : " + passwd);
         initUser();
@@ -219,12 +250,12 @@ public class LoginPresenter implements ILoginPresenter{
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
         Call<UserDetails> call = null;
-        if(userDetails.equals("Google")) {
-            call = webServices.loginGoogleUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.userName,userDetails.fcmId);
-        }else if(userDetails.equals("normal")){
-            call = webServices.loginNormalUser(name, passwd,"normal",fireBaseToken);
-        }else if(userDetails.equals("fb")){
-            call = webServices.loginFBUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.userName,userDetails.fcmId);
+        if(userDetails.getLoginType().equals("google")) {
+            call = webServices.loginGoogleUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getGoogleId(),userDetails.getFcm());
+        }else if(userDetails.getLoginType().equals("normal")){
+            call = webServices.loginNormalUser(name, passwd, userDetails.getLoginType(),userDetails.getFcm());
+        }else if(userDetails.getLoginType().equals("fb")){
+            call = webServices.loginFBUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getFcm());
         }
         try{
             call.enqueue(new Callback<UserDetails>() {
@@ -246,7 +277,7 @@ public class LoginPresenter implements ILoginPresenter{
                         System.out.println("-----------getFilters OfferList"+jsonString);
                     }
 
-                    final int code =userDetails.validateLoginResponseError(userDetails.getLogin_status());
+                    final int code =userDetails.validateLoginResponseError(userDetails.getError_status());
                     System.out.println("--------- validateLoginDataBaseApi code: "+code);
                     Boolean isLoginSuccess =true;
                     if (code != 0) {
@@ -274,11 +305,14 @@ public class LoginPresenter implements ILoginPresenter{
                     int code = -77;
                     iLoginView.onLoginResult(result, code);
                     t.printStackTrace();
+                    System.out.println("----- validateLoginDataBaseApi onFailure  = " +t.getMessage());
                     //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }catch (Exception e){
             e.printStackTrace();
+            System.out.println("----- validateLoginDataBaseApi Error Call null = " +e.getMessage());
+
         }
 
 
@@ -293,7 +327,7 @@ public class LoginPresenter implements ILoginPresenter{
 
     // [END auth_with_google]
     @Override
-    public void updateUI(final FirebaseUser user) {
+    public void updateUI(final FirebaseUser user,String userType) {
         System.out.println("SignInPresenter user : " + user);
         if (user != null) {
             state = true;
@@ -303,8 +337,8 @@ public class LoginPresenter implements ILoginPresenter{
             userImageUrl = String.valueOf(user.getPhotoUrl());
             userMob = user.getPhoneNumber();
             userDetails = new UserDetails(userId,userEmailAdress, userImageUrl, userName, userMob,state);
-            userDetails.setLoginType("Google");
-            userDetails.setFcmId(fireBaseToken);
+            userDetails.setLoginType(userType);
+            userDetails.setFcm(fireBaseToken);
             validateLoginDataBaseApi(userDetails);
             String json = new Gson().toJson(userDetails);
             System.out.println("SignInPresenter userDetails json : " + json);

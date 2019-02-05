@@ -217,14 +217,12 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     System.out.println(" ------------ TypeListViewHolder onBindViewHolder TypeBody position : "+position);
                     final TypeListViewHolder holderType = (TypeListViewHolder) holderViews;
                     final TypeBody typeItems = (TypeBody) exploreItems.get(position);
-                    String json = new Gson().toJson(typeItems);
-                    System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems  : "+json);
                     typeLists = typeItems.getTypeLists();
                     holderType.tvTypeHeading.setText(typeItems.getHeadingTitile());
                     System.out.println(" ------------ TypeListViewHolder onBindViewHolder TypeBody Heading : "+typeItems.getHeadingTitile());
                     typeListAdapter = new TypeListAdapter(typeLists, activity);
                     LinearLayoutManager HorizontalView = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
-                    holderType.rvTypeList.setLayoutManager(HorizontalView);
+                    holderType.rvTypeList.setLayoutManager(new GridLayoutManager(activity, 3));
                     holderType.rvTypeList.setItemAnimator(new DefaultItemAnimator());
                     holderType.rvTypeList.setAdapter(typeListAdapter);
                     holderType.rvTypeList.setNestedScrollingEnabled(true);

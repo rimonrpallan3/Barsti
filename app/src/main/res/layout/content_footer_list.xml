@@ -3,23 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_10"
-    android:maxHeight="150dp"
-    android:minHeight="150dp"
+    android:maxHeight="@dimen/_150"
+    android:minHeight="@dimen/_150"
     android:orientation="vertical">
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="150dp"
-        android:minHeight="150dp">
+        android:maxHeight="@dimen/_150"
+        android:minHeight="@dimen/_150">
 
         <ImageView
-            android:maxHeight="150dp"
-            android:minHeight="150dp"
+            android:maxHeight="@dimen/_150"
+            android:minHeight="@dimen/_150"
             android:id="@+id/ivFooterHome"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/_150"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder_image" />
 
@@ -30,11 +30,11 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="Heading"
+            android:background="@color/splsh_bg"
+            android:padding="@dimen/_04"
             android:maxLines="1"
-            android:ellipsize="end"
             android:singleLine="true"
-            android:ems="3"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/_14" />
 
     </FrameLayout>

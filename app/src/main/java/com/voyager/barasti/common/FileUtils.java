@@ -1,5 +1,7 @@
 package com.voyager.barasti.common;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +10,18 @@ import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+import com.voyager.barasti.R;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -23,7 +35,7 @@ import java.util.Comparator;
 
 public class FileUtils {
 
-    private FileUtils() {} //private constructor to enforce Singleton pattern
+    public FileUtils() {} //private constructor to enforce Singleton pattern
 
     /** TAG for log messages. */
     static final String TAG = "FileUtils";
@@ -56,6 +68,55 @@ public class FileUtils {
             // No extension.
             return "";
         }
+    }
+
+    public void profileImgViewerPopup(Activity activity, String unitName){
+        Dialog dialogs = new Dialog(activity, R.style.HomeImageAnimation);
+        dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogs.setContentView(R.layout.content_home_img_viewer_popup);
+
+        ImageView ivHome = (ImageView) dialogs.findViewById(R.id.ivHome);
+        RecyclerView rvImageViewer = dialogs.findViewById(R.id.rvImageViewer);
+        TextView tvImgName;
+        tvImgName = (TextView) dialogs.findViewById(R.id.tvImgName);
+
+
+        tvImgName.setText(unitName);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialogs.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        dialogs.show();
+        dialogs.getWindow().setAttributes(lp);
+    }
+
+
+    public void profileImgPopup(Activity activity, String unitName, String imgUrl){
+        Dialog dialogs = new Dialog(activity, R.style.HomeImageAnimation);
+        dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogs.setContentView(R.layout.content_home_img_popup);
+
+        ImageView ivHome = (ImageView) dialogs.findViewById(R.id.ivHome);
+        TextView tvImgName;
+        tvImgName = (TextView) dialogs.findViewById(R.id.tvImgName);
+        LinearLayout clergy_buttons_parent_layout = (LinearLayout) dialogs.findViewById(R.id.clergy_buttons_parent_layout);
+        clergy_buttons_parent_layout.setVisibility(View.GONE);
+
+        String imageUrl = imgUrl;
+
+        if (imageUrl != null && imageUrl.length()>0){
+            Picasso.with(activity).
+                    load(imageUrl).
+                    placeholder(R.drawable.profile_image).
+                    error(R.drawable.profile_image).
+                    into(ivHome);
+        }
+
+        tvImgName.setText(unitName);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialogs.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        dialogs.show();
+        dialogs.getWindow().setAttributes(lp);
     }
 
     /**

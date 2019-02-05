@@ -22,7 +22,7 @@ import com.google.gson.Gson;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 import com.voyager.barasti.R;
-import com.voyager.barasti.activity.splashscreen.model.UserDetail;
+import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.common.Helper;
 import com.voyager.barasti.activity.landingpage.helper.BackHandledFragment;
 import com.voyager.barasti.activity.landingpage.view.ILandingView;
@@ -48,7 +48,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
 
-    UserDetail userDetail;
+    UserDetails userDetail;
 
     ImageButton choseTripBackPress;
 
@@ -80,7 +80,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         Intent intent = getIntent();
         bundle = new Bundle();
         String hiddenBtn = intent.getStringExtra("btnHiddenBtn");
-        userDetail = (UserDetail) intent.getParcelableExtra("UserDetail");
+        userDetail = (UserDetails) intent.getParcelableExtra("UserDetails");
      /*   if (userDetail != null) {
             System.out.println("LandingPage -- UserDetail- name : " + userDetail.getFName());
             System.out.println("LandingPage -- UserDetail- Id : " + userDetail.getUserID());
@@ -239,7 +239,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         String json = sharedPrefs.getString("UserDetail", null);
         if (json != null) {
             System.out.println("-----------LandingPage uploadProfileName UserDetail" + json);
-            userDetail = gson.fromJson(json, UserDetail.class);
+            userDetail = gson.fromJson(json, UserDetails.class);
             //emailAddress = userDetail.getEmail();
         }
 
@@ -315,11 +315,11 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    public UserDetail getUserGsonInSharedPrefrences() {
+    public UserDetails getUserGsonInSharedPrefrences() {
         Gson gson = new Gson();
         String json = sharedPrefs.getString("UserDetail", null);
         if (json != null) {
-            UserDetail userDetail = gson.fromJson(json, UserDetail.class);
+            UserDetails userDetail = gson.fromJson(json, UserDetails.class);
             System.out.println("--------- SplashPresenter getUserGsonInSharedPrefrences" + json);
         }
         return userDetail;
