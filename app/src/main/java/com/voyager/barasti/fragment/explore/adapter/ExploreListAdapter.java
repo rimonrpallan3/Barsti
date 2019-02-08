@@ -31,6 +31,7 @@ import com.voyager.barasti.fragment.explore.model.exploreList.BodyItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.ExploreItems;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.FooterItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
+import com.voyager.barasti.fragment.explore.presenter.IExplorePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,15 +63,19 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     TypeListAdapter typeListAdapter;
     LinearLayoutManager HorizontalView;
     String json;
-
+    IExplorePresenter iExplorePresenter;
+    private int COUNT = 0;
     private  int currentPage = 0;
     private  int NUM_PAGES = 0;
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
+    int userID;
 
-    public ExploreListAdapter(List<ExploreItems> exploreItems, Activity activity) {
+    public ExploreListAdapter(List<ExploreItems> exploreItems, Activity activity,IExplorePresenter iExplorePresenter,int userID) {
         this.exploreItems = exploreItems;
         this.infalter = LayoutInflater.from(activity);
         this.activity = activity;
+        this.iExplorePresenter =iExplorePresenter;
+        this.userID =userID;
         /*String json = new Gson().toJson(exploreItems);
         System.out.println(" ------------ ExploreListAdapter Con onBindViewHolder ExploreItems  : "+json);*/
 
@@ -176,7 +181,7 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     });
                     bodyItemsList = exploreItems.get(position).getBodyItemsList();
                     houseLists = exploreItems.get(position).getHouseList();
-                    bodyListAdapter = new BodyListAdapter(houseLists, activity);
+                    bodyListAdapter = new BodyListAdapter(houseLists, activity,userID,iExplorePresenter );
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity.getApplicationContext());
                     bodyHolder.rvBodyList.setLayoutManager(mLayoutManager);
                     bodyHolder.rvBodyList.setItemAnimator(new DefaultItemAnimator());
@@ -186,8 +191,13 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     bodyHolder.btnExpandView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(activity, LoginActivity.class);
-                            activity.startActivity(intent);
+                            System.out.println("getListings_count : "+exploreItems.get(position).getMainList().getListings_count());
+                            System.out.println("getItemCount : "+bodyListAdapter.getItemCount());
+                            if (exploreItems.get(position).getMainList().getListings_count()<= bodyListAdapter.getItemCount()){
+                                Toast.makeText(activity,"Their is no more List to Fetch",Toast.LENGTH_SHORT).show();
+                            }else {
+                                iExplorePresenter.updatePropertyList(exploreItems.get(position).getMainList().getListings_count());
+                            }
                         }
                     });
                     //bodyListAdapter.setClickListener(this);
@@ -232,6 +242,16 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         }
 
+    }
+
+    public void addHouse(HouseList item){
+
+        int index = (houseLists.size());
+        bodyListAdapter.addItem(item);
+        notifyDataSetChanged();
+        //houseLists.add(item);
+        //bodyListAdapter.notifyDataSetChanged();
+        //notifyItemInserted(index);
     }
 
 

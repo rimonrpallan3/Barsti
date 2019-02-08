@@ -5,6 +5,7 @@ import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 27-Dec-18.
@@ -12,4 +13,5 @@ import java.util.ArrayList;
 
 public interface IExploreView {
     void setHomeList(ArrayList<ExploreItems> exploreItems);
+    void updatePropertyList(List<HouseList> houseListArrayList);
 }

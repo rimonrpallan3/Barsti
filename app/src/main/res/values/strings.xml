@@ -154,4 +154,11 @@
     <string name="phone_number_customer">9895184339</string>
     <string name="phone_number_emergency">9895184339</string>
 
+
+    <string name="customize">Customize</string>
+    <string name="show_dialog">Show Dialog</string>
+    <string name="undo">Undo</string>
+    <string name="calender_event">Events</string>
+    <string name="calender_no_event">No Events</string>
+
 </resources>

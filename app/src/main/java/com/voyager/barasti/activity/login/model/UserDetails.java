@@ -46,6 +46,7 @@ public class UserDetails implements IUserDetials,Parcelable {
     private String profile_src;
     public String userName;
     public String googleId;
+    public String facebookId;
     public String error_status;
     String passwd;
     String usermob;
@@ -54,8 +55,18 @@ public class UserDetails implements IUserDetials,Parcelable {
     String loginType;
     private List<LikedBean> liked;
 
+
     public UserDetails() {
     }
+
+    public UserDetails(String facebookId, String email, String profile_image, String userName, String usermob) {
+        this.facebookId = facebookId;
+        this.email = email;
+        this.profile_image = profile_image;
+        this.userName = userName;
+        this.usermob = usermob;
+    }
+
 
     public UserDetails(String googleId, String email, String profile_image, String userName, String usermob, Boolean state) {
         this.googleId = googleId;

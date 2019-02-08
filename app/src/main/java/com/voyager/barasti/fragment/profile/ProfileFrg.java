@@ -9,8 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.login.model.UserDetails;
+import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
 import com.voyager.barasti.fragment.profile.adapter.RecyclerViewProfileServiceListAdapter;
 import com.voyager.barasti.fragment.profile.model.PServiceList;
 import com.voyager.barasti.fragment.profile.presenter.IProfileFrgPresenter;
@@ -32,6 +35,11 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
     RecyclerView rvProfileListItems;
     List<PServiceList> pServiceLists;
     RecyclerViewProfileServiceListAdapter recyclerViewProfileServiceListAdapter;
+    Bundle bundle;
+    UserDetails userDetails;
+    TextView tvUserName;
+
+
     public ProfileFrg() {
     }
 
@@ -47,8 +55,26 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
         View rootView;
         rootView   = inflater.inflate(R.layout.fragment_profile, container, false);
         activity = getActivity();
+        bundle = this.getArguments();
         pServiceLists = new ArrayList<>();
+        tvUserName = rootView.findViewById(R.id.tvUserName);
+
         iProfileFrgPresenter = new ProfileFrgPresenter(this, activity);
+        if (bundle != null) {
+            try {
+                userDetails = bundle.getParcelable("UserDetails");
+                if(userDetails.getUserName()!=null){
+                tvUserName.setText(userDetails.getUserName());
+                }else if(userDetails.getFirst_name()!=null){
+                    tvUserName.setText(userDetails.getFirst_name());
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            System.out.println("Bundle Is null ");
+        }
 
         setProfileServiceList(rootView);
 

@@ -1,10 +1,13 @@
 package com.voyager.barasti.fragment.explore.model.ExploreHeader;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by User on 07-Jan-19.
  */
 
-public class Banner {
+public class Banner implements Parcelable {
 
 
     /**
@@ -70,4 +73,44 @@ public class Banner {
     public void setImage_url(String image_url) {
         this.image_url = image_url;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.url);
+        dest.writeString(this.image);
+        dest.writeString(this.status);
+        dest.writeString(this.image_url);
+    }
+
+    public Banner() {
+    }
+
+    protected Banner(Parcel in) {
+        this.id = in.readInt();
+        this.title = in.readString();
+        this.url = in.readString();
+        this.image = in.readString();
+        this.status = in.readString();
+        this.image_url = in.readString();
+    }
+
+    public static final Parcelable.Creator<Banner> CREATOR = new Parcelable.Creator<Banner>() {
+        @Override
+        public Banner createFromParcel(Parcel source) {
+            return new Banner(source);
+        }
+
+        @Override
+        public Banner[] newArray(int size) {
+            return new Banner[size];
+        }
+    };
 }

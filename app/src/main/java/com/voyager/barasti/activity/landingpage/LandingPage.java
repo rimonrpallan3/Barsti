@@ -22,11 +22,14 @@ import com.google.gson.Gson;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.landingpage.presenter.ILandingPresenter;
+import com.voyager.barasti.activity.landingpage.presenter.LandingPresenter;
 import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.common.Helper;
 import com.voyager.barasti.activity.landingpage.helper.BackHandledFragment;
 import com.voyager.barasti.activity.landingpage.view.ILandingView;
 import com.voyager.barasti.fragment.explore.ExploreFrg;
+import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
 import com.voyager.barasti.fragment.fav.FavouriteFag;
 import com.voyager.barasti.fragment.inbox.InboxFrg;
 import com.voyager.barasti.fragment.profile.ProfileFrg;
@@ -53,10 +56,12 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
     ImageButton choseTripBackPress;
 
     Bundle bundle;
+    String TAG = "";
 
     private BackHandledFragment selectedFragment;
     String[] fruits = {"Apple", "Banana", "Cherry", "Date", "Grape", "Kiwi", "Mango", "Pear"};
     public String currentTabFrg;
+    ILandingPresenter iLandingPresenter;
 
 
     @Override
@@ -71,34 +76,30 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
         activity = this;
+        TAG = getClass().getName();
 
         sharedPrefs = getSharedPreferences(Helper.UserDetails,
                 Context.MODE_PRIVATE);
         editor = sharedPrefs.edit();
-
-
+        iLandingPresenter = new LandingPresenter(this,TAG,this);
+        iLandingPresenter.getDetails();
         Intent intent = getIntent();
         bundle = new Bundle();
         String hiddenBtn = intent.getStringExtra("btnHiddenBtn");
         userDetail = (UserDetails) intent.getParcelableExtra("UserDetails");
-     /*   if (userDetail != null) {
-            System.out.println("LandingPage -- UserDetail- name : " + userDetail.getFName());
-            System.out.println("LandingPage -- UserDetail- Id : " + userDetail.getUserID());
+        if (userDetail != null) {
+            System.out.println("LandingPage -- UserDetail- name : " + userDetail.getFirst_name());
+            System.out.println("LandingPage -- UserDetail- Id : " + userDetail.getId());
             System.out.println("LandingPage -- UserDetail- fcm : " + userDetail.getFcm());
         } else if (hiddenBtn != null) {
             // do nothing //
         } else {
             getUserSDetails();
         }
-*/
 
-        ExploreFrg exploreFrg = new ExploreFrg();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, exploreFrg);
-        exploreFrg.setArguments(bundle);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-        currentTabFrg="explore";
+
+
+
 
         //toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
         //Creating the instance of ArrayAdapter containing list of fruit names
@@ -202,6 +203,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
             ProfileFrg profileFrg = new ProfileFrg();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.container, profileFrg);
+            bundle.putParcelable("UserDetails", userDetail);
             profileFrg.setArguments(bundle);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -334,6 +336,19 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         } else if (value.equals("backImg")) {
             choseTripBackPress.setVisibility(visibility);
         }
+    }
+
+    @Override
+    public void setMainList(MainList mainList) {
+        ExploreFrg exploreFrg = new ExploreFrg();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, exploreFrg);
+        bundle.putParcelable("MainList", mainList);
+        bundle.putParcelable("UserDetails", userDetail);
+        exploreFrg.setArguments(bundle);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        currentTabFrg="explore";
     }
 
     @Override

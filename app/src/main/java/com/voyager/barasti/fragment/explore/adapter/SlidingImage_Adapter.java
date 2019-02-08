@@ -14,6 +14,7 @@ import com.voyager.barasti.R;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.Banner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 19-Nov-18.
@@ -23,12 +24,12 @@ public class SlidingImage_Adapter extends PagerAdapter {
 
 
     private ArrayList<Integer> IMAGES;
-    private ArrayList<Banner> bannerArrayList;
+    private List<Banner> bannerArrayList;
     private LayoutInflater inflater;
     private Context context;
 
 
-    public SlidingImage_Adapter(Context context, ArrayList<Banner> bannerArrayList) {
+    public SlidingImage_Adapter(Context context, List<Banner> bannerArrayList) {
         this.context = context;
         this.bannerArrayList=bannerArrayList;
         inflater = LayoutInflater.from(context);

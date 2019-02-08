@@ -176,14 +176,14 @@ public class LoginPresenter implements ILoginPresenter{
                             Log.d(TAG, "signInWithCredential:success");
                             System.out.println("firebaseAuthWithFB : success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user,"fb");
+                            updateUI(user,"facebook");
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(activity, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             System.out.println("Authentication : success");
-                            updateUI(null,"fb");
+                            updateUI(null,"facebook");
                         }
 
                         // ...
@@ -254,7 +254,7 @@ public class LoginPresenter implements ILoginPresenter{
             call = webServices.loginGoogleUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getGoogleId(),userDetails.getFcm());
         }else if(userDetails.getLoginType().equals("normal")){
             call = webServices.loginNormalUser(name, passwd, userDetails.getLoginType(),userDetails.getFcm());
-        }else if(userDetails.getLoginType().equals("fb")){
+        }else if(userDetails.getLoginType().equals("facebook")){
             call = webServices.loginFBUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getFcm());
         }
         try{
@@ -262,13 +262,13 @@ public class LoginPresenter implements ILoginPresenter{
                 @Override
                 public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {
                     UserDetails userDetails  = response.body();
-                    System.out.println("-------validateLoginDataBaseApi  email : " + name +
+                    /*System.out.println("-------validateLoginDataBaseApi  email : " + name +
                             " Password : " + passwd +
                             " LName : " + userDetails.getFirst_name()+
                             " phno : " + userDetails.getEmail() +
                             " city : " + userDetails.getEmail() +
                             "userID: " + userDetails.getId()+
-                            "imageUrl"+ userDetails.getProfile_src());
+                            "imageUrl"+ userDetails.getProfile_src());*/
                     Gson gson = new Gson();
                     String jsonString = gson.toJson(userDetails);
 
@@ -276,8 +276,11 @@ public class LoginPresenter implements ILoginPresenter{
                     if(jsonString!=null) {
                         System.out.println("-----------getFilters OfferList"+jsonString);
                     }
+                    /*if(userDetails.getError_status()==null){
+                        userDetails.setError_status("");
+                    }*/
 
-                    final int code =userDetails.validateLoginResponseError(userDetails.getError_status());
+                    final int code = userDetails.validateLoginResponseError(userDetails.getError_status());
                     System.out.println("--------- validateLoginDataBaseApi code: "+code);
                     Boolean isLoginSuccess =true;
                     if (code != 0) {
@@ -327,7 +330,7 @@ public class LoginPresenter implements ILoginPresenter{
 
     // [END auth_with_google]
     @Override
-    public void updateUI(final FirebaseUser user,String userType) {
+    public void updateUI( final FirebaseUser user, String userType ) {
         System.out.println("SignInPresenter user : " + user);
         if (user != null) {
             state = true;
@@ -336,7 +339,11 @@ public class LoginPresenter implements ILoginPresenter{
             userEmailAdress = user.getEmail();
             userImageUrl = String.valueOf(user.getPhotoUrl());
             userMob = user.getPhoneNumber();
-            userDetails = new UserDetails(userId,userEmailAdress, userImageUrl, userName, userMob,state);
+            if(userType.equals("facebook")){
+                userDetails = new UserDetails(userId,userEmailAdress, userImageUrl, userName, userMob);
+            }else {
+                userDetails = new UserDetails(userId, userEmailAdress, userImageUrl, userName, userMob, state);
+            }
             userDetails.setLoginType(userType);
             userDetails.setFcm(fireBaseToken);
             validateLoginDataBaseApi(userDetails);
@@ -348,7 +355,7 @@ public class LoginPresenter implements ILoginPresenter{
         }
     }
 
-    private void addUserGsonInSharedPrefrences(UserDetails UserDetails ){
+    private void addUserGsonInSharedPrefrences(UserDetails UserDetails){
         Gson gson = new Gson();
         String jsonString = gson.toJson(UserDetails);
         //UserDetails user1 = gson.fromJson(jsonString,UserDetails.class);

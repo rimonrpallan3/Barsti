@@ -20,6 +20,7 @@ import com.voyager.barasti.R;
 import com.voyager.barasti.activity.landingpage.LandingPage;
 import com.voyager.barasti.activity.profilepage.ProfilePage;
 import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
+import com.voyager.barasti.fragment.explore.presenter.IExplorePresenter;
 
 
 import java.util.HashMap;
@@ -39,10 +40,14 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
     public List<HouseList> houseLists;
     //private CustomFilter mFilter;
     Activity activity;
+    int userID;
+    IExplorePresenter iExplorePresenter;
 
-    public BodyListAdapter(List<HouseList> houseLists, Activity activity) {
+    public BodyListAdapter(List<HouseList> houseLists, Activity activity,int userID,IExplorePresenter iExplorePresenter) {
         this.houseLists = houseLists;
         this.activity = activity;
+        this.userID = userID;
+        this.iExplorePresenter = iExplorePresenter;
         //mFilter = new CustomFilter(this, items);
         // System.out.println("MapPlaceSearch has ben ListMapApiDirectionSourceAdapter ");
     }
@@ -79,15 +84,23 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
             @Override
             public void liked(LikeButton likeButton) {
                 likeButton.setLiked(true);
+                iExplorePresenter.btnLiked(userID,bodyItems.getId());
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
                 likeButton.setLiked(false);
-
+                iExplorePresenter.btnUnliked(userID,bodyItems.getId());
             }
         });
 
+    }
+    public void addItem(HouseList item){
+
+        int index = (houseLists.size());
+        houseLists.add(item);
+        notifyDataSetChanged();
+        //notifyItemInserted(index);
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.fragment.explore.adapter.ExploreListAdapter;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.FooterItems;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocList;
@@ -19,11 +20,13 @@ import com.voyager.barasti.fragment.explore.model.ExploreHeader.HeaderItem;
 import com.voyager.barasti.fragment.explore.model.exploreList.BodyItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.ExploreItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
+import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
 import com.voyager.barasti.fragment.explore.presenter.ExplorePresenter;
 import com.voyager.barasti.fragment.explore.presenter.IExplorePresenter;
 import com.voyager.barasti.fragment.explore.view.IExploreView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 18-Dec-18.
@@ -37,7 +40,9 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
     ExploreListAdapter exploreListAdapter;
 
     IExplorePresenter explorePresenter;
-
+    Bundle bundle;
+    MainList mainList;
+    UserDetails userDetails;
 
     public ExploreFrg() {
     }
@@ -53,10 +58,24 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
         activity = getActivity();
-
+        bundle = this.getArguments();
         rvExploreList = rootView.findViewById(R.id.rvExplore);
         explorePresenter = new ExplorePresenter(this,getActivity());
-        explorePresenter.getHomeListPresenter();
+        if (bundle != null) {
+            try {
+                userDetails = bundle.getParcelable("UserDetails");
+                mainList = bundle.getParcelable("MainList");
+                explorePresenter.setMainList(mainList);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            System.out.println("Bundle Is null ");
+        }
+
+
+
+        //explorePresenter.getHomeListPresenter();
 
 
         //exploreListAdapter.setClickListener(this);
@@ -228,11 +247,19 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
 
     @Override
     public void setHomeList(ArrayList<ExploreItems> exploreItems) {
-        exploreListAdapter = new ExploreListAdapter(exploreItems, getActivity());
+        exploreListAdapter = new ExploreListAdapter(exploreItems, getActivity(),explorePresenter,userDetails.getId());
         rvExploreList.setLayoutFrozen(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rvExploreList.setLayoutManager(mLayoutManager);
         rvExploreList.setItemAnimator(new DefaultItemAnimator());
         rvExploreList.setAdapter(exploreListAdapter);
+    }
+
+    @Override
+    public void updatePropertyList(List<HouseList> houseListArrayList) {
+        for(int i=0; i<houseListArrayList.size();i++){
+            HouseList houseList = houseListArrayList.get(i);
+            exploreListAdapter.addHouse(houseList);
+        }
     }
 }

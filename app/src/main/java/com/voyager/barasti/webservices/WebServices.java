@@ -7,9 +7,10 @@ import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.activity.profilepage.model.HomeDetails;
 import com.voyager.barasti.activity.typelist.model.TypedDetail;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.Banner;
-import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
-import com.voyager.barasti.fragment.explore.model.exploreList.NewList;
+import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
+import com.voyager.barasti.fragment.explore.model.exploreList.LikeUnLike;
+import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public interface WebServices {
 
 
  /*   @GET("listings/4/0")
-    Call<NewList> doGetHouseList();
+    Call<MainList> doGetHouseList();
     @GET("sliders")
     Call<ArrayList<Banner>> doGetbannerlist();
     @GET("locations/2/0")
@@ -35,8 +36,21 @@ public interface WebServices {
     @GET("listings/{id}")
     Call<HomeDetails> doGetHomeDetails(@Path("id") int id);*/
 
+    @GET("home")
+    Call<MainList> doGetDetails();
+
+    /*Here limit is the total list count to be fetched
+    * and offset is the pointer form which data fetching should start form */
     @GET("listings/{limit}/{offset}")
-    Call<NewList> doGetHouseList(@Path("limit") int limit, @Path("offset") int offset);
+    Call<MainList> updateHouseList(@Path("limit") int limit, @Path("offset") int offset);
+    @FormUrlEncoded
+    @GET("propertyLike")
+    Call<LikeUnLike> propertyLike(@Nullable @Field("user_id") Integer userID,
+                                   @Nullable @Field("property_id") Integer propertyID);
+    @FormUrlEncoded
+    @GET("propertyUnlike")
+    Call<LikeUnLike> propertyUnlike(@Nullable @Field("user_id") Integer email,
+                                    @Nullable @Field("property_id") Integer papropertyIDsswd);
 
     @GET("sliders")
     Call<ArrayList<Banner>> doGetbannerlist();
@@ -138,10 +152,6 @@ public interface WebServices {
     Call<EndTrip> endOnGoingTrip(@Nullable @Field("user_id") int userId,
                                  @Nullable @Field("trip_id") int tripId);
 
-    @FormUrlEncoded
-    @POST("getCars/")
-    Call<TripCarDetails> getTripDetails(@Nullable @Field("pickup_loc") String latLng,
-                                        @Nullable @Field("user_id") int userId);
 
     @FormUrlEncoded
     @POST("logout/")

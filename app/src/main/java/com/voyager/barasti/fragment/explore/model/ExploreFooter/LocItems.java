@@ -1,30 +1,25 @@
 package com.voyager.barasti.fragment.explore.model.ExploreFooter;
 
-import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by User on 27-Dec-18.
  */
 
-public class LocItems  {
-
+public class LocItems implements Parcelable {
     /**
-     * id : 5
-     * name : Berlin
-     * image : starting_city_5.jpg
-     * status : Active
-     * image_url : http://betaholder.com/barastiapp/public/front/images/starting_cities/starting_city_5.jpg
+     * name : Oman
+     * property_id : 6
+     * photo : 1546237787_Chrysanthemum.jpg
+     * image_url : http://betaholder.com/barastiapp/public/images/property/6/1546237787_Chrysanthemum.jpg
      */
 
-    private int id;
     private String name;
-    private String image;
-    private String status;
+    private int property_id;
+    private String photo;
     private String image_url;
     private int viewType;
-
-    public LocItems() {
-    }
 
     public int getViewType() {
         return viewType;
@@ -32,15 +27,6 @@ public class LocItems  {
 
     public void setViewType(int viewType) {
         this.viewType = viewType;
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -51,20 +37,20 @@ public class LocItems  {
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
+    public int getProperty_id() {
+        return property_id;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setProperty_id(int property_id) {
+        this.property_id = property_id;
     }
 
-    public String getStatus() {
-        return status;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getImage_url() {
@@ -75,4 +61,62 @@ public class LocItems  {
         this.image_url = image_url;
     }
 
+
+
+  /*  *//**
+     * id : 5
+     * name : Berlin
+     * image : starting_city_5.jpg
+     * status : Active
+     * image_url : http://betaholder.com/barastiapp/public/front/images/starting_cities/starting_city_5.jpg
+     *//*
+
+    private int id;
+    private String name;
+    private String image;
+    private String status;
+    private String image_url;
+    private int viewType;
+
+    public LocItems() {
+    }
+*/
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeInt(this.property_id);
+        dest.writeString(this.photo);
+        dest.writeString(this.image_url);
+        dest.writeInt(this.viewType);
+    }
+
+    public LocItems() {
+    }
+
+    protected LocItems(Parcel in) {
+        this.name = in.readString();
+        this.property_id = in.readInt();
+        this.photo = in.readString();
+        this.image_url = in.readString();
+        this.viewType = in.readInt();
+    }
+
+    public static final Parcelable.Creator<LocItems> CREATOR = new Parcelable.Creator<LocItems>() {
+        @Override
+        public LocItems createFromParcel(Parcel source) {
+            return new LocItems(source);
+        }
+
+        @Override
+        public LocItems[] newArray(int size) {
+            return new LocItems[size];
+        }
+    };
 }

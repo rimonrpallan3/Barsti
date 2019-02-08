@@ -4,6 +4,7 @@ package com.voyager.barasti.fragment.explore.model.ExploreHeader;
 import com.voyager.barasti.fragment.explore.model.exploreList.ExploreItems;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 25-May-18.
@@ -22,14 +23,14 @@ public class HeaderItem extends ExploreItems {
     private String ImageUrl;
     private int imgHeader;
     private ArrayList<Integer> IMAGES;
-    private ArrayList<Banner> banners;
+    private List<Banner> banners;
 
 
-    public ArrayList<Banner> getBanners() {
+    public List<Banner> getBanners() {
         return banners;
     }
 
-    public void setBanners(ArrayList<Banner> banners) {
+    public void setBanners(List<Banner> banners) {
         this.banners = banners;
     }
 
