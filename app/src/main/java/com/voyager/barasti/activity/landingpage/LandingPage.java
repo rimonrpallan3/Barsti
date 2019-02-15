@@ -238,7 +238,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
 
     private void getUserSDetails() {
         Gson gson = new Gson();
-        String json = sharedPrefs.getString("UserDetail", null);
+        String json = sharedPrefs.getString("UserDetails", null);
         if (json != null) {
             System.out.println("-----------LandingPage uploadProfileName UserDetail" + json);
             userDetail = gson.fromJson(json, UserDetails.class);

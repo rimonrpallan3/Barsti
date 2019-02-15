@@ -4,15 +4,16 @@
     android:id="@+id/llTypedHome"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_04"
+    android:background="?attr/selectableItemBackground"
     android:orientation="vertical">
 
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/_04"
-        app:cardElevation="@dimen/_04">
+        android:layout_margin="@dimen/_10"
+        android:elevation="@dimen/_10"
+        app:cardElevation="@dimen/_10">
 
 
     <LinearLayout
@@ -23,7 +24,7 @@
         <ImageView
             android:id="@+id/ivTypeHome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_100"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder_image" />
 

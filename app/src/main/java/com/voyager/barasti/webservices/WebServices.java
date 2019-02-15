@@ -44,11 +44,11 @@ public interface WebServices {
     @GET("listings/{limit}/{offset}")
     Call<MainList> updateHouseList(@Path("limit") int limit, @Path("offset") int offset);
     @FormUrlEncoded
-    @GET("propertyLike")
+    @POST("propertyLike")
     Call<LikeUnLike> propertyLike(@Nullable @Field("user_id") Integer userID,
                                    @Nullable @Field("property_id") Integer propertyID);
     @FormUrlEncoded
-    @GET("propertyUnlike")
+    @POST("propertyUnlike")
     Call<LikeUnLike> propertyUnlike(@Nullable @Field("user_id") Integer email,
                                     @Nullable @Field("property_id") Integer papropertyIDsswd);
 

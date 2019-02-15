@@ -230,7 +230,7 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     typeLists = typeItems.getTypeLists();
                     holderType.tvTypeHeading.setText(typeItems.getHeadingTitile());
                     System.out.println(" ------------ TypeListViewHolder onBindViewHolder TypeBody Heading : "+typeItems.getHeadingTitile());
-                    typeListAdapter = new TypeListAdapter(typeLists, activity);
+                    typeListAdapter = new TypeListAdapter(typeLists, activity,userID);
                     LinearLayoutManager HorizontalView = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
                     holderType.rvTypeList.setLayoutManager(new GridLayoutManager(activity, 3));
                     holderType.rvTypeList.setItemAnimator(new DefaultItemAnimator());

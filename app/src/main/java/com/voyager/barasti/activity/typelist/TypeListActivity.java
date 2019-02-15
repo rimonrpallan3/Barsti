@@ -30,7 +30,7 @@ public class TypeListActivity extends AppCompatActivity implements ITypeView{
     TypedListAdapter typedListAdapter;
     TypeList typeList;
     TextView tvTBHeading;
-
+    int userID;
 
 
     @Override
@@ -42,6 +42,7 @@ public class TypeListActivity extends AppCompatActivity implements ITypeView{
         iTypeListPresenter = new TypeListPresenter(this, this);
         Intent intent = getIntent();
         typeList = intent.getParcelableExtra("TypeListActivity");
+        userID = intent.getIntExtra("userID",userID);
         if(typeList!=null){
             iTypeListPresenter.getTypedAptData(typeList);
             tvTBHeading.setText(typeList.getName());
@@ -71,7 +72,7 @@ public class TypeListActivity extends AppCompatActivity implements ITypeView{
 
     @Override
     public void setTypedAdapterList(TypedDetail typedAdapterList) {
-        typedListAdapter = new TypedListAdapter(typedAdapterList.getProperties(), this);
+        typedListAdapter = new TypedListAdapter(typedAdapterList.getProperties(), this,iTypeListPresenter,userID);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getParent());
         rvTypeList.setLayoutManager(mLayoutManager);
         rvTypeList.setItemAnimator(new DefaultItemAnimator());

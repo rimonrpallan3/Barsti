@@ -74,12 +74,18 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, ProfilePage.class);
-                intent.putExtra("currentId", bodyItems.getId());
+                intent.putExtra("propertyId", bodyItems.getId());
                 intent.putExtra("priceValue", bodyItems.getPrice());
                 intent.putExtra("reviewRate", bodyItems.getReviews_count());
+                intent.putExtra("userID", userID);
                 activity.startActivity(intent);
             }
         });
+        if(bodyItems.getLike_status()!=0){
+            holder.lbHomeFav.setLiked(true);
+        }else {
+            holder.lbHomeFav.setLiked(false);
+        }
         holder.lbHomeFav.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {

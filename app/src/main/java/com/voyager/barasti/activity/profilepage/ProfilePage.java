@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.MapView;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.calenderactivity.CalenderActivity;
+import com.voyager.barasti.activity.calenderactivity.CalenderActivity_v2;
+import com.voyager.barasti.activity.calenderactivity.CalenderActivity_v3;
 import com.voyager.barasti.activity.login.LoginActivity;
 import com.voyager.barasti.activity.profilepage.adapter.ProfilePageAdapter;
 import com.voyager.barasti.activity.profilepage.model.HomeDetails;
@@ -41,9 +44,10 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
     MapView mvHouseDetail;
     TextView tvHomeAmt;
     TextView tvFavValue;
-    int currentId=0;
+    int propertyId=0;
     int priceValue=0;
     int reviewRate=0;
+    int userID=0;
     LinearLayout llContBtn;
     List<HomeRooms> homeRoomsList;
 
@@ -61,12 +65,13 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
         iProfiePresenter = new ProfilePresenter(this,this);
         Intent intent = getIntent();
 
-        currentId = intent.getIntExtra("currentId",currentId);
+        propertyId = intent.getIntExtra("propertyId",propertyId);
         priceValue = intent.getIntExtra("priceValue",priceValue);
         reviewRate = intent.getIntExtra("reviewRate",reviewRate);
+        reviewRate = intent.getIntExtra("userID",userID);
 
-        if(currentId!=0){
-            iProfiePresenter.getHomeData(currentId);
+        if(propertyId!=0){
+            iProfiePresenter.getHomeData(propertyId);
             tvHomeAmt.setText(priceValue+" / Night");
             tvFavValue.setText(""+reviewRate);
         }else {
@@ -76,8 +81,10 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
         llContBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(getApplicationContext(), CalenderActivity_v3.class);
+                intent.putExtra("propertyId", propertyId);
+                intent.putExtra("userID", userID);
+                startActivity(intent);
             }
         });
 
@@ -100,7 +107,7 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
         this.homeDetails = homeDetails;
         homeDetailsList.add(homeDetails);
         getHouseRomeDetials();
-        profilePageAdapter = new ProfilePageAdapter(homeDetailsList,this,iProfiePresenter,homeRoomsList);
+        profilePageAdapter = new ProfilePageAdapter(homeDetailsList,this,iProfiePresenter,homeRoomsList,userID);
         rvProfilePage.setLayoutFrozen(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         rvProfilePage.setLayoutManager(mLayoutManager);

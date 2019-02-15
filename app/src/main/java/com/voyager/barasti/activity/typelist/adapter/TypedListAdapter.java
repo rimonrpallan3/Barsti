@@ -11,10 +11,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
 import com.voyager.barasti.activity.profilepage.ProfilePage;
 import com.voyager.barasti.activity.typelist.model.PropertiesBean;
+import com.voyager.barasti.activity.typelist.presenter.ITypeListPresenter;
 
 import java.util.List;
 
@@ -31,10 +34,14 @@ public class TypedListAdapter extends RecyclerView.Adapter<TypedListAdapter.View
     public List<PropertiesBean> propertiesBeans;
     //private CustomFilter mFilter;
     Activity activity;
+    ITypeListPresenter iTypeListPresenter;
+    int userID;
 
-    public TypedListAdapter(List<PropertiesBean> propertiesBeans, Activity activity) {
+    public TypedListAdapter(List<PropertiesBean> propertiesBeans, Activity activity,ITypeListPresenter iTypeListPresenter,int userID) {
         this.propertiesBeans = propertiesBeans;
         this.activity = activity;
+        this.iTypeListPresenter = iTypeListPresenter;
+        this.userID = userID;
         //mFilter = new CustomFilter(this, items);
         // System.out.println("MapPlaceSearch has ben ListMapApiDirectionSourceAdapter ");
     }
@@ -65,6 +72,27 @@ public class TypedListAdapter extends RecyclerView.Adapter<TypedListAdapter.View
                 intent.putExtra("priceValue", propertiesBean.getPrice());
                 intent.putExtra("reviewRate", propertiesBean.getReviews_count());
                 activity.startActivity(intent);
+            }
+        });
+        if(propertiesBean.getLike_status()==0){
+            holder.lbHomeFav.setLiked(false);
+        }else {
+            holder.lbHomeFav.setLiked(true);
+        }
+
+        holder.lbHomeFav.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                likeButton.setLiked(true);
+                iTypeListPresenter.btnLiked(userID,propertiesBean.getId());
+                System.out.println("lbHomeFav iTypeListPresenter liked");
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                likeButton.setLiked(false);
+                iTypeListPresenter.btnUnliked(userID,propertiesBean.getId());
+                System.out.println("lbHomeFav iTypeListPresenter unLiked");
             }
         });
 
@@ -98,6 +126,7 @@ public class TypedListAdapter extends RecyclerView.Adapter<TypedListAdapter.View
         ImageView ivFav3;
         ImageView ivFav4;
         ImageView ivFav5;
+        LikeButton lbHomeFav;
 
         public ViewHolder(View view) {
             super(view);
@@ -111,6 +140,7 @@ public class TypedListAdapter extends RecyclerView.Adapter<TypedListAdapter.View
             tvHomeAmt = view.findViewById(R.id.tvHomeAmt);
             tvHeading = view.findViewById(R.id.tvHeading);
             tvFavValue = view.findViewById(R.id.tvFavValue);
+            lbHomeFav = view.findViewById(R.id.lbHomeFav);
         }
 
         @Override

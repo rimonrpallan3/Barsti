@@ -77,14 +77,16 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
 
     MapFrg mapFragmentView;
     Bundle bundle;
+    int userID;
 
 
-    public ProfilePageAdapter(List<HomeDetails> homeDetailsList, Activity activity,IProfiePresenter iProfiePresenter,List<HomeRooms> homeRoomsList) {
+    public ProfilePageAdapter(List<HomeDetails> homeDetailsList, Activity activity,IProfiePresenter iProfiePresenter,List<HomeRooms> homeRoomsList,int userID) {
         this.homeDetailsList = homeDetailsList;
         this.iProfiePresenter = iProfiePresenter;
         this.homeRoomsList = homeRoomsList;
         this.infalter = LayoutInflater.from(activity);
         this.activity = activity;
+        this.userID = userID;
         bundle = new Bundle();
         /*String json = new Gson().toJson(homeDetailsList);
         System.out.println(" ------------ ExploreListAdapter Con onBindViewHolder ExploreItems  : "+json);*/
@@ -167,7 +169,7 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
                 holderViews.rvHouseImages.setVisibility(View.GONE);
             }
 
-            recommendedListAdapter = new RecommendedListAdapter(homeDetailsList1.getRecommend(), activity);
+            recommendedListAdapter = new RecommendedListAdapter(homeDetailsList1.getRecommend(),activity,userID,iProfiePresenter);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity.getApplicationContext());
             holderViews.rvHomeRecommended.setLayoutManager(mLayoutManager);
             holderViews.rvHomeRecommended.setItemAnimator(new DefaultItemAnimator());

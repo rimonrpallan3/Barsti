@@ -13,6 +13,7 @@ public class HouseList implements Parcelable {
 
 
     /**
+     * like_status: 4
      * id : 15
      * name : 2000 Sq.Ft Room in Sharjah
      * space_type : 2
@@ -40,6 +41,7 @@ public class HouseList implements Parcelable {
      */
 
     private int id;
+    private int like_status;
     private String name;
     private int space_type;
     private int property_type;
@@ -63,6 +65,14 @@ public class HouseList implements Parcelable {
     private int overall_rating;
     private String cover_photo;
     private List<String> photos;
+
+    public int getLike_status() {
+        return like_status;
+    }
+
+    public void setLike_status(int like_status) {
+        this.like_status = like_status;
+    }
 
     public int getId() {
         return id;
@@ -257,6 +267,9 @@ public class HouseList implements Parcelable {
     }
 
 
+    public HouseList() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -265,6 +278,7 @@ public class HouseList implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
+        dest.writeInt(this.like_status);
         dest.writeString(this.name);
         dest.writeInt(this.space_type);
         dest.writeInt(this.property_type);
@@ -290,11 +304,9 @@ public class HouseList implements Parcelable {
         dest.writeStringList(this.photos);
     }
 
-    public HouseList() {
-    }
-
     protected HouseList(Parcel in) {
         this.id = in.readInt();
+        this.like_status = in.readInt();
         this.name = in.readString();
         this.space_type = in.readInt();
         this.property_type = in.readInt();

@@ -11,4 +11,7 @@ public interface IProfiePresenter {
 
     public void getHomeData(int houseId);
     public void setMapView(MapView mvHouseDetail);
+
+    void btnLiked(Integer userID,Integer propertyId);
+    void btnUnliked(Integer userID,Integer propertyId);
 }

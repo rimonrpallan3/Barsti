@@ -7,6 +7,7 @@ package com.voyager.barasti.activity.typelist.model;
 public class PropertiesBean {
 
     /**
+     * like_status: 15
      * id : 9
      * name : Entire home/apt in Dubai
      * space_type : 1
@@ -24,6 +25,7 @@ public class PropertiesBean {
      */
 
     private int id;
+    private int like_status;
     private String name;
     private int space_type;
     private int property_type;
@@ -37,6 +39,14 @@ public class PropertiesBean {
     private int reviews_count;
     private int overall_rating;
     private String cover_photo;
+
+    public int getLike_status() {
+        return like_status;
+    }
+
+    public void setLike_status(int like_status) {
+        this.like_status = like_status;
+    }
 
     public int getId() {
         return id;

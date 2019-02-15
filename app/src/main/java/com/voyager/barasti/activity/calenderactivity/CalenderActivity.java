@@ -58,7 +58,7 @@ public class CalenderActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         //church_id = intent.getStringExtra("church_id");
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        /*toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.calender_event);
 
@@ -68,9 +68,9 @@ public class CalenderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
             }
-        });
-        events_recyclerview = (RecyclerView) findViewById(R.id.events_recyclerview);
-        framelayout_no_events = (FrameLayout) findViewById(R.id.framelayout_no_events);
+        });*/
+        /*events_recyclerview = (RecyclerView) findViewById(R.id.events_recyclerview);
+        framelayout_no_events = (FrameLayout) findViewById(R.id.framelayout_no_events);*/
 
         /*events_adapter = new Faith_Church_Events_Adapter(activity, church_events);
         events_recyclerview.setHasFixedSize(true);
@@ -113,11 +113,11 @@ public class CalenderActivity extends AppCompatActivity {
             args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
 
             // Uncomment this to customize startDayOfWeek
-            // args.putInt(CaldroidFragment.START_DAY_OF_WEEK,
-            // CaldroidFragment.TUESDAY); // Tuesday
+             args.putInt(CaldroidFragment.START_DAY_OF_WEEK,
+             CaldroidFragment.TUESDAY); // Tuesday
 
             // Uncomment this line to use Caldroid in compact mode
-            // args.putBoolean(CaldroidFragment.SQUARE_TEXT_VIEW_CELL, false);
+             args.putBoolean(CaldroidFragment.SQUARE_TEXT_VIEW_CELL, false);
 
             // Uncomment this line to use dark theme
 //            args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
@@ -144,8 +144,8 @@ public class CalenderActivity extends AppCompatActivity {
             @Override
             public void onChangeMonth(int month, int year) {
                 String text = "Month: " + month + " Year: " + year;
-                /*Toast.makeText(getApplicationContext(), text,
-                        Toast.LENGTH_SHORT).show();*/
+                Toast.makeText(getApplicationContext(), text,
+                        Toast.LENGTH_SHORT).show();
                 //church_events.clear();
                 //fetch_event_details(month, year);
 
@@ -161,9 +161,9 @@ public class CalenderActivity extends AppCompatActivity {
             @Override
             public void onCaldroidViewCreated() {
                 if (caldroidFragment.getLeftArrowButton() != null) {
-                    /*Toast.makeText(getApplicationContext(),
+                    Toast.makeText(getApplicationContext(),
                             "Caldroid view is created", Toast.LENGTH_SHORT)
-                            .show();*/
+                            .show();
                 }
             }
 
@@ -293,13 +293,13 @@ public class CalenderActivity extends AppCompatActivity {
             }
         });
 
-        events_recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+       /* events_recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 //events_adapter.notifyDataSetChanged();
             }
-        });
+        });*/
 
     } // end of onCreate()
 

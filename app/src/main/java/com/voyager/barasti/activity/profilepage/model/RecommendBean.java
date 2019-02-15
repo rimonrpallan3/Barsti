@@ -37,6 +37,7 @@ public class RecommendBean {
      */
 
     private int id;
+    private int like_status;
     private String name;
     private Object url_name;
     private int host_id;
@@ -63,6 +64,14 @@ public class RecommendBean {
     private int reviews_count;
     private int overall_rating;
     private String cover_photo;
+
+    public int getLike_status() {
+        return like_status;
+    }
+
+    public void setLike_status(int like_status) {
+        this.like_status = like_status;
+    }
 
     public int getPrice() {
         return price;

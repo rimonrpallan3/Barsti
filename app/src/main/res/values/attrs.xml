@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="CalendarPickerView">
+    <attr name="android:background"/>
+    <attr name="tsquare_dividerColor" format="color"/>
+    <attr name="tsquare_dayBackground" format="reference"/>
+    <attr name="tsquare_dayTextColor" format="color"/>
+    <attr name="tsquare_titleTextColor" format="color"/>
+    <attr name="tsquare_displayHeader" format="boolean"/>
+    <attr name="tsquare_headerTextColor" format="color"/>
+  </declare-styleable>
+
+  <declare-styleable name="calendar_cell">
+    <attr name="tsquare_state_selectable" format="boolean" />
+    <attr name="tsquare_state_current_month" format="boolean" />
+    <attr name="tsquare_state_today" format="boolean" />
+    <attr name="tsquare_state_range_first" format="boolean" />
+    <attr name="tsquare_state_range_middle" format="boolean" />
+    <attr name="tsquare_state_range_last" format="boolean" />
+    <attr name="tsquare_state_highlighted" format="boolean" />
+    <attr name="tsquare_state_unavailable" format="boolean" />
+    <attr name="tsquare_state_deactivated" format="boolean" />
+  </declare-styleable>
+
+
+  <declare-styleable name="DateRangeMonthView">
+    <attr name="title_color" format="color" />
+    <attr name="week_color" format="color" />
+    <attr name="range_color" format="color" />
+    <attr name="selected_date_circle_color" format="color" />
+    <attr name="selected_date_color" format="color" />
+    <attr name="default_date_color" format="color" />
+    <attr name="range_date_color" format="color" />
+    <attr name="disable_date_color" format="color" />
+    <attr name="enable_time_selection" format="boolean" />
+    <attr name="text_size_title" format="dimension" />
+    <attr name="text_size_week" format="dimension" />
+    <attr name="text_size_date" format="dimension" />
+    <attr name="header_bg" format="integer" />
+    <attr name="calendar_tag" format="string" />
+    <attr name="week_offset" format="integer" />
+    <attr name="enable_past_date" format="boolean" />
+    <attr name="editable" format="boolean" />
+  </declare-styleable>
+</resources>

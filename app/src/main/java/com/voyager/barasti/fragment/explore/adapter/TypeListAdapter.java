@@ -33,10 +33,12 @@ public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.ViewHo
     public List<TypeList> typeLists;
     //private CustomFilter mFilter;
     Activity activity;
+    int userID;
 
-    public TypeListAdapter(List<TypeList> typeLists, Activity activity) {
+    public TypeListAdapter(List<TypeList> typeLists, Activity activity,int userID) {
         this.typeLists = typeLists;
         this.activity = activity;
+        this.userID = userID;
         //mFilter = new CustomFilter(this, items);
         // System.out.println("MapPlaceSearch has ben ListMapApiDirectionSourceAdapter ");
     }
@@ -70,6 +72,7 @@ public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.ViewHo
 
                 Intent intent = new Intent(activity, TypeListActivity.class);
                 intent.putExtra("TypeListActivity", typeList);
+                intent.putExtra("userID", userID);
                 activity.startActivity(intent);
             }
         });

@@ -9,4 +9,7 @@ import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
 
 public interface ITypeListPresenter {
     public void getTypedAptData(TypeList typeList);
+
+    void btnLiked(Integer userID,Integer propertyId);
+    void btnUnliked(Integer userID,Integer propertyId);
 }

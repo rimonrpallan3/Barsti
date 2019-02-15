@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
 import com.voyager.barasti.activity.profilepage.model.RecommendBean;
+import com.voyager.barasti.activity.profilepage.presenter.IProfiePresenter;
 import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 
 import java.util.List;
@@ -27,12 +30,16 @@ import java.util.List;
 public class RecommendedListAdapter extends RecyclerView.Adapter<RecommendedListAdapter.ViewHolder> {
 
     public List<RecommendBean> recommendBeanList;
+    IProfiePresenter iProfiePresenter;
     //private CustomFilter mFilter;
     Activity activity;
+    int userID;
 
-    public RecommendedListAdapter(List<RecommendBean> recommendBeanList, Activity activity) {
+    public RecommendedListAdapter(List<RecommendBean> recommendBeanList, Activity activity,int userID,IProfiePresenter iProfiePresenter) {
         this.recommendBeanList = recommendBeanList;
         this.activity = activity;
+        this.userID = userID;
+        this.iProfiePresenter = iProfiePresenter;
         //mFilter = new CustomFilter(this, items);
         // System.out.println("MapPlaceSearch has ben ListMapApiDirectionSourceAdapter ");
     }
@@ -55,7 +62,24 @@ public class RecommendedListAdapter extends RecyclerView.Adapter<RecommendedList
         holder.tvHeading.setText(recommendBean.getName());
         holder.tvHomeAmt.setText(""+recommendBean.getPrice()+" BD per Night");
         holder.tvFavValue.setText(""+recommendBean.getOverall_rating());
+        if(recommendBean.getLike_status()==0){
+            holder.lbHomeFav.setLiked(false);
+        }else {
+            holder.lbHomeFav.setLiked(true);
+        }
+        holder.lbHomeFav.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                likeButton.setLiked(true);
+                iProfiePresenter.btnLiked(userID,recommendBean.getId());
+            }
 
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                likeButton.setLiked(false);
+                iProfiePresenter.btnUnliked(userID,recommendBean.getId());
+            }
+        });
     }
 
     @Override
@@ -83,6 +107,7 @@ public class RecommendedListAdapter extends RecyclerView.Adapter<RecommendedList
         ImageView ivFav3;
         ImageView ivFav4;
         ImageView ivFav5;
+        LikeButton lbHomeFav;
 
         public ViewHolder(View view) {
             super(view);
@@ -95,6 +120,7 @@ public class RecommendedListAdapter extends RecyclerView.Adapter<RecommendedList
             tvHomeAmt = view.findViewById(R.id.tvHomeAmt);
             tvHeading = view.findViewById(R.id.tvHeading);
             tvFavValue = view.findViewById(R.id.tvFavValue);
+            lbHomeFav = view.findViewById(R.id.lbHomeFav);
         }
 
         @Override
