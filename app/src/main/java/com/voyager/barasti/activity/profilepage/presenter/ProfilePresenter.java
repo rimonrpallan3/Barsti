@@ -37,10 +37,10 @@ public class ProfilePresenter implements IProfiePresenter{
 
 
     @Override
-    public void getHomeData(int houseId) {
+    public void getHomeData(int houseId,int userId) {
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         final WebServices webServices = retrofit.create(WebServices.class);
-        Call<HomeDetails> calls = webServices.doGetHomeDetails(houseId);
+        Call<HomeDetails> calls = webServices.doGetHomeDetails(houseId,userId);
         calls.enqueue(new Callback<HomeDetails>() {
             @Override
             public void onResponse(Call<HomeDetails> call, Response<HomeDetails> response) {

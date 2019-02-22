@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10"
+        android:layout_marginBottom="@dimen/_10"
+        android:orientation="vertical">
+
+        <com.voyager.barasti.custom.CircleImageView
+            android:id="@+id/profileImg"
+            android:layout_width="@dimen/_100"
+            android:layout_height="@dimen/_100"
+            android:layout_gravity="top|center"
+            android:cropToPadding="true"
+            android:src="@drawable/profile_image"
+            app:civ_border="true"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="3dp" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginLeft="@dimen/_18"
+            android:layout_marginRight="@dimen/_18"
+            android:textSize="@dimen/_12"
+            android:text="First Name"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15"
+            android:layout_marginRight="@dimen/_15"
+            android:drawablePadding="@dimen/_20"
+            android:gravity="right"
+            android:hint="@string/ht_fname"
+            android:lines="1"
+            android:paddingLeft="@dimen/_10"
+            android:textSize="@dimen/_12"
+            app:backgroundTint="@color/edt_txt_underline" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginLeft="@dimen/_18"
+            android:layout_marginRight="@dimen/_18"
+            android:textSize="@dimen/_12"
+            android:text="Last Name"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15"
+            android:layout_marginRight="@dimen/_15"
+            android:drawablePadding="@dimen/_20"
+            android:gravity="right"
+            android:hint="@string/ht_lname"
+            android:lines="1"
+            android:paddingLeft="@dimen/_10"
+            android:textSize="@dimen/_12"
+            app:backgroundTint="@color/edt_txt_underline" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginLeft="@dimen/_18"
+            android:layout_marginRight="@dimen/_18"
+            android:textSize="@dimen/_12"
+            android:text="Phone No"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etPhno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15"
+            android:layout_marginRight="@dimen/_15"
+            android:drawablePadding="@dimen/_20"
+            android:gravity="right"
+            android:hint="@string/ht_phone"
+            android:lines="1"
+            android:paddingLeft="@dimen/_10"
+            android:textSize="@dimen/_12"
+            app:backgroundTint="@color/edt_txt_underline" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginLeft="@dimen/_18"
+            android:layout_marginRight="@dimen/_18"
+            android:textSize="@dimen/_12"
+            android:text="Email ID"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15"
+            android:layout_marginRight="@dimen/_15"
+            android:drawablePadding="@dimen/_20"
+            android:gravity="right"
+            android:hint="@string/ht_email"
+            android:lines="1"
+            android:paddingLeft="@dimen/_10"
+            android:textSize="@dimen/_12"
+            app:backgroundTint="@color/edt_txt_underline" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginLeft="@dimen/_18"
+            android:layout_marginRight="@dimen/_18"
+            android:textSize="@dimen/_12"
+            android:text="DOB"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etDOB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15"
+            android:layout_marginRight="@dimen/_15"
+            android:drawablePadding="@dimen/_20"
+            android:gravity="right"
+            android:hint="@string/ht_dob"
+            android:lines="1"
+            android:paddingLeft="@dimen/_10"
+            android:textSize="@dimen/_12"
+            app:backgroundTint="@color/edt_txt_underline" />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40"
+            android:layout_marginLeft="@dimen/_15"
+            android:layout_marginRight="@dimen/_15"
+            android:layout_marginTop="@dimen/_10"
+            android:background="@drawable/rectangle_button"
+            android:onClick="btnUpdate"
+            android:text="@string/update_btn"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12" />
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

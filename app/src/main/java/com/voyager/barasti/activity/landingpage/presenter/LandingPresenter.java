@@ -45,10 +45,10 @@ public class LandingPresenter implements ILandingPresenter {
 
 
     @Override
-    public void getDetails() {
+    public void getDetails(int userId) {
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         final WebServices webServices = retrofit.create(WebServices.class);
-        Call<MainList> calls = webServices.doGetDetails();
+        Call<MainList> calls = webServices.doGetDetails(userId);
         calls.enqueue(new Callback<MainList>() {
             @Override
             public void onResponse(Call<MainList> call, Response<MainList> response) {

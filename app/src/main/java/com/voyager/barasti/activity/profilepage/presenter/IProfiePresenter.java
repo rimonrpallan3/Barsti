@@ -9,7 +9,7 @@ import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 
 public interface IProfiePresenter {
 
-    public void getHomeData(int houseId);
+    public void getHomeData(int houseId,int userId);
     public void setMapView(MapView mvHouseDetail);
 
     void btnLiked(Integer userID,Integer propertyId);

@@ -6,6 +6,6 @@ package com.voyager.barasti.activity.landingpage.presenter;
 
 public interface ILandingPresenter {
 
-    void getDetails();
+    void getDetails(int userId);
 
 }

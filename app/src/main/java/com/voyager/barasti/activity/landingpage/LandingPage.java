@@ -77,12 +77,10 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.landing_page);
         activity = this;
         TAG = getClass().getName();
-
         sharedPrefs = getSharedPreferences(Helper.UserDetails,
                 Context.MODE_PRIVATE);
         editor = sharedPrefs.edit();
         iLandingPresenter = new LandingPresenter(this,TAG,this);
-        iLandingPresenter.getDetails();
         Intent intent = getIntent();
         bundle = new Bundle();
         String hiddenBtn = intent.getStringExtra("btnHiddenBtn");
@@ -91,11 +89,10 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
             System.out.println("LandingPage -- UserDetail- name : " + userDetail.getFirst_name());
             System.out.println("LandingPage -- UserDetail- Id : " + userDetail.getId());
             System.out.println("LandingPage -- UserDetail- fcm : " + userDetail.getFcm());
-        } else if (hiddenBtn != null) {
-            // do nothing //
         } else {
-            getUserSDetails();
+            userDetail = getUserSDetails();
         }
+        iLandingPresenter.getDetails(userDetail.getId());
 
 
 
@@ -236,7 +233,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    private void getUserSDetails() {
+    private UserDetails getUserSDetails() {
         Gson gson = new Gson();
         String json = sharedPrefs.getString("UserDetails", null);
         if (json != null) {
@@ -244,6 +241,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
             userDetail = gson.fromJson(json, UserDetails.class);
             //emailAddress = userDetail.getEmail();
         }
+        return userDetail;
 
     }
 

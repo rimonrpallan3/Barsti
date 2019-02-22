@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,16 +49,20 @@ public class UserDetails implements IUserDetials,Parcelable {
     public String googleId;
     public String facebookId;
     public String error_status;
-    String passwd;
+    public String date_of_birth;
+    String password;
+    String retypePassword;
     String usermob;
     String pswd;
     Boolean state;
     String loginType;
+    Boolean error;
     private List<LikedBean> liked;
 
 
     public UserDetails() {
     }
+
 
     public UserDetails(String facebookId, String email, String profile_image, String userName, String usermob) {
         this.facebookId = facebookId;
@@ -80,6 +85,47 @@ public class UserDetails implements IUserDetials,Parcelable {
     public UserDetails(String email, String pswd) {
         this.email = email;
         this.pswd = pswd;
+    }
+
+    public UserDetails(String fullName, String password, String retypePassword, String email, String phno, String date_of_birth) {
+        this.first_name = fullName;
+        this.email = email;
+        this.password = password;
+        this.retypePassword = retypePassword;
+        this.phone_num = phno;
+        this.date_of_birth = date_of_birth;
+    }
+
+    public Boolean getError() {
+        return error;
+    }
+
+    public void setError(Boolean error) {
+        this.error = error;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
+    }
+
+    public String getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(String date_of_birth) {
+        this.date_of_birth = date_of_birth;
+    }
+
+    public String getRetypePassword() {
+        return retypePassword;
+    }
+
+    public void setRetypePassword(String retypePassword) {
+        this.retypePassword = retypePassword;
     }
 
     public String getError_status() {
@@ -106,12 +152,12 @@ public class UserDetails implements IUserDetials,Parcelable {
         this.googleId = googleId;
     }
 
-    public String getPasswd() {
-        return passwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUsermob() {
@@ -275,6 +321,136 @@ public class UserDetails implements IUserDetials,Parcelable {
     }
 
 
+    public List<LikedBean> getLiked() {
+        return liked;
+    }
+
+    public void setLiked(List<LikedBean> liked) {
+        this.liked = liked;
+    }
+
+    @Override
+    public int validateRegisterResponseError(String errorMsg) {
+        if(errorMsg!=null&&errorMsg.length()>1){
+            if(errorMsg.equals("Active")){
+                return 0;
+            }
+            //if there is no error message then it means that data response is correct.
+            return -9;
+        }
+        return 0;
+    }
+
+
+    @Override
+    public int validateUserDetails(String FName,
+                                   String LName,
+                                   String password,
+                                   String RetypePassword,
+                                   String email,
+                                   String phno,
+                                   String dob) {
+        if (FName.trim().length()==0||LName.trim().length()==0||
+                password.trim().length()==0||
+                RetypePassword.trim().length()==0||
+                email.trim().length()==0||
+                phno.trim().length()==0||
+                dob.trim().length()==0){
+            {
+                return -1;
+            }
+        }else {
+            for (int i = 0; i < FName.trim().length(); i++) {
+                char charAt2 = FName.trim().charAt(i);
+                if (!Character.isLetter(charAt2)) {
+                    return -2;
+                }
+            }
+            for (int i = 0; i < LName.trim().length(); i++) {
+                char charAt2 = LName.trim().charAt(i);
+                if (!Character.isLetter(charAt2)) {
+                    return -3;
+                }
+            }
+            for (int i = 0; i < password.trim().length(); i++) {
+                String charAt2 = password.trim().toString();
+                if (charAt2==null) {
+                    return -4;
+                }
+            }
+
+            if(!password.equals(RetypePassword)){
+                return -5;
+            }
+            for (int i = 0; i < email.trim().length(); i++) {
+                String charAt2 = email.trim().toString();
+                if (charAt2==null) {
+                    return -6;
+                }
+            }
+            for (int i = 0; i < phno.trim().length(); i++) {
+                String charAt2 = phno.trim().toString();
+                if (charAt2==null) {
+                    return -7;
+                }
+            }
+            for (int i = 0; i < dob.trim().length(); i++) {
+                String charAt2 = dob.toString();
+                if (charAt2==null) {
+                    return -8;
+                }
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public int validateUpdateUserDetails(String FName,
+                                         String LName, String phNo, String email, String dob) {
+        if (FName.trim().length()==0||LName.trim().length()==0||phNo.trim().length()==0||
+                email.trim().length()==0||
+                dob.trim().length()==0){
+            {
+                return -1;
+            }
+        }else {
+            for (int i = 0; i < FName.trim().length(); i++) {
+                char charAt2 = FName.trim().charAt(i);
+                if (!Character.isLetter(charAt2)) {
+                    return -2;
+                }
+            }
+            for (int i = 0; i < LName.trim().length(); i++) {
+                char charAt2 = LName.trim().charAt(i);
+                if (!Character.isLetter(charAt2)) {
+                    return -3;
+                }
+            }
+
+            for (int i = 0; i < email.trim().length(); i++) {
+                String charAt2 = email.trim().toString();
+                if (charAt2==null) {
+                    return -4;
+                }
+            }
+            for (int i = 0; i < phNo.trim().length(); i++) {
+                String charAt2 = phNo.trim().toString();
+                if (charAt2==null) {
+                    return -5;
+                }
+            }
+            for (int i = 0; i < dob.trim().length(); i++) {
+                String charAt2 = dob.toString();
+                if (charAt2==null) {
+                    return -6;
+                }
+            }
+        }
+
+        return 0;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -298,11 +474,17 @@ public class UserDetails implements IUserDetials,Parcelable {
         dest.writeString(this.profile_src);
         dest.writeString(this.userName);
         dest.writeString(this.googleId);
-        dest.writeString(this.passwd);
+        dest.writeString(this.facebookId);
+        dest.writeString(this.error_status);
+        dest.writeString(this.date_of_birth);
+        dest.writeString(this.password);
+        dest.writeString(this.retypePassword);
         dest.writeString(this.usermob);
         dest.writeString(this.pswd);
         dest.writeValue(this.state);
         dest.writeString(this.loginType);
+        dest.writeValue(this.error);
+        dest.writeList(this.liked);
     }
 
     protected UserDetails(Parcel in) {
@@ -322,11 +504,18 @@ public class UserDetails implements IUserDetials,Parcelable {
         this.profile_src = in.readString();
         this.userName = in.readString();
         this.googleId = in.readString();
-        this.passwd = in.readString();
+        this.facebookId = in.readString();
+        this.error_status = in.readString();
+        this.date_of_birth = in.readString();
+        this.password = in.readString();
+        this.retypePassword = in.readString();
         this.usermob = in.readString();
         this.pswd = in.readString();
         this.state = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.loginType = in.readString();
+        this.error = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.liked = new ArrayList<LikedBean>();
+        in.readList(this.liked, LikedBean.class.getClassLoader());
     }
 
     public static final Creator<UserDetails> CREATOR = new Creator<UserDetails>() {
@@ -340,14 +529,4 @@ public class UserDetails implements IUserDetials,Parcelable {
             return new UserDetails[size];
         }
     };
-
-    public List<LikedBean> getLiked() {
-        return liked;
-    }
-
-    public void setLiked(List<LikedBean> liked) {
-        this.liked = liked;
-    }
-
-
 }

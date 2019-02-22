@@ -1,6 +1,5 @@
 package com.voyager.barasti.activity.typelist.presenter;
 
-import com.voyager.barasti.activity.typelist.TypeListActivity;
 import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
 
 /**
@@ -8,8 +7,7 @@ import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
  */
 
 public interface ITypeListPresenter {
-    public void getTypedAptData(TypeList typeList);
-
+    void getTypedAptData(TypeList typeList,int userId);
     void btnLiked(Integer userID,Integer propertyId);
     void btnUnliked(Integer userID,Integer propertyId);
 }

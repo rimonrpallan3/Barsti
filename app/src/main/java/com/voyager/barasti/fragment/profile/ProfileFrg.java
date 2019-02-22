@@ -1,6 +1,7 @@
 package com.voyager.barasti.fragment.profile;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.UpdateProfile.UpdateProfile;
+import com.voyager.barasti.activity.landingpage.LandingPage;
 import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
 import com.voyager.barasti.fragment.profile.adapter.RecyclerViewProfileServiceListAdapter;
@@ -22,6 +25,8 @@ import com.voyager.barasti.fragment.profile.view.IProfileFragView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.voyager.barasti.common.Helper.REQUEST_REGISTERED;
 
 /**
  * Created by User on 11-Dec-18.
@@ -38,6 +43,7 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
     Bundle bundle;
     UserDetails userDetails;
     TextView tvUserName;
+    TextView tvEditProfile;
 
 
     public ProfileFrg() {
@@ -58,6 +64,7 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
         bundle = this.getArguments();
         pServiceLists = new ArrayList<>();
         tvUserName = rootView.findViewById(R.id.tvUserName);
+        tvEditProfile = rootView.findViewById(R.id.tvEditProfile);
 
         iProfileFrgPresenter = new ProfileFrgPresenter(this, activity);
         if (bundle != null) {
@@ -75,6 +82,14 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
         }else {
             System.out.println("Bundle Is null ");
         }
+        tvEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UpdateProfile.class);
+                intent.putExtra("UserDetails", userDetails);
+                startActivity(intent);
+            }
+        });
 
         setProfileServiceList(rootView);
 
@@ -120,6 +135,10 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
         pServiceLists.add(eleventhValue);
         pServiceLists.add(TwelveValue);
         recyclerViewProfileServiceListAdapter.notifyDataSetChanged();
+    }
+
+    public void tvEditProfileClick(View v){
+
     }
 
 

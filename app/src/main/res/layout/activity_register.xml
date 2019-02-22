@@ -75,14 +75,27 @@
                 android:orientation="vertical">
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/etName"
+                    android:id="@+id/etFName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_15"
                     android:layout_marginRight="@dimen/_15"
                     android:drawablePadding="@dimen/_20"
                     android:gravity="right"
-                    android:hint="@string/ht_name"
+                    android:hint="@string/ht_fname"
+                    android:paddingLeft="@dimen/_10"
+                    android:textSize="@dimen/_12"
+                    app:backgroundTint="@color/edt_txt_underline" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/etLName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_15"
+                    android:layout_marginRight="@dimen/_15"
+                    android:drawablePadding="@dimen/_20"
+                    android:gravity="right"
+                    android:hint="@string/ht_lname"
                     android:paddingLeft="@dimen/_10"
                     android:textSize="@dimen/_12"
                     app:backgroundTint="@color/edt_txt_underline" />
@@ -112,6 +125,41 @@
                     android:paddingLeft="@dimen/_10"
                     android:textSize="@dimen/_12"
                     app:backgroundTint="@color/edt_txt_underline" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_15"
+                    android:layout_marginRight="@dimen/_15"
+                    android:weightSum="100"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnPickDate"
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:text="Pick date of birth"
+                        android:textSize="@dimen/_10"
+                        android:onClick="btnPickDate"
+                        android:textAllCaps="false"
+                        android:layout_height="wrap_content" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tvDatePick"
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:layout_height="@dimen/_30"
+                        android:hint="@string/ht_date_pick"
+                        android:layout_marginRight="@dimen/_10"
+                        android:gravity="right|center"
+                        android:paddingLeft="@dimen/_10"
+                        android:textSize="@dimen/_12"
+                        app:backgroundTint="@color/edt_txt_underline" />
+
+
+
+
+                </LinearLayout>
 
 
                 <android.support.v7.widget.AppCompatEditText

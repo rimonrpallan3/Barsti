@@ -66,6 +66,7 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
                 userDetails = bundle.getParcelable("UserDetails");
                 mainList = bundle.getParcelable("MainList");
                 explorePresenter.setMainList(mainList);
+                System.out.println("user Id : "+ userDetails.getId());
             } catch (Exception e) {
                 e.printStackTrace();
             }

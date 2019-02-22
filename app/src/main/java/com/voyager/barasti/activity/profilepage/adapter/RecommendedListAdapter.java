@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
 import com.voyager.barasti.activity.profilepage.model.RecommendBean;
 import com.voyager.barasti.activity.profilepage.presenter.IProfiePresenter;
-import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
+
 
 import java.util.List;
 

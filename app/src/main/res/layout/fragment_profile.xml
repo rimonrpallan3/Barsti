@@ -51,9 +51,12 @@
                     android:text="@string/name" />
 
                 <TextView
+                    android:id="@+id/tvEditProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|center"
+                    android:onClick="tvEditProfileClick"
+                    android:background="?selectableItemBackground"
                     android:layout_marginTop="@dimen/_10"
                     android:text="@string/photo_txt2" />
 

@@ -28,6 +28,24 @@ public class MainList implements Parcelable {
     private List<HouseList> properties;
     private List<Banner> sliders;
     private List<LocItems> locations;
+    public boolean error;
+    public String error_status;
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
+    }
+
+    public String getError_status() {
+        return error_status;
+    }
+
+    public void setError_status(String error_status) {
+        this.error_status = error_status;
+    }
 
     public int getListings_count() {
         return listings_count;

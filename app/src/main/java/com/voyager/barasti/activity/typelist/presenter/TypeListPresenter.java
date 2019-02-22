@@ -107,10 +107,10 @@ public class TypeListPresenter implements ITypeListPresenter{
 
 
     @Override
-    public void getTypedAptData(TypeList typeList) {
+    public void getTypedAptData(TypeList typeList,int userId) {
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         final WebServices webServices = retrofit.create(WebServices.class);
-        Call<TypedDetail> calls = webServices.doGetTypedDetails(limit,offset,typeList.getId());
+        Call<TypedDetail> calls = webServices.doGetTypedDetails(limit,offset,typeList.getId(),userId);
         calls.enqueue(new Callback<TypedDetail>() {
             @Override
             public void onResponse(Call<TypedDetail> call, Response<TypedDetail> response) {

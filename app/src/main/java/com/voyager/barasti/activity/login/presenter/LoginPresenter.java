@@ -228,7 +228,7 @@ public class LoginPresenter implements ILoginPresenter{
         UserDetails userDetails = new UserDetails();
         userDetails.setLoginType("normal");
         userDetails.setFcm(fireBaseToken);
-        System.out.println("-------doLogin  email : " + name +
+        System.out.println("------- doLogin  email : "+ name +
                 " Password : " + passwd);
         initUser();
         Boolean isLoginSuccess = true;

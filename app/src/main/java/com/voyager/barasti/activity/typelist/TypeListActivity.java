@@ -44,7 +44,7 @@ public class TypeListActivity extends AppCompatActivity implements ITypeView{
         typeList = intent.getParcelableExtra("TypeListActivity");
         userID = intent.getIntExtra("userID",userID);
         if(typeList!=null){
-            iTypeListPresenter.getTypedAptData(typeList);
+            iTypeListPresenter.getTypedAptData(typeList,userID);
             tvTBHeading.setText(typeList.getName());
         }else {
             Toast.makeText(getApplication(), "Home Data Is not Present.",Toast.LENGTH_LONG).show();

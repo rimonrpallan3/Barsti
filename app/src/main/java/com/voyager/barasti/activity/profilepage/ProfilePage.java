@@ -48,6 +48,8 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
     int priceValue=0;
     int reviewRate=0;
     int userID=0;
+    int guestMoreAccNo=0;
+    int guestAccNo=0;
     LinearLayout llContBtn;
     List<HomeRooms> homeRoomsList;
 
@@ -69,9 +71,11 @@ public class ProfilePage extends AppCompatActivity implements IProfileView {
         priceValue = intent.getIntExtra("priceValue",priceValue);
         reviewRate = intent.getIntExtra("reviewRate",reviewRate);
         reviewRate = intent.getIntExtra("userID",userID);
+        guestMoreAccNo = intent.getIntExtra("guestMoreAccNo",guestMoreAccNo);
+        guestAccNo = intent.getIntExtra("guestAccNo",guestAccNo);
 
         if(propertyId!=0){
-            iProfiePresenter.getHomeData(propertyId);
+            iProfiePresenter.getHomeData(propertyId,userID);
             tvHomeAmt.setText(priceValue+" / Night");
             tvFavValue.setText(""+reviewRate);
         }else {

@@ -77,6 +77,8 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
                 intent.putExtra("propertyId", bodyItems.getId());
                 intent.putExtra("priceValue", bodyItems.getPrice());
                 intent.putExtra("reviewRate", bodyItems.getReviews_count());
+                intent.putExtra("guestMoreAccNo", bodyItems.getGuest_after());
+                intent.putExtra("guestAccNo", bodyItems.getGuest_fee());
                 intent.putExtra("userID", userID);
                 activity.startActivity(intent);
             }

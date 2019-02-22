@@ -37,9 +37,12 @@
 
     <string name="ht_email">Email Address</string>
     <string name="ht_pass3">Password</string>
-    <string name="ht_name">Full Name</string>
+    <string name="ht_dob">Date Of Birth</string>
+    <string name="ht_fname">First Name</string>
+    <string name="ht_lname">Last Name</string>
     <string name="name">Name</string>
     <string name="ht_phone">Phone number</string>
+    <string name="ht_date_pick">Pick Your Date</string>
     <string name="ht_pass1">Create Password</string>
     <string name="ht_pass2">Confirm Password</string>
     <string name="photo_txt">Add Photo</string>
