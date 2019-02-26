@@ -1,7 +1,9 @@
 package com.voyager.barasti.fragment.profile;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.voyager.barasti.R;
 import com.voyager.barasti.activity.UpdateProfile.UpdateProfile;
 import com.voyager.barasti.activity.landingpage.LandingPage;
 import com.voyager.barasti.activity.login.model.UserDetails;
+import com.voyager.barasti.common.Helper;
 import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
 import com.voyager.barasti.fragment.profile.adapter.RecyclerViewProfileServiceListAdapter;
 import com.voyager.barasti.fragment.profile.model.PServiceList;
@@ -45,6 +49,9 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
     TextView tvUserName;
     TextView tvEditProfile;
 
+    SharedPreferences sharedPrefs;
+    SharedPreferences.Editor editor;
+
 
     public ProfileFrg() {
     }
@@ -66,10 +73,22 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
         tvUserName = rootView.findViewById(R.id.tvUserName);
         tvEditProfile = rootView.findViewById(R.id.tvEditProfile);
 
+        sharedPrefs = activity.getSharedPreferences(Helper.UserDetails,
+                Context.MODE_PRIVATE);
+        editor = sharedPrefs.edit();
+
         iProfileFrgPresenter = new ProfileFrgPresenter(this, activity);
-        if (bundle != null) {
+        userDetails = getUserSDetails();
+        if(userDetails.getUserName()!=null){
+            tvUserName.setText(userDetails.getUserName());
+        }else if(userDetails.getFirst_name()!=null){
+            tvUserName.setText(userDetails.getFirst_name());
+        }
+
+      /*  if (bundle != null) {
             try {
-                userDetails = bundle.getParcelable("UserDetails");
+                //userDetails = bundle.getParcelable("UserDetails");
+                userDetails = getUserSDetails();
                 if(userDetails.getUserName()!=null){
                 tvUserName.setText(userDetails.getUserName());
                 }else if(userDetails.getFirst_name()!=null){
@@ -81,19 +100,31 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
             }
         }else {
             System.out.println("Bundle Is null ");
-        }
+        }*/
         tvEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), UpdateProfile.class);
                 intent.putExtra("UserDetails", userDetails);
-                startActivity(intent);
+                startActivityForResult(intent,123);
             }
         });
 
         setProfileServiceList(rootView);
 
         return rootView;
+    }
+
+    private UserDetails getUserSDetails() {
+        Gson gson = new Gson();
+        String json = sharedPrefs.getString("UserDetails", null);
+        if (json != null) {
+            System.out.println("-----------LandingPage uploadProfileName UserDetail" + json);
+            userDetails = gson.fromJson(json, UserDetails.class);
+            //emailAddress = userDetail.getEmail();
+        }
+        return userDetails;
+
     }
 
 
@@ -173,6 +204,12 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
             }
         });
 */
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        userDetails = getUserSDetails();
     }
 
     @Override

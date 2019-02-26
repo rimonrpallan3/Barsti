@@ -13,9 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.voyager.barasti.R;
-import com.voyager.barasti.activity.profilepage.ProfilePage;
 import com.voyager.barasti.activity.typelist.TypeListActivity;
-import com.voyager.barasti.activity.typelist.adapter.TypedListAdapter;
 import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
 
 import java.util.List;

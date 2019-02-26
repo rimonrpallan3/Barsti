@@ -15,7 +15,7 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
-import com.voyager.barasti.activity.profilepage.ProfilePage;
+import com.voyager.barasti.activity.propertyProfilepage.PropertyProfilePage;
 import com.voyager.barasti.activity.typelist.model.PropertiesBean;
 import com.voyager.barasti.activity.typelist.presenter.ITypeListPresenter;
 
@@ -67,8 +67,9 @@ public class TypedListAdapter extends RecyclerView.Adapter<TypedListAdapter.View
         holder.llHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, ProfilePage.class);
-                intent.putExtra("currentId", propertiesBean.getId());
+                Intent intent = new Intent(activity, PropertyProfilePage.class);
+                intent.putExtra("userID", userID);
+                intent.putExtra("propertyId", propertiesBean.getId());
                 intent.putExtra("priceValue", propertiesBean.getPrice());
                 intent.putExtra("reviewRate", propertiesBean.getReviews_count());
                 activity.startActivity(intent);

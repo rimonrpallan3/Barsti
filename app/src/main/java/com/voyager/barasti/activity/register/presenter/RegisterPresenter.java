@@ -36,6 +36,7 @@ public class RegisterPresenter implements  IRegisterPresenter{
     String phno;
     String dob;
     String Imei;
+    String loginType;
 
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
@@ -45,10 +46,11 @@ public class RegisterPresenter implements  IRegisterPresenter{
         this.iRegisterView = iRegisterView;
         this.sharedPrefs = sharedPrefs;
         this.editor = editor;
+        loginType = "normal";
     }
 
     private void initUser(){
-        user = new UserDetails(FirstName,Password,RetypePassword,email,phno,dob);
+        user = new UserDetails(FirstName,Password,RetypePassword,email,phno,dob,loginType);
     }
 
     @Override
@@ -85,7 +87,7 @@ public class RegisterPresenter implements  IRegisterPresenter{
         System.out.println("-------------------RegisterPresenter sendRegisteredDataAndValidateResponse FirstName : "+FirstName+" Password : "+Password+" RetypePassword : "+RetypePassword+" email : "+email+" phno : "+phno+" dob : "+dob);
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
-        Call<UserDetails> call = webServices.registerUser(FirstName,LastName,Password,email,phno,dob);
+        Call<UserDetails> call = webServices.registerUser(FirstName,LastName,Password,email,phno,dob,loginType);
         call.enqueue(new Callback<UserDetails>() {
             @Override
             public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {
@@ -96,6 +98,7 @@ public class RegisterPresenter implements  IRegisterPresenter{
                 userDetails.setEmail(email);
                 userDetails.setPhone_num(phno);
                 userDetails.setDate_of_birth(dob);
+                userDetails.setLoginType(loginType);
                 System.out.println("------- sendRegisteredDataAndValidateResponse  FirstName : " + FirstName +
                         " Password : " + Password +
                         " email Address : " + email +

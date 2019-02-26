@@ -16,6 +16,7 @@
     <string name="SignUp">\u0020 Sign Up</string>
     <string name="submit">Submit</string>
     <string name="btn_register">Register Now</string>
+    <string name="hd_update">Update Profile</string>
     <string name="cpr_no">ime</string>
     <string name="address">City</string>
     <string name="phno">Phone Number</string>
@@ -31,6 +32,7 @@
     <string name="googleSignText">Sign in with Google</string>
     <string name="fbSignText">Sign in with Facebook</string>
     <string name="snack_error_acct">An account already exists with the same email address but different provider.</string>
+    <string name="snack_acc_count_error">Guest cant be less than zero.</string>
     <string name="sign_snack_error_message">An account already exists with the same email address but different provider.</string>
     <string name="sign_snack_ok_button">ok</string>
     <string name="facebook_app_id"> 239095796976592</string>

@@ -55,7 +55,7 @@ public class UpdatePresenter implements IUpdatePresenter{
         this.dob =dob;
         user = new UserDetails();
         Boolean isLoginSuccess = true;
-        final int code = user.validateUpdateUserDetails(fName,lName, phNo,  email,  dob);
+        final int code = user.validateUpdateUserDetails(fName,lName);
         if (code != 0) {
             isLoginSuccess = false;
         } else {
@@ -69,7 +69,7 @@ public class UpdatePresenter implements IUpdatePresenter{
     public void updateUserDataValidateResponse(){
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
-        Call<UserDetails> call = webServices.updateProfile(fName,lName, phNo,  email,  dob,userId);
+        Call<UserDetails> call = webServices.updateProfile(fName,lName,userId);
         call.enqueue(new Callback<UserDetails>() {
             @Override
             public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {

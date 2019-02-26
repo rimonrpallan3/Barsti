@@ -3,12 +3,12 @@ package com.voyager.barasti.webservices;
 
 import android.support.annotation.Nullable;
 
+import com.voyager.barasti.activity.PriceDetailPage.model.PriceDetails;
 import com.voyager.barasti.activity.login.model.UserDetails;
-import com.voyager.barasti.activity.profilepage.model.HomeDetails;
+import com.voyager.barasti.activity.propertyProfilepage.model.HomeDetails;
 import com.voyager.barasti.activity.typelist.model.TypedDetail;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.Banner;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
-import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 import com.voyager.barasti.fragment.explore.model.exploreList.LikeUnLike;
 import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
 
@@ -63,6 +63,13 @@ public interface WebServices {
     @POST("listings/{propertyId}")
     Call<HomeDetails> doGetHomeDetails(@Path("propertyId") int propertyId,
                                        @Nullable @Field("user_id") Integer userID);
+    @FormUrlEncoded
+    @POST("calenderRates")
+    Call<PriceDetails> getPriceDetails(@Nullable @Field("property_id") Integer propertyId,
+                                       @Nullable @Field("guests_num") Integer guestNo,
+                                       @Nullable @Field("checkin") String checkin,
+                                       @Nullable @Field("checkout") String checkout,
+                                       @Nullable @Field("user_id") Integer userID);
 
    @FormUrlEncoded
    @POST("listings/{limit}/{offset}/{typeId}")
@@ -104,14 +111,12 @@ public interface WebServices {
                                          @Nullable @Field("password") String password,
                                          @Nullable @Field("email") String email,
                                          @Nullable @Field("phone_num") String phone,
-                                         @Nullable @Field("date_of_birth") String dob);
+                                         @Nullable @Field("date_of_birth") String dob,
+                                          @Nullable @Field("login_type") String type);
     @FormUrlEncoded
     @POST("createUser")
     public Call<UserDetails> updateProfile(@Nullable @Field("first_name") String fname,
                                           @Nullable @Field("last_name") String lname,
-                                         @Nullable @Field("email") String email,
-                                         @Nullable @Field("phone_num") String phone,
-                                         @Nullable @Field("date_of_birth") String dob,
                                            @Nullable @Field("user_id") int userId);
 
 /*

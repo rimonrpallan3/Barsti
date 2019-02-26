@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -286,8 +287,8 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.landingContainer);
-        //fragment.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+        fragment.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
             case Helper.GET_DRIVER:

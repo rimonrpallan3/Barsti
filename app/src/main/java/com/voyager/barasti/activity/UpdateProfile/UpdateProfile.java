@@ -40,6 +40,8 @@ public class UpdateProfile extends AppCompatActivity implements IUpdateView{
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
     UserDetails userDetails;
+    boolean dataSet = false;
+
 
 
     @Override
@@ -54,7 +56,7 @@ public class UpdateProfile extends AppCompatActivity implements IUpdateView{
         btnUpdate = findViewById(R.id.btnUpdate);
 
         Intent intent = getIntent();
-        String hiddenBtn = intent.getStringExtra("btnHiddenBtn");
+        dataSet = false;
         userDetails = (UserDetails) intent.getParcelableExtra("UserDetails");
         if (userDetails != null) {
             if(userDetails.getLoginType().equals("google")||userDetails.getLoginType().equals("facebook")) {
@@ -77,6 +79,8 @@ public class UpdateProfile extends AppCompatActivity implements IUpdateView{
                 etEmail.setClickable(false);
                 etEmail.setEnabled(false);
                 etDOB.setText(userDetails.getDate_of_birth());
+                etDOB.setClickable(false);
+                etDOB.setEnabled(false);
             }else if(userDetails.getLoginType().equals("normal")){
                 etFirstName.setText(userDetails.getFirst_name());
                 etLastName.setText(userDetails.getLast_name());
@@ -87,6 +91,8 @@ public class UpdateProfile extends AppCompatActivity implements IUpdateView{
                 etEmail.setClickable(false);
                 etEmail.setEnabled(false);
                 etDOB.setText(userDetails.getDate_of_birth());
+                etDOB.setClickable(false);
+                etDOB.setEnabled(false);
             }
             System.out.println("LandingPage -- UserDetail- name : " + userDetails.getFirst_name());
             System.out.println("LandingPage -- UserDetail- Id : " + userDetails.getId());
@@ -98,10 +104,24 @@ public class UpdateProfile extends AppCompatActivity implements IUpdateView{
         editor = sharedPrefs.edit();
         iUpdatePresenter = new UpdatePresenter(this,this,sharedPrefs,editor);
 
-
-
-
     }
+
+    public  void ivBackbtn(View v){
+        if(dataSet){
+            setResult(RESULT_OK);
+            finish();
+        }
+        finish();
+    }
+    @Override
+    public void onBackPressed() {
+        if(dataSet){
+            setResult(RESULT_OK);
+            finish();
+        }
+        finish();
+    }
+
 
 
     public  void btnUpdate(View v){
@@ -124,9 +144,6 @@ public class UpdateProfile extends AppCompatActivity implements IUpdateView{
     public void onUpdateValidate(Boolean result, int code) {
         etFirstName.setEnabled(true);
         etLastName.setEnabled(true);
-        etPhno.setEnabled(true);
-        etEmail.setEnabled(true);
-        etDOB.setEnabled(true);
         btnUpdate.setEnabled(true);
         if (result) {
         } else {
@@ -140,15 +157,6 @@ public class UpdateProfile extends AppCompatActivity implements IUpdateView{
                     break;
                 case -3:
                     Toast.makeText(this, "Please fill a valid Last Name, code = " + code, Toast.LENGTH_SHORT).show();
-                    break;
-                case -4:
-                    Toast.makeText(this, "Please fill a valid email Address, code = " + code, Toast.LENGTH_SHORT).show();
-                    break;
-                case -5:
-                    Toast.makeText(this, "Please fill a valid Phone No, code = " + code, Toast.LENGTH_SHORT).show();
-                    break;
-                case -6:
-                    Toast.makeText(this, "Please fill a valid Dob , code = " + code, Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     Toast.makeText(this, "Please try Again Later, code = " + code, Toast.LENGTH_SHORT).show();
@@ -167,18 +175,16 @@ public class UpdateProfile extends AppCompatActivity implements IUpdateView{
                 @Override
                 public void run() {
                     //re-enable the button
+                    dataSet = true;
+                    etFirstName.setEnabled(true);
+                    etLastName.setEnabled(true);
                     btnUpdate.setEnabled(true);
                     Toast.makeText(getApplicationContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
-
                 }
             }, 4000);
         } else {
-            btnUpdate.setEnabled(true);
             etFirstName.setEnabled(true);
             etLastName.setEnabled(true);
-            etPhno.setEnabled(true);
-            etEmail.setEnabled(true);
-            etDOB.setEnabled(true);
             btnUpdate.setEnabled(true);
             switch (code) {
                 case -9:

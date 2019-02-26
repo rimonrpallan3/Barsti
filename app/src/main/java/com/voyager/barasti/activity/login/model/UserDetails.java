@@ -87,13 +87,14 @@ public class UserDetails implements IUserDetials,Parcelable {
         this.pswd = pswd;
     }
 
-    public UserDetails(String fullName, String password, String retypePassword, String email, String phno, String date_of_birth) {
+    public UserDetails(String fullName, String password, String retypePassword, String email, String phno, String date_of_birth, String loginType) {
         this.first_name = fullName;
         this.email = email;
         this.password = password;
         this.retypePassword = retypePassword;
         this.phone_num = phno;
         this.date_of_birth = date_of_birth;
+        this.loginType = loginType;
     }
 
     public Boolean getError() {
@@ -406,10 +407,8 @@ public class UserDetails implements IUserDetials,Parcelable {
 
     @Override
     public int validateUpdateUserDetails(String FName,
-                                         String LName, String phNo, String email, String dob) {
-        if (FName.trim().length()==0||LName.trim().length()==0||phNo.trim().length()==0||
-                email.trim().length()==0||
-                dob.trim().length()==0){
+                                         String LName) {
+        if (FName.trim().length()==0||LName.trim().length()==0){
             {
                 return -1;
             }
@@ -424,25 +423,6 @@ public class UserDetails implements IUserDetials,Parcelable {
                 char charAt2 = LName.trim().charAt(i);
                 if (!Character.isLetter(charAt2)) {
                     return -3;
-                }
-            }
-
-            for (int i = 0; i < email.trim().length(); i++) {
-                String charAt2 = email.trim().toString();
-                if (charAt2==null) {
-                    return -4;
-                }
-            }
-            for (int i = 0; i < phNo.trim().length(); i++) {
-                String charAt2 = phNo.trim().toString();
-                if (charAt2==null) {
-                    return -5;
-                }
-            }
-            for (int i = 0; i < dob.trim().length(); i++) {
-                String charAt2 = dob.toString();
-                if (charAt2==null) {
-                    return -6;
                 }
             }
         }

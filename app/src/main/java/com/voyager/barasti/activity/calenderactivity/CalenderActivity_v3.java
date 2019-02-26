@@ -14,6 +14,10 @@ import com.voyager.barasti.activity.calenderactivity.model.TimeStamp;
 import com.voyager.barasti.activity.calenderactivity.pesenter.CalenderPresenter;
 import com.voyager.barasti.activity.calenderactivity.pesenter.ICalenderPresenter;
 import com.voyager.barasti.activity.calenderactivity.view.ICalenderView;
+import com.voyager.barasti.activity.gestCountPage.GuestCountPage;
+import com.voyager.barasti.activity.landingpage.LandingPage;
+import com.voyager.barasti.activity.propertyProfilepage.model.HomeDetails;
+import com.voyager.barasti.common.Helper;
 import com.voyager.barasti.custom.CalenderV3.customviews.DateRangeCalendarView;
 import com.voyager.barasti.R;
 
@@ -46,6 +50,10 @@ public class CalenderActivity_v3 extends AppCompatActivity implements ICalenderV
     public String currentEndDate = "";
     int propertyId=0;
     int userID=0;
+    int totalGuestCount = 0;
+    HomeDetails homeDetails;
+    String checkIn ="";
+    String checkOut = "";
 
 
 
@@ -58,7 +66,9 @@ public class CalenderActivity_v3 extends AppCompatActivity implements ICalenderV
 
         propertyId = intent.getIntExtra("propertyId",propertyId);
         userID = intent.getIntExtra("userID",userID);
-
+        totalGuestCount = intent.getIntExtra("totalGuestCount",totalGuestCount);
+        homeDetails = intent.getParcelableExtra("homeDetails");
+        System.out.println("CalenderActivity_v3 totalGuestCount : "+totalGuestCount);
         calendar = findViewById(R.id.calendar);
         ivClose = findViewById(R.id.ivClose);
         tvClear = findViewById(R.id.tvClear);
@@ -91,9 +101,11 @@ public class CalenderActivity_v3 extends AppCompatActivity implements ICalenderV
                 System.out.println("onFirstDateSelected Start Date : "+startDate.getTime().toString());
                 nonRangeStartDate = datePrserFormater(startDate.getTime().toString());
                 tvStartDay.setText(nonRangeStartDate.getDayString());
+                checkIn =nonRangeStartDate.getDayNoString() + " " + nonRangeStartDate.getMonthString();
                 tvStartDayNo.setText(nonRangeStartDate.getDayNoString());
                 tvStartMonth.setText(nonRangeStartDate.getMonthString());
                 tvEndDay.setText("");
+                checkOut = nonRangeStartDate.getDayNoString() + " " + nonRangeStartDate.getMonthString();
                 tvEndDayNo.setText("");
                 tvEndMonth.setText("");
                 tvTotalDays.setText(totalCount+" day Selected");
@@ -112,10 +124,12 @@ public class CalenderActivity_v3 extends AppCompatActivity implements ICalenderV
                 rangeStartDate = datePrserFormater(startDate.getTime().toString());
                 datePrserFormater(endDate.getTime().toString());
                 tvStartDay.setText(rangeStartDate.getDayString());
+                checkIn =rangeStartDate.getDayNoString() + " " + rangeStartDate.getMonthString();
                 tvStartDayNo.setText(rangeStartDate.getDayNoString());
                 tvStartMonth.setText(rangeStartDate.getMonthString());
                 rangeEndDate = datePrserFormater(endDate.getTime().toString());
                 tvEndDay.setText(rangeEndDate.getDayString());
+                checkOut = rangeEndDate.getDayNoString() + " " + rangeEndDate.getMonthString();
                 tvEndDayNo.setText(rangeEndDate.getDayNoString());
                 tvEndMonth.setText(rangeEndDate.getMonthString());
                 totalCount = getTotalCount(rangeStartDate.getDayNoString(),rangeEndDate.getDayNoString());
@@ -197,6 +211,16 @@ public class CalenderActivity_v3 extends AppCompatActivity implements ICalenderV
     public void btnSave(View v){
         Toast.makeText(CalenderActivity_v3.this, "Btn Clicked", Toast.LENGTH_SHORT).show();
         iCalenderPresenter.saveBookingDetails(currentStartDate,currentEndDate,propertyId,userID);
+        Intent intent = new Intent(this, GuestCountPage.class);
+        intent.putExtra("currentStartDate", currentStartDate);
+        intent.putExtra("currentEndDate", currentEndDate);
+        intent.putExtra("propertyId", propertyId);
+        intent.putExtra("userID", userID);
+        intent.putExtra("totalGuestCount", totalGuestCount);
+        intent.putExtra("homeDetails", homeDetails);
+        intent.putExtra("checkIn", checkIn);
+        intent.putExtra("checkOut", checkOut);
+        startActivity(intent);
 
     }
 

@@ -1,4 +1,4 @@
-package com.voyager.barasti.fragment.explore.adapter;
+package com.voyager.barasti.activity.propertyProfilepage.adapter;
 
 
 import android.app.Activity;
@@ -16,8 +16,8 @@ import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
 import com.voyager.barasti.activity.propertyProfilepage.PropertyProfilePage;
-import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
-import com.voyager.barasti.fragment.explore.presenter.IExplorePresenter;
+import com.voyager.barasti.activity.propertyProfilepage.model.RecommendBean;
+import com.voyager.barasti.activity.propertyProfilepage.presenter.IProfiePresenter;
 
 
 import java.util.List;
@@ -30,19 +30,19 @@ import java.util.List;
 
 // create a custom RecycleViewAdapter class
 
-public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHolder> {
+public class RecommendedListAdapter extends RecyclerView.Adapter<RecommendedListAdapter.ViewHolder> {
 
-    public List<HouseList> houseLists;
+    public List<RecommendBean> recommendBeanList;
+    IProfiePresenter iProfiePresenter;
     //private CustomFilter mFilter;
     Activity activity;
     int userID;
-    IExplorePresenter iExplorePresenter;
 
-    public BodyListAdapter(List<HouseList> houseLists, Activity activity,int userID,IExplorePresenter iExplorePresenter) {
-        this.houseLists = houseLists;
+    public RecommendedListAdapter(List<RecommendBean> recommendBeanList, Activity activity,int userID,IProfiePresenter iProfiePresenter) {
+        this.recommendBeanList = recommendBeanList;
         this.activity = activity;
         this.userID = userID;
-        this.iExplorePresenter = iExplorePresenter;
+        this.iProfiePresenter = iProfiePresenter;
         //mFilter = new CustomFilter(this, items);
         // System.out.println("MapPlaceSearch has ben ListMapApiDirectionSourceAdapter ");
     }
@@ -56,61 +56,51 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         System.out.println("MapPlaceSearch has ben ListMapApiDirectionSourceAdapter  onBindViewHolder");
-        final HouseList bodyItems = houseLists.get(position);
-        //holder.ivHome.setImageResource(bodyItems.getImgHome());
+        final RecommendBean recommendBean = recommendBeanList.get(position);
+        //holder.ivHome.setImageResource(recommendBean.getImgHome());
         Picasso.with(activity)
-                .load(bodyItems.getCover_photo())
+                .load(recommendBean.getCover_photo())
                 .placeholder(R.drawable.placeholder_image)
                 .into(holder.ivHome);
-        holder.tvHeading.setText(bodyItems.getName());
-        holder.tvHomeAmt.setText(""+bodyItems.getPrice()+" BD per Night");
-        holder.tvFavValue.setText(""+bodyItems.getOverall_rating());
+        holder.tvHeading.setText(recommendBean.getName());
+        holder.tvHomeAmt.setText(""+recommendBean.getPrice()+" BD per Night");
+        holder.tvFavValue.setText(""+recommendBean.getOverall_rating());
         holder.llHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("RecommendedListAdapter Clicked " );
                 Intent intent = new Intent(activity, PropertyProfilePage.class);
-                intent.putExtra("propertyId", bodyItems.getId());
-                intent.putExtra("priceValue", bodyItems.getPrice());
-                intent.putExtra("reviewRate", bodyItems.getReviews_count());
-                intent.putExtra("guestMoreAccNo", bodyItems.getGuest_after());
-                intent.putExtra("guestAccNo", bodyItems.getGuest_fee());
-                intent.putExtra("guestLimit", bodyItems.getGuest_fee());
+                intent.putExtra("propertyId", recommendBean.getId());
+                intent.putExtra("priceValue", recommendBean.getPrice());
+                intent.putExtra("reviewRate", recommendBean.getReviews_count());
                 intent.putExtra("userID", userID);
                 activity.startActivity(intent);
             }
         });
-        if(bodyItems.getLike_status()!=0){
-            holder.lbHomeFav.setLiked(true);
-        }else {
+        if(recommendBean.getLike_status()==0){
             holder.lbHomeFav.setLiked(false);
+        }else {
+            holder.lbHomeFav.setLiked(true);
         }
         holder.lbHomeFav.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
                 likeButton.setLiked(true);
-                iExplorePresenter.btnLiked(userID,bodyItems.getId());
+                iProfiePresenter.btnLiked(userID,recommendBean.getId());
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
                 likeButton.setLiked(false);
-                iExplorePresenter.btnUnliked(userID,bodyItems.getId());
+                iProfiePresenter.btnUnliked(userID,recommendBean.getId());
             }
         });
-
-    }
-    public void addItem(HouseList item){
-
-        int index = (houseLists.size());
-        houseLists.add(item);
-        notifyDataSetChanged();
-        //notifyItemInserted(index);
     }
 
     @Override
     public int getItemCount() {
-        if (houseLists != null && houseLists.size() > 0) {
-            return houseLists.size();
+        if (recommendBeanList != null && recommendBeanList.size() > 0) {
+            return recommendBeanList.size();
         } else {
             return 0;
         }
@@ -122,7 +112,6 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
     }*/
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         LinearLayout llHome;
         TextView tvFavValue;
         TextView tvHomeAmt;

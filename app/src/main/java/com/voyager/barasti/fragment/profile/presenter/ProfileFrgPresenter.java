@@ -2,7 +2,6 @@ package com.voyager.barasti.fragment.profile.presenter;
 
 import android.app.Activity;
 
-import com.voyager.barasti.activity.profilepage.view.IProfileView;
 import com.voyager.barasti.fragment.profile.view.IProfileFragView;
 
 /**

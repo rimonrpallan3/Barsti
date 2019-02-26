@@ -56,13 +56,12 @@ public class LoginPresenter implements ILoginPresenter{
     String adminRegNo = "";
     String adminQrgType = "";
     UserDetails userDetails;
-    String loginType;
-
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
     String name;
     String passwd;
     String fireBaseToken="";
+    String loginType  ="";
 
 
 
@@ -252,16 +251,20 @@ public class LoginPresenter implements ILoginPresenter{
         Call<UserDetails> call = null;
         if(userDetails.getLoginType().equals("google")) {
             call = webServices.loginGoogleUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getGoogleId(),userDetails.getFcm());
+            loginType = userDetails.getLoginType() ;
         }else if(userDetails.getLoginType().equals("normal")){
             call = webServices.loginNormalUser(name, passwd, userDetails.getLoginType(),userDetails.getFcm());
+            loginType = userDetails.getLoginType() ;
         }else if(userDetails.getLoginType().equals("facebook")){
             call = webServices.loginFBUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getFcm());
+            loginType = userDetails.getLoginType() ;
         }
         try{
             call.enqueue(new Callback<UserDetails>() {
                 @Override
                 public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {
                     UserDetails userDetails  = response.body();
+                    userDetails.setLoginType(loginType);
                     /*System.out.println("-------validateLoginDataBaseApi  email : " + name +
                             " Password : " + passwd +
                             " LName : " + userDetails.getFirst_name()+
