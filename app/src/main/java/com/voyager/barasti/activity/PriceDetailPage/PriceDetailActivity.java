@@ -115,6 +115,8 @@ public class PriceDetailActivity extends AppCompatActivity  implements IPriceVie
                 userID);
     }
 
+
+
     public  void ivBackbtn(View v){
         finish();
     }
@@ -122,8 +124,8 @@ public class PriceDetailActivity extends AppCompatActivity  implements IPriceVie
     @Override
     public void setPriceDetails(PriceDetails priceDetails) {
         this.priceDetails = priceDetails;
-        tvTotalNightsAmt.setText(priceDetails.getTotal_nights() +" Nights price :");
-        tvTotalNightsHd.setText(priceDetails.getTotal_night_price() +" BD");
+        tvTotalNightsAmt.setText(priceDetails.getTotal_night_price() +" BD");
+        tvTotalNightsHd.setText(priceDetails.getTotal_nights() +"Nights price");
         tvServiceFee.setText(priceDetails.getService_fee() +" BD");
         tvHostFee.setText(priceDetails.getHost_fee() +" BD");
         tvSecurityFee.setText(priceDetails.getSecurity_fee()+" BD");

@@ -55,7 +55,7 @@ public class PricePresenter implements  IPreicePresenter{
                 PriceDetails priceDetails = response.body();
                 iPriceView.setPriceDetails(priceDetails);
                 String json = new Gson().toJson(priceDetails);
-                System.out.println("PricePresenter getBookingDetails json : " + json);
+                // System.out.println("PricePresenter getBookingDetails json : " + json);
 
             }
 
@@ -66,7 +66,7 @@ public class PricePresenter implements  IPreicePresenter{
                     // logging probably not necessary
                 }
                 else {
-                    Toast.makeText(activity, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(activity, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
                     // todo log to some central bug tracking service
                 }
                 t.printStackTrace();

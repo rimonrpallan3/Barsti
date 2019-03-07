@@ -13,5 +13,6 @@ import java.util.List;
 
 public interface IExploreView {
     void setHomeList(ArrayList<ExploreItems> exploreItems);
+    void setRefreshHomeList(ArrayList<ExploreItems> exploreItems);
     void updatePropertyList(List<HouseList> houseListArrayList);
 }

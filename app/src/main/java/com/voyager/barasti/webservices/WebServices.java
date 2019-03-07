@@ -4,6 +4,8 @@ package com.voyager.barasti.webservices;
 import android.support.annotation.Nullable;
 
 import com.voyager.barasti.activity.PriceDetailPage.model.PriceDetails;
+import com.voyager.barasti.activity.UserPropertyList.model.UserPropertyDetails;
+import com.voyager.barasti.activity.locationListPropety.model.LocDetails;
 import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.activity.propertyProfilepage.model.HomeDetails;
 import com.voyager.barasti.activity.typelist.model.TypedDetail;
@@ -11,6 +13,7 @@ import com.voyager.barasti.fragment.explore.model.ExploreHeader.Banner;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.LikeUnLike;
 import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
+import com.voyager.barasti.fragment.fav.model.FavDetail;
 
 import java.util.ArrayList;
 
@@ -77,6 +80,14 @@ public interface WebServices {
                                         @Path("offset") int offset,
                                         @Path("typeId") int typeId,
                                         @Nullable @Field("user_id") Integer userID);
+   @FormUrlEncoded
+   @POST("locationwise")
+    Call<ArrayList<LocDetails>> getLocDetails(@Nullable @Field("user_id") Integer userID,
+                                              @Nullable @Field("location") String locName);
+
+   @FormUrlEncoded
+   @POST("LikedListings")
+    Call<ArrayList<FavDetail>> getFavDetails(@Nullable @Field("user_id") Integer userID);
 
     @FormUrlEncoded
     @POST("mobileLogin")
@@ -116,8 +127,12 @@ public interface WebServices {
     @FormUrlEncoded
     @POST("createUser")
     public Call<UserDetails> updateProfile(@Nullable @Field("first_name") String fname,
-                                          @Nullable @Field("last_name") String lname,
+                                           @Nullable @Field("last_name") String lname,
                                            @Nullable @Field("user_id") int userId);
+
+    @FormUrlEncoded
+    @POST("myProfile")
+    public Call<UserPropertyDetails> getPropertiesDetail(@Nullable @Field("user_id") int userId);
 
 /*
     @GET("webservice/getOffertypes")

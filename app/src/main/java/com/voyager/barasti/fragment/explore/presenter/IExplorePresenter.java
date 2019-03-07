@@ -10,6 +10,7 @@ public interface IExplorePresenter {
 
 
     void setMainList(MainList mainList);
+    void getMainRefreshList(int userID);
     void updatePropertyList(int totalCount);
     void btnLiked(Integer userID,Integer propertyId);
     void btnUnliked(Integer userID,Integer propertyId);

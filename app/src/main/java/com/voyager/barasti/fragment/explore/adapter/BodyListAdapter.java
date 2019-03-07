@@ -37,6 +37,7 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
     Activity activity;
     int userID;
     IExplorePresenter iExplorePresenter;
+    BodyListAdapter bodyListAdapter;
 
     public BodyListAdapter(List<HouseList> houseLists, Activity activity,int userID,IExplorePresenter iExplorePresenter) {
         this.houseLists = houseLists;
@@ -55,6 +56,7 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        bodyListAdapter = this;
         System.out.println("MapPlaceSearch has ben ListMapApiDirectionSourceAdapter  onBindViewHolder");
         final HouseList bodyItems = houseLists.get(position);
         //holder.ivHome.setImageResource(bodyItems.getImgHome());
@@ -97,6 +99,14 @@ public class BodyListAdapter extends RecyclerView.Adapter<BodyListAdapter.ViewHo
                 iExplorePresenter.btnUnliked(userID,bodyItems.getId());
             }
         });
+
+    }
+
+    public  void getRefreshList(List<HouseList> houseLists){
+        this.houseLists.clear();
+        this.houseLists = houseLists;
+        notifyDataSetChanged();
+        System.out.println("BodyListAdapter getRefreshList : ");
 
     }
     public void addItem(HouseList item){

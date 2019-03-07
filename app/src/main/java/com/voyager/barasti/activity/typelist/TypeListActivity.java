@@ -61,12 +61,18 @@ public class TypeListActivity extends AppCompatActivity implements ITypeView{
     }
 
     public void ivBackbtn(View v){
+        Intent intent = new Intent();
+        intent.putExtra("UpdateHome", "true");
+        setResult(RESULT_OK, intent);
         finish();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent = new Intent();
+        intent.putExtra("UpdateHome", "true");
+        setResult(RESULT_OK, intent);
         finish();
     }
 

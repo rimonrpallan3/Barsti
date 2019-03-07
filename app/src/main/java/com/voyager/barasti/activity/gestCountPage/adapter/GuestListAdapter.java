@@ -80,7 +80,7 @@ public class GuestListAdapter extends RecyclerView.Adapter<GuestListAdapter.View
                     minteger = minteger + 1;
                     holder.tvMenIDNo.setText("" + minteger);
                 }else if(minteger==totalGuestCount){
-                    Snackbar.make(v, "the Min Guest count is : "+totalGuestCount, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(v, "the Max Guest count is : "+totalGuestCount, Snackbar.LENGTH_SHORT).show();
 
                 }
                 guestCount = Integer.valueOf(holder.tvMenIDNo.getText().toString());

@@ -1,6 +1,7 @@
 package com.voyager.barasti.fragment.explore;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -28,6 +29,8 @@ import com.voyager.barasti.fragment.explore.view.IExploreView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by User on 18-Dec-18.
  */
@@ -35,6 +38,11 @@ import java.util.List;
 public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickListener, IExploreView {
 
     private Activity activity;
+
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_FOOTER = 3;
+    private static final int TYPE_TYPE = 1;
+    private static final int TYPE_BODY = 2;
 
     RecyclerView rvExploreList;
     ExploreListAdapter exploreListAdapter;
@@ -182,6 +190,18 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         return locLists;
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                String UpdateHome = data.getStringExtra("UpdateHome");
+                if(UpdateHome!=null){
+                    explorePresenter.getMainRefreshList(userDetails.getId());
+                }
+            }
+        }
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -255,6 +275,13 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         rvExploreList.setItemAnimator(new DefaultItemAnimator());
         rvExploreList.setAdapter(exploreListAdapter);
     }
+
+    @Override
+    public void setRefreshHomeList(ArrayList<ExploreItems> exploreItems) {
+        System.out.println("ExploreFrg setRefreshHomeList : ");
+        exploreListAdapter.getRefreshHouseList(exploreItems.get(TYPE_BODY).getHouseList());
+    }
+
 
     @Override
     public void updatePropertyList(List<HouseList> houseListArrayList) {

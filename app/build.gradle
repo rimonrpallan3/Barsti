@@ -12,6 +12,20 @@ android {
         multiDexEnabled true
 
     }
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/activity',
+                            'src/main/res/layouts/fragments',
+                            'src/main/res/layouts/content',
+                            'src/main/res/layouts/calender_layouts',
+                            'src/main/res/layouts/rxjava',
+                            'src/main/res/layouts',
+                            'src/main/res'
+                    ]
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -85,7 +99,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'gridlayout-v7'
     }
     compile 'com.android.support:gridlayout-v7:27.1.1'
+    // RxJava2 Dependencies
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 
+    // FastAndroidNetworking Dependency
+    implementation 'com.amitshekhar.android:rx2-android-networking:1.0.2'
     // Standard -- not recommended!
     //compile 'com.philliphsu:bottomsheetpickers:2.4.1'
 }

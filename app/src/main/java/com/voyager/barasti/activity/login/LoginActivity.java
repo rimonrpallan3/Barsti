@@ -69,6 +69,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     SharedPreferences.Editor editor;
     String fireBaseToken="";
     CallbackManager mCallbackManager;
+    String networkError ="";
+
+    String facebook = "";
+    String google = "";
+    String normal = "";
 
 
 
@@ -83,6 +88,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         btnSignIn =  findViewById(R.id.btnSignIn);
         etEmail =  findViewById(R.id.etEmail);
         etCPass =  findViewById(R.id.etCPass);
+
+        facebook = getResources().getString(R.string.login_facebook);
+        google = getResources().getString(R.string.login_google);
+        normal = getResources().getString(R.string.login_normal);
+
         fireBaseToken = FirebaseInstanceId.getInstance().getToken();
         sharedPrefs = getSharedPreferences(Helper.UserDetails,
                 Context.MODE_PRIVATE);
@@ -110,25 +120,27 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                //Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 iLoginPresenter.firebaseFacebookAuthWithAnonymous(loginResult.getAccessToken());
-                System.out.println("facebook:onSuccess : ");
+                //System.out.println("facebook:onSuccess : ");
             }
 
             @Override
             public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-                System.out.println("facebook:onError : onCancel : ");
+                //Log.d(TAG, "facebook:onCancel");
+               // System.out.println("facebook:onError : onCancel : ");
                 // ...
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-                System.out.println("facebook:onError : error : "+error.getMessage());
+               // Log.d(TAG, "facebook:onError", error);
+               // System.out.println("facebook:onError : error : "+error.getMessage());
                 // ...
             }
         });
+
+        networkError =  getResources().getString(R.string.snack_error_network);
 
     }
 
@@ -167,7 +179,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             iLoginPresenter.onLoginSucuess();
         }
         else {
-            Toast.makeText(this, "Please input correct UserName and Password, code = " + code, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,  getResources().getString(R.string.login_error_txt), Toast.LENGTH_SHORT).show();
 
             btnSignInGoogle.setEnabled(true);
             btnSignInFB.setEnabled(true);
@@ -206,17 +218,17 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     public void btnSignInGoogle(View v){
         if(NetworkDetector.haveNetworkConnection(this)){
-            Snackbar.make(findViewById(android.R.id.content),"Google Sign In btn", Snackbar.LENGTH_SHORT).show();
+           // Snackbar.make(findViewById(android.R.id.content),"Google Sign In btn", Snackbar.LENGTH_SHORT).show();
             btnSignInGoogle.setEnabled(false);
             signIn();
         }else {
-            Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.snack_error_network), Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), networkError, Snackbar.LENGTH_LONG).show();
 
         }
     }
 
     public void btnSignInFB(View v){
-        System.out.println("facebook:onClick");
+        //System.out.println("facebook:onClick");
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
         LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             public LoginResult loginResult;
@@ -224,26 +236,26 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onSuccess(LoginResult loginResult) {
                 this.loginResult=loginResult;
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                //Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 iLoginPresenter.firebaseAuthWithFB(loginResult);
-                System.out.println("facebook:onSuccess : ");
+               // System.out.println("facebook:onSuccess : ");
             }
 
             @Override
             public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-                System.out.println("facebook:onError : onCancel : ");
+                //Log.d(TAG, "facebook:onCancel");
+                //System.out.println("facebook:onError : onCancel : ");
                 // ...
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-                System.out.println("facebook:onError : error : "+error.getMessage());
+                //Log.d(TAG, "facebook:onError", error);
+                //System.out.println("facebook:onError : error : "+error.getMessage());
                 // ...
             }
         });
-        Snackbar.make(findViewById(android.R.id.content),"Facebook Sign In btn", Snackbar.LENGTH_SHORT).show();
+       // Snackbar.make(findViewById(android.R.id.content),"Facebook Sign In btn", Snackbar.LENGTH_SHORT).show();
     }
 
 
@@ -286,12 +298,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 iLoginPresenter.firebaseAuthWithGoogle(account);
-                System.out.println("-----------GoogleSignInAccount onActivityResult");
+                //System.out.println("-----------GoogleSignInAccount onActivityResult");
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 btnSignInGoogle.setEnabled(true);
-                Log.w(TAG, "Google sign in failed", e);
-                System.out.println("-----------GoogleSignInAccount onActivityResult error : " +e.getMessage());
+               // Log.w(TAG, "Google sign in failed", e);
+               //System.out.println("-----------GoogleSignInAccount onActivityResult error : " +e.getMessage());
                 // ...
             }
         }else{

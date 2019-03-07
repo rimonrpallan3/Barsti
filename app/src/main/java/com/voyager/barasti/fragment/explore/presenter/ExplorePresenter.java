@@ -212,5 +212,79 @@ public class ExplorePresenter implements IExplorePresenter {
         });
     }
 
+    @Override
+    public void getMainRefreshList(int userId) {
+        Retrofit retrofit = new ApiClient().getRetrofitClient();
+        final WebServices webServices = retrofit.create(WebServices.class);
+        Call<MainList> calls = webServices.doGetDetails(userId);
+        calls.enqueue(new Callback<MainList>() {
+            @Override
+            public void onResponse(Call<MainList> call, Response<MainList> response) {
+                MainList mainList = response.body();
+                landingListItems.clear();
+                String json = new Gson().toJson(mainList);
+                System.out.println("getMainRefreshList getMainRefreshList json : " + json);
+
+
+                HeaderItem headerItem = new HeaderItem();
+                headerItem.setImgHeader(R.drawable.barasti_home_banner);
+                headerItem.setBtnContent("Explore Homes >");
+                headerItem.setBanners(mainList.getSliders());
+                headerItem.setViewType(0);
+                landingListItems.add(headerItem);
+                String json2 = new Gson().toJson(mainList.getSliders());
+                //System.out.println("ExplorePresenter getSliders() json2 : " + json2);
+
+                TypeBody typeItems = new TypeBody();
+                typeItems.setHeadingTitile("Property Types");
+                typeItems.setTypeLists(mainList.getTypes());
+                typeItems.setViewType(1);
+                landingListItems.add(typeItems);
+
+
+                String json3 = new Gson().toJson(mainList.getTypes());
+                System.out.println("getMainRefreshList getTypes() json 3: " + json3);
+
+                ExploreItems yourTripItem = new ExploreItems();
+                yourTripItem.setMainHeading("Top Rated Homes");
+                yourTripItem.setMainList(mainList);
+                yourTripItem.setHouseList(mainList.getProperties());
+                yourTripItem.setViewType(2);
+                landingListItems.add(yourTripItem);
+
+
+                String json4 = new Gson().toJson(mainList.getProperties());
+                System.out.println("getMainRefreshList getProperties() json4 : " + json4);
+
+
+                locItemsArrayList = mainList.getLocations();
+                FooterItems footerItems = new FooterItems();
+                footerItems.setHeadingTitile("Location");
+                footerItems.setLocItemsList(locItemsArrayList);
+                footerItems.setViewType(3);
+                landingListItems.add(footerItems);
+                iExploreView.setRefreshHomeList(landingListItems);
+
+                String json5 = new Gson().toJson(mainList.getLocations());
+                System.out.println("getMainRefreshList getLocations() json : " + json5);
+            }
+
+            @Override
+            public void onFailure(Call<MainList> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(activity, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(activity, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+                t.printStackTrace();
+                //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
 
 }

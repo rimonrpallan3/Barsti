@@ -75,7 +75,7 @@ public class PropertyProfilePage extends AppCompatActivity implements IProfileVi
 
         if(propertyId!=0){
             iProfiePresenter.getHomeData(propertyId,userID);
-            tvHomeAmt.setText(priceValue+" / Night");
+            tvHomeAmt.setText(priceValue+" BD / Night");
             tvFavValue.setText(""+reviewRate);
         }else {
             Toast.makeText(getApplication(), "Home Data Is not Present.",Toast.LENGTH_LONG).show();

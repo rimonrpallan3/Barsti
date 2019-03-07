@@ -52,7 +52,7 @@ public class CaldroidSampleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.calender_main);
+        setContentView(R.layout.activity_calender_main);
 
         final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
 

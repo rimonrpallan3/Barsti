@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabItemsLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_60"
+    android:layout_gravity="bottom"
+    android:background="@color/splsh_bg"
+    android:orientation="horizontal"
+    android:weightSum="80">
+
+
+    <LinearLayout
+        android:id="@+id/flExploreTabFrame"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_weight="19"
+        android:orientation="vertical"
+        android:background="?selectableItemBackground"
+        android:onClick="clickExplore">
+
+        <ImageButton
+            android:id="@+id/homeTabImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="false"
+            android:src="@drawable/explore_icon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/landing_tab1_name_txt"
+            android:textSize="@dimen/_14" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5" />
+
+    <LinearLayout
+        android:id="@+id/flFavTabFrame"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_weight="20"
+        android:orientation="vertical"
+        android:background="?selectableItemBackground"
+        android:onClick="clickFav">
+
+        <ImageButton
+            android:id="@+id/earnTabImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="false"
+            android:src="@drawable/favourite_icon" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/landing_tab2_name_txt"
+            android:textSize="@dimen/_14" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5" />
+
+    <LinearLayout
+        android:id="@+id/flInboxTabFrame"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="19"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="?selectableItemBackground"
+        android:onClick="clickInbox">
+
+        <ImageButton
+            android:id="@+id/rateTabImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="false"
+            android:src="@drawable/inbox_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/landing_tab3_name_txt"
+            android:textSize="@dimen/_14" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5" />
+
+    <LinearLayout
+        android:id="@+id/flProfileTabFrame"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="20"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="?selectableItemBackground"
+        android:onClick="clickProfile">
+
+        <ImageButton
+            android:id="@+id/profileTabImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:background="@null"
+            android:src="@drawable/settings_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/landing_tab4_name_txt"
+            android:textSize="@dimen/_14" />
+    </LinearLayout>
+
+</LinearLayout>
+
+

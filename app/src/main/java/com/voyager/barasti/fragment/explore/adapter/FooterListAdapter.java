@@ -2,15 +2,19 @@ package com.voyager.barasti.fragment.explore.adapter;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.locationListPropety.LocationListPropety;
+import com.voyager.barasti.activity.propertyProfilepage.PropertyProfilePage;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocList;
 
@@ -29,10 +33,12 @@ public class FooterListAdapter extends RecyclerView.Adapter<FooterListAdapter.Vi
     public List<LocItems> locItemsList;
     //private CustomFilter mFilter;
     Activity activity;
+    int userId=0;
 
-    public FooterListAdapter(List<LocItems> locItemsList, Activity activity) {
+    public FooterListAdapter(List<LocItems> locItemsList, Activity activity,int userId) {
         this.locItemsList = locItemsList;
         this.activity = activity;
+        this.userId = userId;
         //mFilter = new CustomFilter(this, items);
         // System.out.println("MapPlaceSearch has ben ListMapApiDirectionSourceAdapter ");
     }
@@ -53,6 +59,15 @@ public class FooterListAdapter extends RecyclerView.Adapter<FooterListAdapter.Vi
                 .placeholder(R.drawable.placeholder_image)
                 .into(holder.ivFooterHome);
         holder.tvFooterSubHeading.setText(locList.getName());
+        holder.llLocView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, LocationListPropety.class);
+                intent.putExtra("LocName", locList.getName());
+                intent.putExtra("userID", userId);
+                activity.startActivityForResult(intent,1);
+            }
+        });
 
     }
 
@@ -74,11 +89,13 @@ public class FooterListAdapter extends RecyclerView.Adapter<FooterListAdapter.Vi
 
         TextView tvFooterSubHeading;
         ImageView ivFooterHome;
+        LinearLayout llLocView;
 
         public ViewHolder(View view) {
             super(view);
             ivFooterHome = view.findViewById(R.id.ivFooterHome);
             tvFooterSubHeading = view.findViewById(R.id.tvFooterSubHeading);
+            llLocView = view.findViewById(R.id.llLocView);
         }
 
         @Override

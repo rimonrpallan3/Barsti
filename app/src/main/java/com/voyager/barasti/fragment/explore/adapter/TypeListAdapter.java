@@ -71,7 +71,7 @@ public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.ViewHo
                 Intent intent = new Intent(activity, TypeListActivity.class);
                 intent.putExtra("TypeListActivity", typeList);
                 intent.putExtra("userID", userID);
-                activity.startActivity(intent);
+                activity.startActivityForResult(intent,1);
             }
         });
 

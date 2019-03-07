@@ -6,10 +6,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.activity.splashscreen.view.ISplashView;
+
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -26,7 +35,7 @@ public class SplashPresenter implements IConnectionStatus{
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
 
-    private int SPLASH_DISPLAY_LENGTH = 1000;
+    private int SPLASH_DISPLAY_LENGTH = 2;
 
     public SplashPresenter(Context context, ISplashView splashView, Activity activity, SharedPreferences sharedPrefs, SharedPreferences.Editor editor) {
         this.activity = activity;
@@ -57,27 +66,46 @@ public class SplashPresenter implements IConnectionStatus{
 
     @Override
     public void load() {
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
+        getObservable().delay(SPLASH_DISPLAY_LENGTH, TimeUnit.SECONDS)
+                // Run on a background thread
+                .subscribeOn(Schedulers.io())
+                // Be notified on the main thread
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getObserver());
+    }
+
+    private Observable<String> getObservable() {
+        return Observable.just(getUserGsonInSharedPrefrences());
+    }
+
+    private Observer<String> getObserver() {
+        return new Observer<String>() {
+
             @Override
-            public void run() {
-                //splashView.moveToLanding();
-                if(emailAddress!=null&&emailAddress.length()>0){
+            public void onSubscribe(Disposable d) {
+                Log.d("SplashPresenter", " onSubscribe : " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(String value) {
+                if (value != null && value.length() > 0) {
                     splashView.moveToLanding();
-                }else{
+                } else {
                     splashView.moveToSignUpLogin();
                 }
-                /*if(Helper.isLocationEnabled(context)) {
-
-                    if(emailAddress.length()>0){
-
-                    }else{
-                        splashView.moveToSignUpLogin();
-                    }
-                }else {
-                    Helper.toEnabledLocation(context,activity);
-                }*/
+                Log.d("SplashPresenter", " onNext : value : " + value);
             }
-        },SPLASH_DISPLAY_LENGTH);
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("SplashPresenter", " onError : " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("SplashPresenter", " onComplete");
+            }
+        };
     }
+
 }

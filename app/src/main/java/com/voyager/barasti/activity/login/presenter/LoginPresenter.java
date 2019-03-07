@@ -62,6 +62,9 @@ public class LoginPresenter implements ILoginPresenter{
     String passwd;
     String fireBaseToken="";
     String loginType  ="";
+    String facebook = "";
+    String google = "";
+    String normal = "";
 
 
 
@@ -78,6 +81,9 @@ public class LoginPresenter implements ILoginPresenter{
         this.sharedPrefs=sharedPrefs;
         this.editor=editor;
         this.fireBaseToken = fireBaseToken;
+        facebook = activity.getResources().getString(R.string.login_facebook);
+        google = activity.getResources().getString(R.string.login_google);
+        normal = activity.getResources().getString(R.string.login_normal);
     }
 
 
@@ -109,12 +115,12 @@ public class LoginPresenter implements ILoginPresenter{
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user,"google");
+                            updateUI(user,google);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Snackbar.make(activity.findViewById(android.R.id.content), activity.getResources().getString(R.string.snack_error_acct), Snackbar.LENGTH_SHORT).show();
-                            updateUI(null,"google");
+                            updateUI(null,google);
                         }
                         // [START_EXCLUDE]
                         iLoginView.setLoader(View.GONE);
@@ -175,14 +181,14 @@ public class LoginPresenter implements ILoginPresenter{
                             Log.d(TAG, "signInWithCredential:success");
                             System.out.println("firebaseAuthWithFB : success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user,"facebook");
+                            updateUI(user,facebook);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(activity, "Authentication failed.",
+                            Toast.makeText(activity, activity.getResources().getString(R.string.login_facebook_auth_fail),
                                     Toast.LENGTH_SHORT).show();
                             System.out.println("Authentication : success");
-                            updateUI(null,"facebook");
+                            updateUI(null,facebook);
                         }
 
                         // ...
@@ -225,7 +231,7 @@ public class LoginPresenter implements ILoginPresenter{
         this.passwd = passwd;
         this.fireBaseToken = fireBaseToken;
         UserDetails userDetails = new UserDetails();
-        userDetails.setLoginType("normal");
+        userDetails.setLoginType(normal);
         userDetails.setFcm(fireBaseToken);
         System.out.println("------- doLogin  email : "+ name +
                 " Password : " + passwd);
@@ -245,17 +251,17 @@ public class LoginPresenter implements ILoginPresenter{
 
 
     public void validateLoginDataBaseApi(final UserDetails userDetails){
-        System.out.println("-------validateLoginDataBaseApi ");
+        System.out.println(" ------- validateLoginDataBaseApi ");
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
         Call<UserDetails> call = null;
-        if(userDetails.getLoginType().equals("google")) {
+        if(userDetails.getLoginType().equals(google)) {
             call = webServices.loginGoogleUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getGoogleId(),userDetails.getFcm());
             loginType = userDetails.getLoginType() ;
-        }else if(userDetails.getLoginType().equals("normal")){
+        }else if(userDetails.getLoginType().equals(normal)){
             call = webServices.loginNormalUser(name, passwd, userDetails.getLoginType(),userDetails.getFcm());
             loginType = userDetails.getLoginType() ;
-        }else if(userDetails.getLoginType().equals("facebook")){
+        }else if(userDetails.getLoginType().equals(facebook)){
             call = webServices.loginFBUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getFcm());
             loginType = userDetails.getLoginType() ;
         }
@@ -285,22 +291,22 @@ public class LoginPresenter implements ILoginPresenter{
 
                     final int code = userDetails.validateLoginResponseError(userDetails.getError_status());
                     System.out.println("--------- validateLoginDataBaseApi code: "+code);
-                    Boolean isLoginSuccess =true;
+                    Boolean isLoginSuccess = true;
                     if (code != 0) {
                         isLoginSuccess = false;
-                        System.out.println("--------- validateLoginDataBaseApi isError: "+userDetails.getLogin_status() +" Error message: "+userDetails.getLogin_status());
+                        //System.out.println("--------- validateLoginDataBaseApi isError: "+userDetails.getLogin_status() +" Error message: "+userDetails.getLogin_status());
                         Toast.makeText((Context) iLoginView, userDetails.getLogin_status(), Toast.LENGTH_SHORT).show();
-                        System.out.println("-----validateLoginDataBaseApi  data unSuccess ");
+                        //System.out.println("-----validateLoginDataBaseApi  data unSuccess ");
                     } else {
                         userDetails.setPswd(passwd);
                         //userDetails.setFcm(fireBaseToken);
-                        System.out.println("----- validateLoginDataBaseApi isError: "+userDetails.getLogin_status() +" userID: "+userDetails.getId());
-                        Toast.makeText((Context) iLoginView, "Login Successful", Toast.LENGTH_SHORT).show();
+                        //System.out.println("----- validateLoginDataBaseApi isError: "+userDetails.getLogin_status() +" userID: "+userDetails.getId());
+                        Toast.makeText((Context) iLoginView, activity.getResources().getString(R.string.login_api_normal_response_success), Toast.LENGTH_SHORT).show();
                         addUserGsonInSharedPrefrences(userDetails);
-                        System.out.println("----- validateLoginDataBaseApi data Successful ");
+                        //System.out.println("----- validateLoginDataBaseApi data Successful ");
                     }
                     Boolean result = isLoginSuccess;
-                    System.out.println("----- sendRegisteredDataAndValidateResponse second Data Please see, code = " + code + ", result: " + result);
+                    //System.out.println("----- sendRegisteredDataAndValidateResponse second Data Please see, code = " + code + ", result: " + result);
                     iLoginView.onLoginResponse(result, code);
                 }
 
@@ -311,13 +317,13 @@ public class LoginPresenter implements ILoginPresenter{
                     int code = -77;
                     iLoginView.onLoginResult(result, code);
                     t.printStackTrace();
-                    System.out.println("----- validateLoginDataBaseApi onFailure  = " +t.getMessage());
+                    //System.out.println("----- validateLoginDataBaseApi onFailure  = " +t.getMessage());
                     //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("----- validateLoginDataBaseApi Error Call null = " +e.getMessage());
+            //System.out.println("----- validateLoginDataBaseApi Error Call null = " +e.getMessage());
 
         }
 

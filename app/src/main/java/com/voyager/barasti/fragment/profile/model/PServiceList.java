@@ -8,11 +8,21 @@ public class PServiceList {
 
     String heading;
     String subHeading;
+    int index;
 
 
-    public PServiceList(String heading, String subHeading) {
+    public PServiceList(int index,String heading, String subHeading) {
         this.heading = heading;
         this.subHeading = subHeading;
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public String getHeading() {

@@ -211,7 +211,7 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     locItemsList = footerItems.getLocItemsList();
                     holderFooter.tvFooterHeading.setText(footerItems.getHeadingTitile());
                     System.out.println(" ------------ FooterListViewHolder onBindViewHolder FooterItems Heading : "+footerItems.getHeadingTitile());
-                    footerListAdapter = new FooterListAdapter(locItemsList, activity);
+                    footerListAdapter = new FooterListAdapter(locItemsList, activity,userID);
                     HorizontalView = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
                     holderFooter.rvFooterList.setLayoutManager(HorizontalView);
                     holderFooter.rvFooterList.setItemAnimator(new DefaultItemAnimator());
@@ -239,6 +239,12 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         }
 
+    }
+
+    public void getRefreshHouseList(List<HouseList> item){
+        bodyListAdapter.getRefreshList(item);
+        System.out.println("ExploreListAdapter getRefreshHouseList : ");
+        notifyDataSetChanged();
     }
 
     public void addHouse(HouseList item){

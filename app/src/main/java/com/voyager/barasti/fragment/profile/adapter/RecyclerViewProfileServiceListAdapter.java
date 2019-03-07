@@ -6,12 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.UserPropertyList.UserPropertyListActivity;
+import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.fragment.profile.model.PServiceList;
 
 import java.util.List;
@@ -23,10 +24,12 @@ import java.util.List;
 public class RecyclerViewProfileServiceListAdapter extends RecyclerView.Adapter<RecyclerViewProfileServiceListAdapter.ServiceViewHolder>{
     private List<PServiceList> pServiceLists;
     Activity activity;
+    UserDetails userDetails;
 
-    public RecyclerViewProfileServiceListAdapter(List<PServiceList> pServiceLists, Activity activity){
+    public RecyclerViewProfileServiceListAdapter(List<PServiceList> pServiceLists, Activity activity,UserDetails userDetails){
         this.pServiceLists = pServiceLists;
         this.activity = activity;
+        this.userDetails = userDetails;
     }
 
     @Override
@@ -50,7 +53,33 @@ public class RecyclerViewProfileServiceListAdapter extends RecyclerView.Adapter<
         holder.llProfileContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity,pServiceLists.get(position).getHeading()+" Is Clicked",Toast.LENGTH_SHORT).show();
+
+                switch (pServiceLists.get(position).getIndex()){
+                    case 0:
+                        Toast.makeText(activity,pServiceLists.get(position).getHeading()+" Is Clicked",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(activity, UserPropertyListActivity.class);
+                        intent.putExtra("UserDetails", userDetails);
+                        activity.startActivityForResult(intent,123);
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+
+                        break;
+                    case 6:
+
+                        break;
+                    default:
+
+                        break;
+                }
+
             }
         });
 

@@ -130,7 +130,7 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
 
     public void setProfileServiceList(View rootView){
         rvProfileListItems = rootView.findViewById(R.id.rvProfileListItems);
-        recyclerViewProfileServiceListAdapter = new RecyclerViewProfileServiceListAdapter(pServiceLists, activity);
+        recyclerViewProfileServiceListAdapter = new RecyclerViewProfileServiceListAdapter(pServiceLists, activity,userDetails);
         rvProfileListItems.setLayoutFrozen(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rvProfileListItems.setLayoutManager(mLayoutManager);
@@ -141,18 +141,18 @@ public class ProfileFrg extends Fragment implements IProfileFragView{
 
 
     private void populateProfileListService(){
-        PServiceList firstValue = new PServiceList("Notification","");
-        PServiceList SecondValue = new PServiceList("Travel for work?","");
-        PServiceList ThirdValue = new PServiceList("Credits and coupons","");
-        PServiceList FourthValue = new PServiceList("invite friends","");
-        PServiceList FifthValue = new PServiceList("Refer a host","");
-        PServiceList SixthValue = new PServiceList("Payment","");
-        PServiceList SeventhValue = new PServiceList("Learn About Hosting","Earn upto 20BD per month");
-        PServiceList EightValue = new PServiceList("List your space","");
-        PServiceList ninethValue = new PServiceList("Host an experience","");
-        PServiceList TenthValue = new PServiceList("Settings","");
-        PServiceList eleventhValue = new PServiceList("Get Help","");
-        PServiceList TwelveValue = new PServiceList("Give us Feedback","");
+        PServiceList firstValue = new PServiceList(0,"User Property List","");
+        PServiceList SecondValue = new PServiceList(1,"Travel for work?","");
+        PServiceList ThirdValue = new PServiceList(2,"Credits and coupons","");
+        PServiceList FourthValue = new PServiceList(3,"invite friends","");
+        PServiceList FifthValue = new PServiceList(4,"Refer a host","");
+        PServiceList SixthValue = new PServiceList(5,"Payment","");
+        PServiceList SeventhValue = new PServiceList(6,"Learn About Hosting","Earn upto 20BD per month");
+        PServiceList EightValue = new PServiceList(7,"List your space","");
+        PServiceList ninethValue = new PServiceList(8,"Host an experience","");
+        PServiceList TenthValue = new PServiceList(9,"Settings","");
+        PServiceList eleventhValue = new PServiceList(10,"Get Help","");
+        PServiceList TwelveValue = new PServiceList(11,"Give us Feedback","");
         pServiceLists.add(firstValue);
         pServiceLists.add(SecondValue);
         pServiceLists.add(ThirdValue);
