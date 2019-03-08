@@ -19,6 +19,8 @@ import com.voyager.barasti.activity.typelist.presenter.TypeListPresenter;
 import com.voyager.barasti.activity.typelist.view.ITypeView;
 import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by User on 11-Jan-19.
  */
@@ -31,6 +33,7 @@ public class TypeListActivity extends AppCompatActivity implements ITypeView{
     TypeList typeList;
     TextView tvTBHeading;
     int userID;
+    Disposable dMainListObservable;
 
 
     @Override
@@ -85,5 +88,18 @@ public class TypeListActivity extends AppCompatActivity implements ITypeView{
         rvTypeList.setLayoutManager(new GridLayoutManager(getParent(), 2));
         rvTypeList.setAdapter(typedListAdapter);
         rvTypeList.setLayoutFrozen(true);
+    }
+
+    @Override
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable = dMainListObservable;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(dMainListObservable!=null){
+            dMainListObservable.dispose();
+        }
     }
 }

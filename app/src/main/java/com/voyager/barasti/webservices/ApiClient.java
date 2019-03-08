@@ -2,6 +2,7 @@ package com.voyager.barasti.webservices;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.voyager.barasti.BuildConfig;
 import com.voyager.barasti.appconfig.AppConfig;
 
@@ -52,6 +53,7 @@ public class ApiClient {
             /*http://10.1.1.21/sayara/*/
             retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                     .client(client)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson)).build();
         }
         return retrofit;

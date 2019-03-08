@@ -27,6 +27,8 @@ import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by User on 09-Jan-19.
  */
@@ -53,6 +55,7 @@ public class PropertyProfilePage extends AppCompatActivity implements IProfileVi
     int totalGuestCount = 0;
 
     LocationManager locationManager;
+    Disposable dMainListObservable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +131,11 @@ public class PropertyProfilePage extends AppCompatActivity implements IProfileVi
         this.mvHouseDetail =mvHouseDetail;
     }
 
+    @Override
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable =dMainListObservable;
+    }
+
 
     public void ivHomeClick(View v){
         Intent intent = new Intent(getApplicationContext(), LandingPage.class);
@@ -139,5 +147,10 @@ public class PropertyProfilePage extends AppCompatActivity implements IProfileVi
         finish();*/
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(dMainListObservable!=null)
+            dMainListObservable.dispose();
+    }
 }

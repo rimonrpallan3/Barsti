@@ -21,6 +21,8 @@ import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
 
 import java.util.ArrayList;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by User on 04-Mar-19.
  */
@@ -33,6 +35,7 @@ public class LocationListPropety extends AppCompatActivity implements ILocationV
     ILocationPresenter iLocationPresenter;
     int userID;
     String locName = "";
+    Disposable dMainListObservable;
 
 
     @Override
@@ -84,5 +87,17 @@ public class LocationListPropety extends AppCompatActivity implements ILocationV
         rvLocList.setLayoutManager(new GridLayoutManager(getParent(), 2));
         rvLocList.setAdapter(locListAdapter);
         rvLocList.setLayoutFrozen(true);
+    }
+
+    @Override
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable= dMainListObservable;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(dMainListObservable!=null)
+            dMainListObservable.dispose();
     }
 }

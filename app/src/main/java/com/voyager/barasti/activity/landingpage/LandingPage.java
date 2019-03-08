@@ -35,6 +35,7 @@ import com.voyager.barasti.fragment.fav.FavouriteFag;
 import com.voyager.barasti.fragment.inbox.InboxFrg;
 import com.voyager.barasti.fragment.profile.ProfileFrg;
 
+import io.reactivex.disposables.Disposable;
 
 
 /**
@@ -63,6 +64,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
     String[] fruits = {"Apple", "Banana", "Cherry", "Date", "Grape", "Kiwi", "Mango", "Pear"};
     public String currentTabFrg;
     ILandingPresenter iLandingPresenter;
+    Disposable dMainListObservable;
 
 
     @Override
@@ -265,6 +267,9 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if(dMainListObservable!=null){
+            dMainListObservable.dispose();
+        }
     }
 
     @Override
@@ -351,84 +356,13 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
-    public void setSelectedFragment(BackHandledFragment backHandledFragment) {
-        this.selectedFragment = selectedFragment;
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable =dMainListObservable;
     }
 
-
-    /*@Override
-    public void itemClicked(View view, int position) {
-        System.out.println(" ------------ LandingPage itemClicked position : "+position);
-        MapFragmentView mf = (MapFragmentView) getSupportFragmentManager().findFragmentByTag(MapFragmentView.TAG);
-        ExploreItems landingListItems = drawerListAdapter.getData().get(position);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (landingListItems instanceof ExploreItems) {
-            switch (landingListItems.getID()) {
-                case Menu.YOUR_TRIPS:
-
-                    if (mDrawerLayout != null)
-                        mDrawerLayout.closeDrawers();
-                    Intent intent = new Intent(LandingPage.this, TripHistory.class);
-                    intent.putExtra("UserDetail", userDetail);
-                    startActivity(intent);
-
-                    break;
-                case Menu.PAYMENT:
-
-                    if (mDrawerLayout != null)
-                        mDrawerLayout.closeDrawers();
-                    intent = new Intent(LandingPage.this, PaymentActivity.class);
-                    intent.putExtra("UserDetail", userDetail);
-                    startActivity(intent);
-
-                    break;
-                case Menu.HELP:
-
-                    if (mDrawerLayout != null)
-                        mDrawerLayout.closeDrawers();
-                    intent = new Intent(LandingPage.this, HelpActivity.class);
-                    intent.putExtra("UserDetail", userDetail);
-                    startActivity(intent);
-                    *//*
-                    getSupportActionBar().setTitle(getResources().getString(R.string.help));
-                    HelpFragment helpFragment = new HelpFragment();
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.landingContainer, helpFragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();*//*
-
-                    break;
-                case Menu.TERMS_AND_CONDITIONS:
-
-                    if (mDrawerLayout != null)
-                        mDrawerLayout.closeDrawers();
-                    intent = new Intent(LandingPage.this, TermsAndConduction.class);
-                    intent.putExtra("UserDetail", userDetail);
-                    startActivity(intent);
-
-                    break;
-                case Menu.SETTINGS:
-
-                    if (mDrawerLayout != null)
-                        mDrawerLayout.closeDrawers();
-                    Intent intent2 = new Intent(LandingPage.this, Settings.class);
-                    intent2.putExtra("UserDetail", userDetail);
-                    startActivityForResult(intent2,Helper.LOG_OUT);
-
-                    break;
-
-
-            }
-        }
-
-    }*/
-
-    private static class Menu {
-        public static final int YOUR_TRIPS = 1;
-        public static final int PAYMENT = 2;
-        public static final int HELP = 3;
-        public static final int TERMS_AND_CONDITIONS = 4;
-        public static final int SETTINGS = 5;
+    @Override
+    public void setSelectedFragment(BackHandledFragment backHandledFragment) {
+        this.selectedFragment = selectedFragment;
     }
 
 }

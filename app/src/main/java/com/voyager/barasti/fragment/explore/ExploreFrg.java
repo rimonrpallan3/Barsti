@@ -29,6 +29,8 @@ import com.voyager.barasti.fragment.explore.view.IExploreView;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
+
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -51,6 +53,7 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
     Bundle bundle;
     MainList mainList;
     UserDetails userDetails;
+    Disposable dMainListObservable;
 
     public ExploreFrg() {
     }
@@ -251,7 +254,8 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        if(dMainListObservable!=null)
+        dMainListObservable.dispose();
     }
 
     @Override
@@ -289,5 +293,10 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
             HouseList houseList = houseListArrayList.get(i);
             exploreListAdapter.addHouse(houseList);
         }
+    }
+
+    @Override
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable =dMainListObservable;
     }
 }

@@ -2,6 +2,8 @@ package com.voyager.barasti.activity.landingpage.view;
 
 import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by User on 8/29/2017.
  */
@@ -12,6 +14,7 @@ public interface ILandingView {
     void hideVisibilityLandingItems(int visibility, String value);
 
     public void setMainList(MainList mainList);
+    void unSubscribeCalls(Disposable dMainListObservable);
 
 
 }

@@ -17,6 +17,7 @@ import com.voyager.barasti.fragment.fav.model.FavDetail;
 
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -38,34 +39,38 @@ public interface WebServices {
     Call<ArrayList<LocItems>> doGetLocList();
     @GET("listings/{id}")
     Call<HomeDetails> doGetHomeDetails(@Path("id") int id);*/
+   /* @FormUrlEncoded
+    @POST("home")
+    Call<MainList> doGetDetails(@Nullable @Field("user_id") Integer userID);*/
     @FormUrlEncoded
     @POST("home")
-    Call<MainList> doGetDetails(@Nullable @Field("user_id") Integer userID);
+    Observable<MainList> doGetDetails1(@Nullable @Field("user_id") Integer userID);
 
     /*Here limit is the total list count to be fetched
-    * and offset is the pointer form which data fetching should start form */
+    * and offset is the pointer form which data fetching should start form *//*
     @GET("listings/{limit}/{offset}")
-    Call<MainList> updateHouseList(@Path("limit") int limit, @Path("offset") int offset);
+    Call<MainList> updateHouseList(@Path("limit") int limit, @Path("offset") int offset);*/
+
+
+    @GET("listings/{limit}/{offset}")
+    Observable<MainList> updateHouseList(@Path("limit") int limit, @Path("offset") int offset);
 
     @FormUrlEncoded
     @POST("propertyLike")
-    Call<LikeUnLike> propertyLike(@Nullable @Field("user_id") Integer userID,
+    Observable<LikeUnLike> propertyLike(@Nullable @Field("user_id") Integer userID,
                                    @Nullable @Field("property_id") Integer propertyID);
     @FormUrlEncoded
     @POST("propertyUnlike")
-    Call<LikeUnLike> propertyUnlike(@Nullable @Field("user_id") Integer email,
+    Observable<LikeUnLike> propertyUnlike(@Nullable @Field("user_id") Integer email,
                                     @Nullable @Field("property_id") Integer papropertyIDsswd);
 
-    @GET("sliders")
-    Call<ArrayList<Banner>> doGetbannerlist();
 
-    @GET("locations/{limit}/{offset}")
-    Call<ArrayList<LocItems>> doGetLocList(@Path("limit") int limit, @Path("offset") int offset);
 
     @FormUrlEncoded
     @POST("listings/{propertyId}")
-    Call<HomeDetails> doGetHomeDetails(@Path("propertyId") int propertyId,
+    Observable<HomeDetails> doGetHomeDetails(@Path("propertyId") int propertyId,
                                        @Nullable @Field("user_id") Integer userID);
+
     @FormUrlEncoded
     @POST("calenderRates")
     Call<PriceDetails> getPriceDetails(@Nullable @Field("property_id") Integer propertyId,
@@ -119,10 +124,10 @@ public interface WebServices {
     @POST("createUser")
     public Call<UserDetails> registerUser(@Nullable @Field("first_name") String fname,
                                           @Nullable @Field("last_name") String lname,
-                                         @Nullable @Field("password") String password,
-                                         @Nullable @Field("email") String email,
-                                         @Nullable @Field("phone_num") String phone,
-                                         @Nullable @Field("date_of_birth") String dob,
+                                          @Nullable @Field("password") String password,
+                                          @Nullable @Field("email") String email,
+                                          @Nullable @Field("phone_num") String phone,
+                                          @Nullable @Field("date_of_birth") String dob,
                                           @Nullable @Field("login_type") String type);
     @FormUrlEncoded
     @POST("createUser")

@@ -4,6 +4,8 @@ import com.voyager.barasti.fragment.fav.model.FavDetail;
 
 import java.util.ArrayList;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by User on 11-Jan-19.
  */
@@ -11,4 +13,5 @@ import java.util.ArrayList;
 public interface IFavLikedView {
     void setFavAdapterList(ArrayList<FavDetail> typedAdapterList);
     void setDefaultImg();
+    void unSubscribeCalls(Disposable dMainListObservable);
 }

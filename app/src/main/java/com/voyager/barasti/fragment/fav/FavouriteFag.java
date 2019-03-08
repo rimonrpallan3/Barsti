@@ -27,6 +27,8 @@ import com.voyager.barasti.fragment.fav.view.IFavLikedView;
 
 import java.util.ArrayList;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by User on 11-Dec-18.
  */
@@ -41,6 +43,7 @@ public class FavouriteFag extends Fragment implements IFavLikedView{
     Bundle bundle;
     UserDetails userDetails;
     LinearLayout llImgNo;
+    Disposable dMainListObservable;
 
     public FavouriteFag() {
     }
@@ -127,7 +130,8 @@ public class FavouriteFag extends Fragment implements IFavLikedView{
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        if(dMainListObservable!=null)
+        dMainListObservable.dispose();
     }
 
     @Override
@@ -153,5 +157,10 @@ public class FavouriteFag extends Fragment implements IFavLikedView{
     @Override
     public void setDefaultImg() {
         llImgNo.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable = dMainListObservable;
     }
 }
