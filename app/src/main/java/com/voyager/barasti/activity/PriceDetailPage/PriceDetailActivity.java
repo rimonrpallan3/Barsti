@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
 import com.voyager.barasti.activity.PriceDetailPage.model.PriceDetails;
-import com.voyager.barasti.activity.PriceDetailPage.presenter.IPreicePresenter;
+import com.voyager.barasti.activity.PriceDetailPage.presenter.IPricePresenter;
 import com.voyager.barasti.activity.PriceDetailPage.presenter.PricePresenter;
 import com.voyager.barasti.activity.PriceDetailPage.view.IPriceView;
 import com.voyager.barasti.activity.gestCountPage.adapter.GuestListAdapter;
@@ -22,6 +22,8 @@ import com.voyager.barasti.activity.propertyProfilepage.model.HomeDetails;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by User on 25-Feb-19.
@@ -59,11 +61,12 @@ public class PriceDetailActivity extends AppCompatActivity  implements IPriceVie
     TextView tvCheckOutDate;
     ImageView ivCheckIn;
     TextView tvCheckInDate;
-    IPreicePresenter iPreicePresenter;
+    IPricePresenter iPricePresenter;
 
     String checkIn ="";
     String checkOut = "";
     PriceDetails priceDetails;
+    Disposable dMainListObservable;
 
 
     @Override
@@ -106,7 +109,7 @@ public class PriceDetailActivity extends AppCompatActivity  implements IPriceVie
         tvCheckOutDate.setText(checkOut);
         tvCheckInDate.setText(checkIn);
         tvGuestCount.setText(guestCount+" Guest");
-        iPreicePresenter = new PricePresenter(this,
+        iPricePresenter = new PricePresenter(this,
                 this,
                 propertyId,
                 currentStartDate,
@@ -132,5 +135,18 @@ public class PriceDetailActivity extends AppCompatActivity  implements IPriceVie
         tvCleaningFee.setText(priceDetails.getCleaning_fee()+" BD");
         tvTotalAmt.setText(priceDetails.getTotal() +" BD");
 
+    }
+
+    @Override
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable = dMainListObservable;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(dMainListObservable!=null){
+            dMainListObservable.dispose();
+        }
     }
 }

@@ -60,11 +60,15 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
     Bundle bundle;
     String TAG = "";
 
+    ExploreFrg exploreFrg;
+
     private BackHandledFragment selectedFragment;
     String[] fruits = {"Apple", "Banana", "Cherry", "Date", "Grape", "Kiwi", "Mango", "Pear"};
     public String currentTabFrg;
     ILandingPresenter iLandingPresenter;
     Disposable dMainListObservable;
+    Boolean updateExpUi = false;
+    MainList mainList;
 
 
     @Override
@@ -95,10 +99,15 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         } else {
             userDetail = getUserSDetails();
         }
-        iLandingPresenter.getDetails(userDetail.getId());
 
 
-
+        exploreFrg = new ExploreFrg();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, exploreFrg);
+        bundle.putParcelable("UserDetails", userDetail);
+        exploreFrg.setArguments(bundle);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
 
         //toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
@@ -145,14 +154,36 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         ivPointer2.setVisibility(View.GONE);
         ivPointer3.setVisibility(View.GONE);*/
         if(currentTabFrg!="explore") {
-            Toast.makeText(getApplicationContext(), "Explore Selected", Toast.LENGTH_SHORT).show();
-            ExploreFrg exploreFrg = new ExploreFrg();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.container, exploreFrg);
-            exploreFrg.setArguments(bundle);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-            currentTabFrg = "explore";
+            if(updateExpUi){
+                Toast.makeText(getApplicationContext(), "Explore Selected updateExpUi", Toast.LENGTH_SHORT).show();
+                exploreFrg = new ExploreFrg();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container, exploreFrg);
+                System.out.println("clickExplore updateExpUi : "+updateExpUi);
+                bundle.putParcelable("UserDetails", userDetail);
+                bundle.putBoolean("updateExpUi", updateExpUi);
+                if(mainList!=null){
+                    bundle.putParcelable("mainList", mainList);
+                }
+                exploreFrg.setArguments(bundle);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                updateExpUi = false;
+                currentTabFrg = "explore";
+            }else {
+                System.out.println("clickExplore updateExpUi : "+updateExpUi);
+                updateExpUi = false;
+                Toast.makeText(getApplicationContext(), "Explore Selected", Toast.LENGTH_SHORT).show();
+                exploreFrg = new ExploreFrg();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container, exploreFrg);
+                bundle.putBoolean("updateExpUi", updateExpUi);
+                bundle.putParcelable("UserDetails", userDetail);
+                exploreFrg.setArguments(bundle);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                currentTabFrg = "explore";
+            }
         }else {
             Toast.makeText(getApplicationContext(),"Your in Explore Frg",Toast.LENGTH_LONG).show();
         }
@@ -342,18 +373,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    @Override
-    public void setMainList(MainList mainList) {
-        ExploreFrg exploreFrg = new ExploreFrg();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, exploreFrg);
-        bundle.putParcelable("MainList", mainList);
-        bundle.putParcelable("UserDetails", userDetail);
-        exploreFrg.setArguments(bundle);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-        currentTabFrg="explore";
-    }
+
 
     @Override
     public void unSubscribeCalls(Disposable dMainListObservable) {

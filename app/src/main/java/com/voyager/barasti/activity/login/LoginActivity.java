@@ -44,6 +44,8 @@ import com.voyager.barasti.common.NetworkDetector;
 
 import java.util.Arrays;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by User on 23-Jan-19.
  */
@@ -74,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     String facebook = "";
     String google = "";
     String normal = "";
-
+    Disposable dMainListObservable;
 
 
 
@@ -269,6 +271,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    @Override
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable =dMainListObservable;
+    }
+
+
 
     @Override
     public void onStart() {
@@ -277,6 +285,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         /*if (mAuthListener != null) {
             mAuth.addAuthStateListener(mAuthListener);
         }*/
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(dMainListObservable!=null)
+            dMainListObservable.dispose();
     }
 
     @Override

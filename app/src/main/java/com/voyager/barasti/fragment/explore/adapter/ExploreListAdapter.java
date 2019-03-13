@@ -66,6 +66,7 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private  int NUM_PAGES = 0;
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
     int userID;
+    Boolean updateExpUi;
 
     public ExploreListAdapter(List<ExploreItems> exploreItems, Activity activity,IExplorePresenter iExplorePresenter,int userID) {
         this.exploreItems = exploreItems;
@@ -242,9 +243,12 @@ public class ExploreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void getRefreshHouseList(List<HouseList> item){
-        bodyListAdapter.getRefreshList(item);
+        int index = (item.size());
+        for(int i=0;i<index;i++) {
+            bodyListAdapter.addItem(item.get(i));
+            notifyDataSetChanged();
+        }
         System.out.println("ExploreListAdapter getRefreshHouseList : ");
-        notifyDataSetChanged();
     }
 
     public void addHouse(HouseList item){

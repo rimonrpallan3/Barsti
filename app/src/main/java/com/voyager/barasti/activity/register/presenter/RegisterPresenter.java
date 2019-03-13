@@ -3,6 +3,7 @@ package com.voyager.barasti.activity.register.presenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -10,9 +11,17 @@ import com.voyager.barasti.activity.login.model.IUserDetials;
 import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.activity.register.model.DOBDetails;
 import com.voyager.barasti.activity.register.view.IRegisterView;
+import com.voyager.barasti.fragment.fav.model.FavDetail;
 import com.voyager.barasti.webservices.ApiClient;
 import com.voyager.barasti.webservices.WebServices;
 
+import java.util.ArrayList;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -84,15 +93,28 @@ public class RegisterPresenter implements  IRegisterPresenter{
 
 
     public void sendRegisteredDataAndValidateResponse(){
-        System.out.println("-------------------RegisterPresenter sendRegisteredDataAndValidateResponse FirstName : "+FirstName+" Password : "+Password+" RetypePassword : "+RetypePassword+" email : "+email+" phno : "+phno+" dob : "+dob);
         Retrofit retrofit = new ApiClient().getRetrofitClient();
-        WebServices webServices = retrofit.create(WebServices.class);
-        Call<UserDetails> call = webServices.registerUser(FirstName,LastName,Password,email,phno,dob,loginType);
-        call.enqueue(new Callback<UserDetails>() {
+        final WebServices webServices = retrofit.create(WebServices.class);
+        Observable<UserDetails> getRegisterUserObservable = webServices.registerUser(FirstName,LastName,Password,email,phno,dob,loginType);
+        getRegisterUserObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getRegisterDetail());
+
+        System.out.println("-------------------RegisterPresenter sendRegisteredDataAndValidateResponse FirstName : "+FirstName+" Password : "+Password+" RetypePassword : "+RetypePassword+" email : "+email+" phno : "+phno+" dob : "+dob);
+    }
+
+    private Observer<UserDetails> getRegisterDetail() {
+        return new Observer<UserDetails>() {
+
             @Override
-            public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {
-                userDetails  = (UserDetails) response.body();
-                userDetails.setFirst_name(FirstName);
+            public void onSubscribe(Disposable d) {
+                iRegisterView.unSubscribeCalls(d);
+                Log.d("RegisterPresenter", " onSubscribe : " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(UserDetails value) {
+                UserDetails userDetails= value;userDetails.setFirst_name(FirstName);
                 userDetails.setLast_name(LastName);
                 userDetails.setPassword(Password);
                 userDetails.setEmail(email);
@@ -123,17 +145,21 @@ public class RegisterPresenter implements  IRegisterPresenter{
             }
 
             @Override
-            public void onFailure(Call<UserDetails> call, Throwable t) {
+            public void onError(Throwable e) {
+                Log.d("RegisterPresenter", " onError : " + e.getMessage());
                 Boolean isLoginSuccess =false;
                 Boolean result = isLoginSuccess;
                 int code = -77;
                 iRegisterView.onRegistered(result, code);
-                t.printStackTrace();
-                //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
 
-
+            @Override
+            public void onComplete() {
+                Log.d("RegisterPresenter", " onComplete");
+            }
+        };
     }
 
     private void addUserGsonInSharedPrefrences(UserDetails userDetails){

@@ -3,6 +3,7 @@ package com.voyager.barasti.activity.UpdateProfile.presenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -12,6 +13,11 @@ import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.webservices.ApiClient;
 import com.voyager.barasti.webservices.WebServices;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,13 +74,26 @@ public class UpdatePresenter implements IUpdatePresenter{
 
     public void updateUserDataValidateResponse(){
         Retrofit retrofit = new ApiClient().getRetrofitClient();
-        WebServices webServices = retrofit.create(WebServices.class);
-        Call<UserDetails> call = webServices.updateProfile(fName,lName,userId);
-        call.enqueue(new Callback<UserDetails>() {
+        final WebServices webServices = retrofit.create(WebServices.class);
+        Observable<UserDetails> getUpdateDetailObservable = webServices.updateProfile(fName,lName,userId);
+        getUpdateDetailObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(setUpdateProfile());
+
+    }
+
+    private Observer<UserDetails> setUpdateProfile() {
+        return new Observer<UserDetails>() {
+
             @Override
-            public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {
-                userDetails  = (UserDetails) response.body();
-                userDetails.setFirst_name(fName);
+            public void onSubscribe(Disposable d) {
+                iUpdateView.unSubscribeCalls(d);
+                Log.d("RegisterPresenter", " onSubscribe : " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(UserDetails value) {
+                UserDetails userDetails= value; userDetails.setFirst_name(fName);
                 userDetails.setLast_name(lName);
                 userDetails.setEmail(email);
                 userDetails.setPhone_num(phNo);
@@ -103,17 +122,22 @@ public class UpdatePresenter implements IUpdatePresenter{
             }
 
             @Override
-            public void onFailure(Call<UserDetails> call, Throwable t) {
+            public void onError(Throwable e) {
                 Boolean isLoginSuccess =false;
                 Boolean result = isLoginSuccess;
                 int code = -77;
                 iUpdateView.onUpdateResponse(result, code);
-                t.printStackTrace();
-                //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
+                Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("RegisterPresenter", " onComplete");
+            }
+        };
     }
+
 
     private void addUserGsonInSharedPrefrences(UserDetails userDetails){
         Gson gson = new Gson();

@@ -51,42 +51,6 @@ public class LandingPresenter implements ILandingPresenter {
     }
 
 
-    @Override
-    public void getDetails(int userId) {
-        Retrofit retrofit = new ApiClient().getRetrofitClient();
-        final WebServices webServices = retrofit.create(WebServices.class);
-        Observable<MainList> mainListObservable = webServices.doGetDetails1(userId);
-        mainListObservable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(getMainList());
-    }
 
-    private Observer<MainList> getMainList() {
-        return new Observer<MainList>() {
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                iLandingView.unSubscribeCalls(d);
-                Log.d("LandingPresenter", " onSubscribe : " + d.isDisposed());
-            }
-
-            @Override
-            public void onNext(MainList value) {
-                iLandingView.setMainList(value);
-                Log.d("LandingPresenter", " onNext : value : " + value);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.d("LandingPresenter", " onError : " + e.getMessage());
-                Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onComplete() {
-                Log.d("LandingPresenter", " onComplete");
-            }
-        };
-    }
 
 }

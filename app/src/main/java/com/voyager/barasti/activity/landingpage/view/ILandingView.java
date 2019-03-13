@@ -13,7 +13,6 @@ public interface ILandingView {
     //----- Methods to be set for the Map Fragment side  -----------
     void hideVisibilityLandingItems(int visibility, String value);
 
-    public void setMainList(MainList mainList);
     void unSubscribeCalls(Disposable dMainListObservable);
 
 

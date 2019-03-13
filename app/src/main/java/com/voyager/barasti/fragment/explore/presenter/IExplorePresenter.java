@@ -1,5 +1,6 @@
 package com.voyager.barasti.fragment.explore.presenter;
 
+import com.voyager.barasti.activity.landingpage.view.ILandingView;
 import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
 
 /**
@@ -9,7 +10,7 @@ import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
 public interface IExplorePresenter {
 
 
-    void setMainList(MainList mainList);
+    void getDetails(int userID);
     void getMainRefreshList(int userID);
     void updatePropertyList(int totalCount);
     void btnLiked(Integer userID,Integer propertyId);

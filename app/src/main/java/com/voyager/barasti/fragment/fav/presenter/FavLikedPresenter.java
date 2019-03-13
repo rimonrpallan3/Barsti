@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.voyager.barasti.activity.landingpage.view.ILandingView;
 import com.voyager.barasti.fragment.explore.model.ExploreType.TypeList;
 import com.voyager.barasti.fragment.explore.model.exploreList.LikeUnLike;
 import com.voyager.barasti.fragment.fav.model.FavDetail;
@@ -39,11 +40,13 @@ public class FavLikedPresenter implements IFavLikedPresenter {
     int offset = 0;
     int locOffset = 0;
     int propertyId   = 0;
+    ILandingView iLandingView;
 
 
-    public FavLikedPresenter(IFavLikedView iFavLikedView, Activity activity) {
+    public FavLikedPresenter(IFavLikedView iFavLikedView, Activity activity,ILandingView iLandingView) {
         this.iFavLikedView = iFavLikedView;
         this.activity = activity;
+        this.iLandingView = iLandingView;
     }
 
     private Observer<LikeUnLike> getLikedRsp() {
@@ -135,7 +138,7 @@ public class FavLikedPresenter implements IFavLikedPresenter {
 
     @Override
     public void setDefaultImg() {
-
+        iFavLikedView.setDefaultImg();
     }
 
 
@@ -143,29 +146,42 @@ public class FavLikedPresenter implements IFavLikedPresenter {
     public void getFavLikedData(int userId) {
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         final WebServices webServices = retrofit.create(WebServices.class);
-        Call<ArrayList<FavDetail>> calls = webServices.getFavDetails(userId);
-        calls.enqueue(new Callback<ArrayList<FavDetail>>() {
+        Observable<ArrayList<FavDetail>> getFavDatailsObservable = webServices.getFavDetails(userId);
+        getFavDatailsObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getFavDetail());
+
+
+    }
+
+
+    private Observer<ArrayList<FavDetail>> getFavDetail() {
+        return new Observer<ArrayList<FavDetail>>() {
+
             @Override
-            public void onResponse(Call<ArrayList<FavDetail>> call, Response<ArrayList<FavDetail>> response) {
-                favDetails = response.body();
+            public void onSubscribe(Disposable d) {
+                iFavLikedView.unSubscribeCalls(d);
+                Log.d("FavLikedPresenter", " onSubscribe : " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(ArrayList<FavDetail> value) {
+                ArrayList<FavDetail> favDetails= value;
                 String json = new Gson().toJson(favDetails);
                 System.out.println("FavLikedPresenter getTypedAptData json : " + json);
                 iFavLikedView.setFavAdapterList(favDetails);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<FavDetail>> call, Throwable t) {
-                if (t instanceof IOException) {
-                    Toast.makeText(activity, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                    // logging probably not necessary
-                }
-                else {
-                    Toast.makeText(activity, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                    // todo log to some central bug tracking service
-                }
-                t.printStackTrace();
-                //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onError(Throwable e) {
+                Log.d("FavLikedPresenter", " onError : " + e.getMessage());
+                Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+
+            @Override
+            public void onComplete() {
+                Log.d("FavLikedPresenter", " onComplete");
+            }
+        };
     }
 }

@@ -31,14 +31,14 @@ public interface WebServices {
     //http://10.1.1.18/sayara/user/booking/--pickup_loc: 9.731235,76.355463 -- user_id 89
 
 
- /*   @GET("listings/4/0")
-    Call<MainList> doGetHouseList();
-    @GET("sliders")
-    Call<ArrayList<Banner>> doGetbannerlist();
-    @GET("locations/2/0")
-    Call<ArrayList<LocItems>> doGetLocList();
-    @GET("listings/{id}")
-    Call<HomeDetails> doGetHomeDetails(@Path("id") int id);*/
+    /*   @GET("listings/4/0")
+       Call<MainList> doGetHouseList();
+       @GET("sliders")
+       Call<ArrayList<Banner>> doGetbannerlist();
+       @GET("locations/2/0")
+       Call<ArrayList<LocItems>> doGetLocList();
+       @GET("listings/{id}")
+       Call<HomeDetails> doGetHomeDetails(@Path("id") int id);*/
    /* @FormUrlEncoded
     @POST("home")
     Call<MainList> doGetDetails(@Nullable @Field("user_id") Integer userID);*/
@@ -58,87 +58,90 @@ public interface WebServices {
     @FormUrlEncoded
     @POST("propertyLike")
     Observable<LikeUnLike> propertyLike(@Nullable @Field("user_id") Integer userID,
-                                   @Nullable @Field("property_id") Integer propertyID);
+                                        @Nullable @Field("property_id") Integer propertyID);
+
     @FormUrlEncoded
     @POST("propertyUnlike")
     Observable<LikeUnLike> propertyUnlike(@Nullable @Field("user_id") Integer email,
-                                    @Nullable @Field("property_id") Integer papropertyIDsswd);
-
+                                          @Nullable @Field("property_id") Integer papropertyIDsswd);
 
 
     @FormUrlEncoded
     @POST("listings/{propertyId}")
     Observable<HomeDetails> doGetHomeDetails(@Path("propertyId") int propertyId,
-                                       @Nullable @Field("user_id") Integer userID);
+                                             @Nullable @Field("user_id") Integer userID);
 
     @FormUrlEncoded
     @POST("calenderRates")
-    Call<PriceDetails> getPriceDetails(@Nullable @Field("property_id") Integer propertyId,
-                                       @Nullable @Field("guests_num") Integer guestNo,
-                                       @Nullable @Field("checkin") String checkin,
-                                       @Nullable @Field("checkout") String checkout,
-                                       @Nullable @Field("user_id") Integer userID);
+    Observable<PriceDetails> getPriceDetails(@Nullable @Field("property_id") Integer propertyId,
+                                             @Nullable @Field("guests_num") Integer guestNo,
+                                             @Nullable @Field("checkin") String checkin,
+                                             @Nullable @Field("checkout") String checkout,
+                                             @Nullable @Field("user_id") Integer userID);
 
-   @FormUrlEncoded
-   @POST("listings/{limit}/{offset}/{typeId}")
-    Call<TypedDetail> doGetTypedDetails(@Path("limit") int limit,
-                                        @Path("offset") int offset,
-                                        @Path("typeId") int typeId,
-                                        @Nullable @Field("user_id") Integer userID);
-   @FormUrlEncoded
-   @POST("locationwise")
-    Call<ArrayList<LocDetails>> getLocDetails(@Nullable @Field("user_id") Integer userID,
-                                              @Nullable @Field("location") String locName);
+    @FormUrlEncoded
+    @POST("listings/{limit}/{offset}/{typeId}")
+    Observable<TypedDetail> doGetTypedDetails(@Path("limit") int limit,
+                                              @Path("offset") int offset,
+                                              @Path("typeId") int typeId,
+                                              @Nullable @Field("user_id") Integer userID);
 
-   @FormUrlEncoded
-   @POST("LikedListings")
-    Call<ArrayList<FavDetail>> getFavDetails(@Nullable @Field("user_id") Integer userID);
+    @FormUrlEncoded
+    @POST("locationwise")
+    Observable<ArrayList<LocDetails>> getLocDetails(@Nullable @Field("user_id") Integer userID,
+                                                    @Nullable @Field("location") String locName);
+
+    @FormUrlEncoded
+    @POST("LikedListings")
+    Observable<ArrayList<FavDetail>> getFavDetails(@Nullable @Field("user_id") Integer userID);
+
 
     @FormUrlEncoded
     @POST("mobileLogin")
-    public Call<UserDetails> loginNormalUser(@Nullable @Field("email") String email,
-                                             @Nullable @Field("password") String passwd,
-                                             @Nullable @Field("login_type") String type,
-                                             @Nullable @Field("fcm") String fireBaseToken);
+    public Observable<UserDetails> loginNormalUser(@Nullable @Field("email") String email,
+                                                   @Nullable @Field("password") String passwd,
+                                                   @Nullable @Field("login_type") String type,
+                                                   @Nullable @Field("fcm") String fireBaseToken);
 
     @FormUrlEncoded
     @POST("mobileLogin")
-    public Call<UserDetails> loginGoogleUser(@Nullable @Field("email") String email,
-                                             @Nullable @Field("login_type") String type,
-                                             @Nullable @Field("profile_image") String imageP,
-                                             @Nullable @Field("phonenumber") String mobNo,
-                                             @Nullable @Field("userName") String userName,
-                                             @Nullable @Field("googleId") String googleId,
-                                             @Nullable @Field("fcm") String fireBaseToken);
+    public Observable<UserDetails> loginGoogleUser(@Nullable @Field("email") String email,
+                                                   @Nullable @Field("login_type") String type,
+                                                   @Nullable @Field("profile_image") String imageP,
+                                                   @Nullable @Field("phonenumber") String mobNo,
+                                                   @Nullable @Field("userName") String userName,
+                                                   @Nullable @Field("googleId") String googleId,
+                                                   @Nullable @Field("fcm") String fireBaseToken);
 
     @FormUrlEncoded
     @POST("mobileLogin")
-    public Call<UserDetails> loginFBUser(@Nullable @Field("email") String email,
-                                         @Nullable @Field("login_type") String type,
-                                         @Nullable @Field("profile_image") String imageP,
-                                         @Nullable @Field("phonenumber") String mobNo,
-                                         @Nullable @Field("userName") String userName,
-                                         @Nullable @Field("token") String fireBaseToken);
+    public Observable<UserDetails> loginFBUser(@Nullable @Field("email") String email,
+                                               @Nullable @Field("login_type") String type,
+                                               @Nullable @Field("profile_image") String imageP,
+                                               @Nullable @Field("phonenumber") String mobNo,
+                                               @Nullable @Field("userName") String userName,
+                                               @Nullable @Field("token") String fireBaseToken);
 
     @FormUrlEncoded
     @POST("createUser")
-    public Call<UserDetails> registerUser(@Nullable @Field("first_name") String fname,
-                                          @Nullable @Field("last_name") String lname,
-                                          @Nullable @Field("password") String password,
-                                          @Nullable @Field("email") String email,
-                                          @Nullable @Field("phone_num") String phone,
-                                          @Nullable @Field("date_of_birth") String dob,
-                                          @Nullable @Field("login_type") String type);
+    public Observable<UserDetails> registerUser(@Nullable @Field("first_name") String fname,
+                                                @Nullable @Field("last_name") String lname,
+                                                @Nullable @Field("password") String password,
+                                                @Nullable @Field("email") String email,
+                                                @Nullable @Field("phone_num") String phone,
+                                                @Nullable @Field("date_of_birth") String dob,
+                                                @Nullable @Field("login_type") String type);
+
+
     @FormUrlEncoded
     @POST("createUser")
-    public Call<UserDetails> updateProfile(@Nullable @Field("first_name") String fname,
-                                           @Nullable @Field("last_name") String lname,
-                                           @Nullable @Field("user_id") int userId);
+    public Observable<UserDetails> updateProfile(@Nullable @Field("first_name") String fname,
+                                                 @Nullable @Field("last_name") String lname,
+                                                 @Nullable @Field("user_id") int userId);
 
     @FormUrlEncoded
     @POST("myProfile")
-    public Call<UserPropertyDetails> getPropertiesDetail(@Nullable @Field("user_id") int userId);
-
+    public Observable<UserPropertyDetails> getPropertiesDetail(@Nullable @Field("user_id") int userId);
 /*
     @GET("webservice/getOffertypes")
     Call<OfferList> doGetUserList();

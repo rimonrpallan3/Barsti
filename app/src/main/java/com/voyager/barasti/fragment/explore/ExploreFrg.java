@@ -1,6 +1,7 @@
 package com.voyager.barasti.fragment.explore;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.landingpage.view.ILandingView;
 import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.fragment.explore.adapter.ExploreListAdapter;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.FooterItems;
@@ -54,6 +56,8 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
     MainList mainList;
     UserDetails userDetails;
     Disposable dMainListObservable;
+    Boolean updateExpUi= false;
+    ILandingView iLandingView;
 
     public ExploreFrg() {
     }
@@ -71,20 +75,19 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
         activity = getActivity();
         bundle = this.getArguments();
         rvExploreList = rootView.findViewById(R.id.rvExplore);
-        explorePresenter = new ExplorePresenter(this,getActivity());
+        explorePresenter = new ExplorePresenter(this, getActivity(), iLandingView);
         if (bundle != null) {
             try {
                 userDetails = bundle.getParcelable("UserDetails");
-                mainList = bundle.getParcelable("MainList");
-                explorePresenter.setMainList(mainList);
-                System.out.println("user Id : "+ userDetails.getId());
+                System.out.println("ExploreFrg onCreateView updateExpUi : "+updateExpUi);
+                explorePresenter.getDetails(userDetails.getId());
+                System.out.println("user Id : " + userDetails.getId());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             System.out.println("Bundle Is null ");
         }
-
 
 
         //explorePresenter.getHomeListPresenter();
@@ -196,14 +199,26 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-            if(resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 String UpdateHome = data.getStringExtra("UpdateHome");
-                if(UpdateHome!=null){
+                if (UpdateHome != null) {
                     explorePresenter.getMainRefreshList(userDetails.getId());
                 }
             }
         }
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            iLandingView = (ILandingView) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Error in retrieving data. Please try again");
+        }
+    }
+
 
 
     @Override
@@ -254,8 +269,8 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(dMainListObservable!=null)
-        dMainListObservable.dispose();
+        if (dMainListObservable != null)
+            dMainListObservable.dispose();
     }
 
     @Override
@@ -272,7 +287,7 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
 
     @Override
     public void setHomeList(ArrayList<ExploreItems> exploreItems) {
-        exploreListAdapter = new ExploreListAdapter(exploreItems, getActivity(),explorePresenter,userDetails.getId());
+        exploreListAdapter = new ExploreListAdapter(exploreItems, getActivity(), explorePresenter, userDetails.getId());
         rvExploreList.setLayoutFrozen(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rvExploreList.setLayoutManager(mLayoutManager);
@@ -282,21 +297,29 @@ public class ExploreFrg extends Fragment implements ExploreListAdapter.ClickList
 
     @Override
     public void setRefreshHomeList(ArrayList<ExploreItems> exploreItems) {
-        System.out.println("ExploreFrg setRefreshHomeList : ");
-        exploreListAdapter.getRefreshHouseList(exploreItems.get(TYPE_BODY).getHouseList());
+        exploreListAdapter = new ExploreListAdapter(exploreItems, getActivity(), explorePresenter, userDetails.getId());
+        rvExploreList.setLayoutFrozen(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        rvExploreList.setLayoutManager(mLayoutManager);
+        rvExploreList.setItemAnimator(new DefaultItemAnimator());
+        rvExploreList.setAdapter(exploreListAdapter);
     }
 
 
     @Override
     public void updatePropertyList(List<HouseList> houseListArrayList) {
-        for(int i=0; i<houseListArrayList.size();i++){
+        for (int i = 0; i < houseListArrayList.size(); i++) {
             HouseList houseList = houseListArrayList.get(i);
             exploreListAdapter.addHouse(houseList);
         }
     }
 
+    public void updateApiCall() {
+
+    }
+
     @Override
     public void unSubscribeCalls(Disposable dMainListObservable) {
-        this.dMainListObservable =dMainListObservable;
+        this.dMainListObservable = dMainListObservable;
     }
 }

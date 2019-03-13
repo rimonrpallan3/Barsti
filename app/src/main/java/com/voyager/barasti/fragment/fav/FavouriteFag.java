@@ -1,6 +1,7 @@
 package com.voyager.barasti.fragment.fav;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.landingpage.view.ILandingView;
 import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.activity.typelist.adapter.TypedListAdapter;
 import com.voyager.barasti.activity.typelist.presenter.ITypeListPresenter;
@@ -34,6 +36,8 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class FavouriteFag extends Fragment implements IFavLikedView{
+
+    ILandingView iLandingView;
 
 
     private Activity activity;
@@ -63,7 +67,7 @@ public class FavouriteFag extends Fragment implements IFavLikedView{
         bundle = this.getArguments();
         rvFavList = rootView.findViewById(R.id.rvFavList);
         llImgNo = rootView.findViewById(R.id.llImgNo);
-        iFavLikedPresenter = new FavLikedPresenter(this, activity);
+        iFavLikedPresenter = new FavLikedPresenter(this, activity,iLandingView);
         if (bundle != null) {
             try {
                 userDetails = bundle.getParcelable("UserDetails");
@@ -79,7 +83,16 @@ public class FavouriteFag extends Fragment implements IFavLikedView{
     }
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
+        try {
+            iLandingView = (ILandingView) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Error in retrieving data. Please try again");
+        }
+    }
 
 
     @Override
@@ -135,6 +148,11 @@ public class FavouriteFag extends Fragment implements IFavLikedView{
     }
 
     @Override
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable = dMainListObservable;
+    }
+
+    @Override
     public void onLowMemory() {
         super.onLowMemory();
 
@@ -142,8 +160,11 @@ public class FavouriteFag extends Fragment implements IFavLikedView{
 
     @Override
     public void setFavAdapterList(ArrayList<FavDetail> favAdapterList) {
+        System.out.println("setFavAdapterList size : "+favAdapterList.size());
         if(favAdapterList.size()>0) {
-            favLikedAdapter = new FavLikedAdapter(favAdapterList, getActivity(), iFavLikedPresenter, userDetails.getId());
+            rvFavList.setVisibility(View.VISIBLE);
+            llImgNo.setVisibility(View.GONE);
+            favLikedAdapter = new FavLikedAdapter(favAdapterList, getActivity(), iFavLikedPresenter, userDetails.getId(),iLandingView);
             rvFavList.setLayoutFrozen(true);
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
             rvFavList.setLayoutManager(mLayoutManager);
@@ -156,11 +177,10 @@ public class FavouriteFag extends Fragment implements IFavLikedView{
 
     @Override
     public void setDefaultImg() {
+        System.out.println("setDefaultImg ");
+        rvFavList.setVisibility(View.GONE);
         llImgNo.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void unSubscribeCalls(Disposable dMainListObservable) {
-        this.dMainListObservable = dMainListObservable;
-    }
+
 }

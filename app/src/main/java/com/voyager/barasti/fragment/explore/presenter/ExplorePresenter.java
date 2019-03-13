@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.landingpage.view.ILandingView;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.FooterItems;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.Banner;
 import com.voyager.barasti.fragment.explore.model.ExploreHeader.HeaderItem;
@@ -59,64 +60,96 @@ public class ExplorePresenter implements IExplorePresenter {
     int offset = 0;
     int locOffset = 0;
     int propertyId   = 0;
+    Boolean updateExpUi = false;
+    ILandingView iLandingView;
 
-    public ExplorePresenter(IExploreView iExploreView,Activity activity) {
+    public ExplorePresenter(IExploreView iExploreView,Activity activity,ILandingView iLandingView) {
         this.iExploreView = iExploreView;
         this.activity = activity;
+        this.iLandingView = iLandingView;
         gson = new Gson();
     }
-
     ArrayList<ExploreItems> landingListItems = new ArrayList<>();
 
-    @Override
-    public void setMainList(MainList mainList) {
-        String json = new Gson().toJson(mainList);
-        System.out.println("ExplorePresenter setMainList json : " + json);
-
-
-        HeaderItem headerItem = new HeaderItem();
-        headerItem.setImgHeader(R.drawable.barasti_home_banner);
-        headerItem.setBtnContent("Explore Homes >");
-        headerItem.setBanners(mainList.getSliders());
-        headerItem.setViewType(0);
-        landingListItems.add(headerItem);
-        String json2 = new Gson().toJson(mainList.getSliders());
-        //System.out.println("ExplorePresenter getSliders() json2 : " + json2);
-
-        TypeBody typeItems = new TypeBody();
-        typeItems.setHeadingTitile("Property Types");
-        typeItems.setTypeLists(mainList.getTypes());
-        typeItems.setViewType(1);
-        landingListItems.add(typeItems);
-
-
-        String json3 = new Gson().toJson(mainList.getTypes());
-        System.out.println("ExplorePresenter getTypes() json 3: " + json3);
-
-        ExploreItems yourTripItem = new ExploreItems();
-        yourTripItem.setMainHeading("Top Rated Homes");
-        yourTripItem.setMainList(mainList);
-        yourTripItem.setHouseList(mainList.getProperties());
-        yourTripItem.setViewType(2);
-        landingListItems.add(yourTripItem);
-
-
-        String json4 = new Gson().toJson(mainList.getProperties());
-        System.out.println("ExplorePresenter getProperties() json4 : " + json4);
-
-
-        locItemsArrayList = mainList.getLocations();
-        FooterItems footerItems = new FooterItems();
-        footerItems.setHeadingTitile("Location");
-        footerItems.setLocItemsList(locItemsArrayList);
-        footerItems.setViewType(3);
-        landingListItems.add(footerItems);
-        iExploreView.setHomeList(landingListItems);
-
-        String json5 = new Gson().toJson(mainList.getLocations());
-        System.out.println("ExplorePresenter getLocations() json : " + json5);
-
+    public void getDetails(int userId) {
+        Retrofit retrofit = new ApiClient().getRetrofitClient();
+        final WebServices webServices = retrofit.create(WebServices.class);
+        Observable<MainList> mainListObservable = webServices.doGetDetails1(userId);
+        mainListObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe( getMainListOnStart());
     }
+
+    private Observer<MainList> getMainListOnStart() {
+        return new Observer<MainList>() {
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                iExploreView.unSubscribeCalls(d);
+                Log.d("LandingPresenter", " onSubscribe : " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(MainList value) {
+                MainList mainList = value;
+
+                HeaderItem headerItem = new HeaderItem();
+                headerItem.setImgHeader(R.drawable.barasti_home_banner);
+                headerItem.setBtnContent("Explore Homes >");
+                headerItem.setBanners(mainList.getSliders());
+                headerItem.setViewType(0);
+                landingListItems.add(headerItem);
+                String json2 = new Gson().toJson(mainList.getSliders());
+                //System.out.println("ExplorePresenter getSliders() json2 : " + json2);
+
+                TypeBody typeItems = new TypeBody();
+                typeItems.setHeadingTitile("Property Types");
+                typeItems.setTypeLists(mainList.getTypes());
+                typeItems.setViewType(1);
+                landingListItems.add(typeItems);
+
+
+                String json3 = new Gson().toJson(mainList.getTypes());
+                System.out.println("ExplorePresenter getTypes() json 3: " + json3);
+
+                ExploreItems yourTripItem = new ExploreItems();
+                yourTripItem.setMainHeading("Top Rated Homes");
+                yourTripItem.setMainList(mainList);
+                yourTripItem.setHouseList(mainList.getProperties());
+                yourTripItem.setViewType(2);
+                landingListItems.add(yourTripItem);
+
+
+                String json4 = new Gson().toJson(mainList.getProperties());
+                System.out.println("ExplorePresenter getProperties() json4 : " + json4);
+
+
+                locItemsArrayList = mainList.getLocations();
+                FooterItems footerItems = new FooterItems();
+                footerItems.setHeadingTitile("Location");
+                footerItems.setLocItemsList(locItemsArrayList);
+                footerItems.setViewType(3);
+                landingListItems.add(footerItems);
+                iExploreView.setHomeList(landingListItems);
+
+                Log.d("LandingPresenter", " onNext : value : " + value);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("LandingPresenter", " onError : " + e.getMessage());
+                Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("LandingPresenter", " onComplete");
+            }
+        };
+    }
+
+
+
 
     @Override
     public void updatePropertyList(int totalCount) {
@@ -307,7 +340,7 @@ public class ExplorePresenter implements IExplorePresenter {
                 iExploreView.setRefreshHomeList(landingListItems);
 
                 String json5 = new Gson().toJson(mainList.getLocations());
-                System.out.println("getMainRefreshList getLocations() json : " + json5);
+                System.out.println("getMainRefreshList getLocations() json5 : " + json5);
 
             }
 

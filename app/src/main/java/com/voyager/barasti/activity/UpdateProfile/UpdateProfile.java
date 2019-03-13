@@ -20,6 +20,8 @@ import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.common.Helper;
 import com.voyager.barasti.common.NetworkDetector;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by User on 22-Feb-19.
  */
@@ -41,7 +43,7 @@ public class UpdateProfile extends AppCompatActivity implements IUpdateView{
     SharedPreferences.Editor editor;
     UserDetails userDetails;
     boolean dataSet = false;
-
+    Disposable dMainListObservable;
 
 
     @Override
@@ -104,6 +106,18 @@ public class UpdateProfile extends AppCompatActivity implements IUpdateView{
         editor = sharedPrefs.edit();
         iUpdatePresenter = new UpdatePresenter(this,this,sharedPrefs,editor);
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(dMainListObservable!=null)
+            dMainListObservable.dispose();
+    }
+
+    @Override
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable = dMainListObservable;
     }
 
     public  void ivBackbtn(View v){

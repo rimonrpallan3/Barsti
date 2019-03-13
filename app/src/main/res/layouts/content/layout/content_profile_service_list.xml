@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/_10"
         android:layout_width="match_parent"
         android:visibility="gone"
-        android:background="@color/hintHighLightText"
+        android:background="@color/dividerColor"
         android:layout_height="1dp"/>
 
     <TextView
@@ -38,7 +38,7 @@
     <View
         android:layout_marginTop="@dimen/_10"
         android:layout_width="match_parent"
-        android:background="@color/hintHighLightText"
+        android:background="@color/dividerColor"
         android:layout_height="1dp"/>
 
 </LinearLayout>

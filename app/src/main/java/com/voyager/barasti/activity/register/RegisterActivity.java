@@ -36,6 +36,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import io.reactivex.disposables.Disposable;
+
 import static com.voyager.barasti.common.Helper.REQUEST_REGISTERED;
 
 /**
@@ -64,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity  implements
     String dob;
     String currentDateBirth ="";
     DOBDetails dobDetails;
+    Disposable dMainListObservable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +154,13 @@ public class RegisterActivity extends AppCompatActivity  implements
 
         }
     }
+
+
+    @Override
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable = dMainListObservable;
+    }
+
 
     private DialogFragment createDialogWithBuilders(int checkedId) {
         BottomSheetPickerDialog.Builder builder = null;
@@ -349,6 +359,14 @@ public class RegisterActivity extends AppCompatActivity  implements
         setResult(REQUEST_REGISTERED);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(dMainListObservable!=null){
+            dMainListObservable.dispose();
+        }
     }
 
 

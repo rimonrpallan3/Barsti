@@ -22,6 +22,8 @@ import com.voyager.barasti.activity.UserPropertyList.view.IPropertyListView;
 import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.fragment.explore.adapter.BodyListAdapter;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by User on 06-Mar-19.
  */
@@ -46,6 +48,7 @@ public class UserPropertyListActivity extends AppCompatActivity implements IProp
     RecyclerView rvUserProperty;
     RecyclerView rvUserPropertyRating;
     UserPropertyAdapter userPropertyAdapter;
+    Disposable dMainListObservable;
 
 
 
@@ -79,6 +82,19 @@ public class UserPropertyListActivity extends AppCompatActivity implements IProp
 
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(dMainListObservable!=null)
+            dMainListObservable.dispose();
+    }
+
+    @Override
+    public void unSubscribeCalls(Disposable dMainListObservable) {
+        this.dMainListObservable = dMainListObservable;
+    }
+
 
     public void ivBackbtn(View v){
         if(dataSet){

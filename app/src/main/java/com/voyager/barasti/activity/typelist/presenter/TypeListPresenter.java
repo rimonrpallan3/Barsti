@@ -135,29 +135,40 @@ public class TypeListPresenter implements ITypeListPresenter{
     public void getTypedAptData(TypeList typeList,int userId) {
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         final WebServices webServices = retrofit.create(WebServices.class);
-        Call<TypedDetail> calls = webServices.doGetTypedDetails(limit,offset,typeList.getId(),userId);
-        calls.enqueue(new Callback<TypedDetail>() {
+        Observable<TypedDetail> typedDetailsObservable = webServices.doGetTypedDetails(limit,offset,typeList.getId(),userId);
+        typedDetailsObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getTypedDetail());
+
+    }
+
+    private Observer<TypedDetail> getTypedDetail() {
+        return new Observer<TypedDetail>() {
+
             @Override
-            public void onResponse(Call<TypedDetail> call, Response<TypedDetail> response) {
-                typedDetail = response.body();
+            public void onSubscribe(Disposable d) {
+                iTypeView.unSubscribeCalls(d);
+                Log.d("TypeListPresenter", " onSubscribe : " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(TypedDetail value) {
+                TypedDetail typedDetail= value;
                 String json = new Gson().toJson(typedDetail);
                 System.out.println("TypeListPresenter getTypedAptData json : " + json);
                 iTypeView.setTypedAdapterList(typedDetail);
             }
 
             @Override
-            public void onFailure(Call<TypedDetail> call, Throwable t) {
-                if (t instanceof IOException) {
-                    Toast.makeText(activity, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                    // logging probably not necessary
-                }
-                else {
-                    Toast.makeText(activity, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                    // todo log to some central bug tracking service
-                }
-                t.printStackTrace();
-                //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onError(Throwable e) {
+                Log.d("TypeListPresenter", " onError : " + e.getMessage());
+                Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+
+            @Override
+            public void onComplete() {
+                Log.d("TypeListPresenter", " onComplete");
+            }
+        };
     }
 }

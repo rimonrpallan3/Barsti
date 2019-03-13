@@ -15,6 +15,7 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 import com.voyager.barasti.R;
+import com.voyager.barasti.activity.landingpage.view.ILandingView;
 import com.voyager.barasti.activity.propertyProfilepage.PropertyProfilePage;
 import com.voyager.barasti.fragment.fav.model.FavDetail;
 import com.voyager.barasti.fragment.fav.presenter.IFavLikedPresenter;
@@ -36,13 +37,15 @@ public class FavLikedAdapter extends RecyclerView.Adapter<FavLikedAdapter.ViewHo
     Activity activity;
     IFavLikedPresenter iFavLikedPresenter;
     FavLikedAdapter favLikedAdapter;
+    ILandingView iLandingView;
     int userID;
 
-    public FavLikedAdapter(List<FavDetail> favDetails, Activity activity, IFavLikedPresenter iFavLikedPresenter, int userID) {
+    public FavLikedAdapter(List<FavDetail> favDetails, Activity activity, IFavLikedPresenter iFavLikedPresenter, int userID,ILandingView iLandingView) {
         this.favDetails = favDetails;
         this.activity = activity;
         this.iFavLikedPresenter = iFavLikedPresenter;
         this.userID = userID;
+        this.iLandingView = iLandingView;
         //mFilter = new CustomFilter(this, items);
         // System.out.println("MapPlaceSearch has ben ListMapApiDirectionSourceAdapter ");
     }
@@ -97,7 +100,8 @@ public class FavLikedAdapter extends RecyclerView.Adapter<FavLikedAdapter.ViewHo
                 favLikedAdapter.notifyDataSetChanged();
                 System.out.println("lbHomeFav iFavLikedPresenter unLiked");
                 System.out.println("favDetails size : "+favDetails.size());
-                if(favDetails.size()==0){
+                if(favDetails.size()<1){
+                    System.out.println("favDetails size : "+favDetails.size());
                     iFavLikedPresenter.setDefaultImg();
                 }
             }

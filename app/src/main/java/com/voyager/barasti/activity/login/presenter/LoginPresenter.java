@@ -26,9 +26,17 @@ import com.voyager.barasti.R;
 import com.voyager.barasti.activity.login.model.UserDetails;
 import com.voyager.barasti.activity.login.view.ILoginView;
 
+import com.voyager.barasti.fragment.fav.model.FavDetail;
 import com.voyager.barasti.webservices.ApiClient;
 import com.voyager.barasti.webservices.WebServices;
 
+import java.util.ArrayList;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -251,26 +259,46 @@ public class LoginPresenter implements ILoginPresenter{
 
 
     public void validateLoginDataBaseApi(final UserDetails userDetails){
-        System.out.println(" ------- validateLoginDataBaseApi ");
         Retrofit retrofit = new ApiClient().getRetrofitClient();
-        WebServices webServices = retrofit.create(WebServices.class);
-        Call<UserDetails> call = null;
+        final WebServices webServices = retrofit.create(WebServices.class);
+        Observable<UserDetails> getLoginObservable;
         if(userDetails.getLoginType().equals(google)) {
-            call = webServices.loginGoogleUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getGoogleId(),userDetails.getFcm());
+            getLoginObservable = webServices.loginGoogleUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getGoogleId(),userDetails.getFcm());
             loginType = userDetails.getLoginType() ;
         }else if(userDetails.getLoginType().equals(normal)){
-            call = webServices.loginNormalUser(name, passwd, userDetails.getLoginType(),userDetails.getFcm());
+            getLoginObservable = webServices.loginNormalUser(name, passwd, userDetails.getLoginType(),userDetails.getFcm());
             loginType = userDetails.getLoginType() ;
         }else if(userDetails.getLoginType().equals(facebook)){
-            call = webServices.loginFBUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getFcm());
+            getLoginObservable = webServices.loginFBUser(userDetails.getEmail(), userDetails.getLoginType(), userDetails.getProfile_image(),userDetails.getUsermob(),userDetails.getUserName(),userDetails.getFcm());
+            loginType = userDetails.getLoginType() ;
+        }else {
+            getLoginObservable = webServices.loginNormalUser(name, passwd, userDetails.getLoginType(),userDetails.getFcm());
             loginType = userDetails.getLoginType() ;
         }
-        try{
-            call.enqueue(new Callback<UserDetails>() {
-                @Override
-                public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {
-                    UserDetails userDetails  = response.body();
-                    userDetails.setLoginType(loginType);
+        getLoginObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getLoginDetails());
+        System.out.println(" ------- validateLoginDataBaseApi ");
+
+
+
+
+    }
+
+
+    private Observer<UserDetails> getLoginDetails() {
+        return new Observer<UserDetails>() {
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                iLoginView.unSubscribeCalls(d);
+                Log.d("LoginPresenter", " onSubscribe : " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(UserDetails value) {
+                UserDetails userDetails= value;
+                userDetails.setLoginType(loginType);
                     /*System.out.println("-------validateLoginDataBaseApi  email : " + name +
                             " Password : " + passwd +
                             " LName : " + userDetails.getFirst_name()+
@@ -278,57 +306,53 @@ public class LoginPresenter implements ILoginPresenter{
                             " city : " + userDetails.getEmail() +
                             "userID: " + userDetails.getId()+
                             "imageUrl"+ userDetails.getProfile_src());*/
-                    Gson gson = new Gson();
-                    String jsonString = gson.toJson(userDetails);
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(userDetails);
 
-                    System.out.println(" ----------- LoginPresenter validateLoginDataBaseApi "+jsonString);
-                    if(jsonString!=null) {
-                        System.out.println("-----------getFilters OfferList"+jsonString);
-                    }
+                System.out.println(" ----------- LoginPresenter validateLoginDataBaseApi "+jsonString);
+                if(jsonString!=null) {
+                    System.out.println("-----------getFilters OfferList"+jsonString);
+                }
                     /*if(userDetails.getError_status()==null){
                         userDetails.setError_status("");
                     }*/
 
-                    final int code = userDetails.validateLoginResponseError(userDetails.getError_status());
-                    System.out.println("--------- validateLoginDataBaseApi code: "+code);
-                    Boolean isLoginSuccess = true;
-                    if (code != 0) {
-                        isLoginSuccess = false;
-                        //System.out.println("--------- validateLoginDataBaseApi isError: "+userDetails.getLogin_status() +" Error message: "+userDetails.getLogin_status());
-                        Toast.makeText((Context) iLoginView, userDetails.getLogin_status(), Toast.LENGTH_SHORT).show();
-                        //System.out.println("-----validateLoginDataBaseApi  data unSuccess ");
-                    } else {
-                        userDetails.setPswd(passwd);
-                        //userDetails.setFcm(fireBaseToken);
-                        //System.out.println("----- validateLoginDataBaseApi isError: "+userDetails.getLogin_status() +" userID: "+userDetails.getId());
-                        Toast.makeText((Context) iLoginView, activity.getResources().getString(R.string.login_api_normal_response_success), Toast.LENGTH_SHORT).show();
-                        addUserGsonInSharedPrefrences(userDetails);
-                        //System.out.println("----- validateLoginDataBaseApi data Successful ");
-                    }
-                    Boolean result = isLoginSuccess;
-                    //System.out.println("----- sendRegisteredDataAndValidateResponse second Data Please see, code = " + code + ", result: " + result);
-                    iLoginView.onLoginResponse(result, code);
+                final int code = userDetails.validateLoginResponseError(userDetails.getError_status());
+                System.out.println("--------- validateLoginDataBaseApi code: "+code);
+                Boolean isLoginSuccess = true;
+                if (code != 0) {
+                    isLoginSuccess = false;
+                    //System.out.println("--------- validateLoginDataBaseApi isError: "+userDetails.getLogin_status() +" Error message: "+userDetails.getLogin_status());
+                    Toast.makeText((Context) iLoginView, userDetails.getLogin_status(), Toast.LENGTH_SHORT).show();
+                    //System.out.println("-----validateLoginDataBaseApi  data unSuccess ");
+                } else {
+                    userDetails.setPswd(passwd);
+                    //userDetails.setFcm(fireBaseToken);
+                    //System.out.println("----- validateLoginDataBaseApi isError: "+userDetails.getLogin_status() +" userID: "+userDetails.getId());
+                    Toast.makeText((Context) iLoginView, activity.getResources().getString(R.string.login_api_normal_response_success), Toast.LENGTH_SHORT).show();
+                    addUserGsonInSharedPrefrences(userDetails);
+                    //System.out.println("----- validateLoginDataBaseApi data Successful ");
                 }
+                Boolean result = isLoginSuccess;
+                //System.out.println("----- sendRegisteredDataAndValidateResponse second Data Please see, code = " + code + ", result: " + result);
+                iLoginView.onLoginResponse(result, code);
+            }
 
-                @Override
-                public void onFailure(Call<UserDetails> call, Throwable t) {
-                    Boolean isLoginSuccess = false;
-                    Boolean result = isLoginSuccess;
-                    int code = -77;
-                    iLoginView.onLoginResult(result, code);
-                    t.printStackTrace();
-                    //System.out.println("----- validateLoginDataBaseApi onFailure  = " +t.getMessage());
-                    //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }catch (Exception e){
-            e.printStackTrace();
-            //System.out.println("----- validateLoginDataBaseApi Error Call null = " +e.getMessage());
+            @Override
+            public void onError(Throwable e) {
+                Boolean isLoginSuccess = false;
+                Boolean result = isLoginSuccess;
+                int code = -77;
+                iLoginView.onLoginResult(result, code);
+                Log.d("LoginPresenter", " onError : " + e.getMessage());
+                Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
 
-        }
-
-
-
+            @Override
+            public void onComplete() {
+                Log.d("LoginPresenter", " onComplete");
+            }
+        };
     }
 
 

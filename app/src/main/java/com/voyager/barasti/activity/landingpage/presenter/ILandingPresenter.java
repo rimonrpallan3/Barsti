@@ -8,7 +8,6 @@ import io.reactivex.disposables.Disposable;
 
 public interface ILandingPresenter {
 
-    void getDetails(int userId);
 
 
 }

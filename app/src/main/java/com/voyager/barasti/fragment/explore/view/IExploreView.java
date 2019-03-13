@@ -3,6 +3,7 @@ package com.voyager.barasti.fragment.explore.view;
 import com.voyager.barasti.fragment.explore.model.exploreList.ExploreItems;
 import com.voyager.barasti.fragment.explore.model.exploreList.HouseList;
 import com.voyager.barasti.fragment.explore.model.ExploreFooter.LocItems;
+import com.voyager.barasti.fragment.explore.model.exploreList.MainList;
 
 import java.util.ArrayList;
 import java.util.List;

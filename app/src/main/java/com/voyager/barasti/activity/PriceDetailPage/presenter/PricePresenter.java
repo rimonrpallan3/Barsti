@@ -1,17 +1,22 @@
 package com.voyager.barasti.activity.PriceDetailPage.presenter;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.voyager.barasti.activity.PriceDetailPage.model.PriceDetails;
 import com.voyager.barasti.activity.PriceDetailPage.view.IPriceView;
-import com.voyager.barasti.activity.propertyProfilepage.model.HomeDetails;
 import com.voyager.barasti.webservices.ApiClient;
 import com.voyager.barasti.webservices.WebServices;
 
 import java.io.IOException;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,7 +26,7 @@ import retrofit2.Retrofit;
  * Created by User on 26-Feb-19.
  */
 
-public class PricePresenter implements  IPreicePresenter{
+public class PricePresenter implements IPricePresenter {
 
     IPriceView iPriceView;
     Activity activity;
@@ -48,32 +53,42 @@ public class PricePresenter implements  IPreicePresenter{
     public void getBookingDetails(){
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         final WebServices webServices = retrofit.create(WebServices.class);
-        Call<PriceDetails> calls = webServices.getPriceDetails(propertyId,guestCount,currentStartDate,currentEndDate,userID);
-        calls.enqueue(new Callback<PriceDetails>() {
+        Observable<PriceDetails> priceDetailsObservable = webServices.getPriceDetails(propertyId,guestCount,currentStartDate,currentEndDate,userID);
+        priceDetailsObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getPriceDetail());
+    }
+
+    private Observer<PriceDetails> getPriceDetail() {
+        return new Observer<PriceDetails>() {
+
             @Override
-            public void onResponse(Call<PriceDetails> call, Response<PriceDetails> response) {
-                PriceDetails priceDetails = response.body();
+            public void onSubscribe(Disposable d) {
+                iPriceView.unSubscribeCalls(d);
+                Log.d("LocationPresenter", " onSubscribe : " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(PriceDetails value) {
+                PriceDetails priceDetails= value;
                 iPriceView.setPriceDetails(priceDetails);
                 String json = new Gson().toJson(priceDetails);
-                // System.out.println("PricePresenter getBookingDetails json : " + json);
-
+                System.out.println("LocationPresenter getHomeData json : " + json);
+                Log.d("LocationPresenter", " onNext : value : " + value);
             }
 
             @Override
-            public void onFailure(Call<PriceDetails> call, Throwable t) {
-                if (t instanceof IOException) {
-                    Toast.makeText(activity, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                    // logging probably not necessary
-                }
-                else {
-                    //Toast.makeText(activity, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                    // todo log to some central bug tracking service
-                }
-                t.printStackTrace();
-                System.out.println(" there is an  error here  in api : "+t.getMessage()+"/n");
-
-                //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onError(Throwable e) {
+                Log.d("LocationPresenter", " onError : " + e.getMessage());
+                Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+
+            @Override
+            public void onComplete() {
+                Log.d("LocationPresenter", " onComplete");
+            }
+        };
     }
+
+
 }

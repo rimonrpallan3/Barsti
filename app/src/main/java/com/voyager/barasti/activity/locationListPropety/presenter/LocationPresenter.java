@@ -133,29 +133,41 @@ public class LocationPresenter implements ILocationPresenter{
     public void getLoclist(String locName, int userID) {
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         final WebServices webServices = retrofit.create(WebServices.class);
-        Call<ArrayList<LocDetails>> calls = webServices.getLocDetails(userID,locName);
-        calls.enqueue(new Callback<ArrayList<LocDetails>>() {
+        Observable<ArrayList<LocDetails>> locDetailsObservable = webServices.getLocDetails(userID,locName);
+        locDetailsObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getLocList());
+
+    }
+
+    private Observer<ArrayList<LocDetails>> getLocList() {
+        return new Observer<ArrayList<LocDetails>>() {
+
             @Override
-            public void onResponse(Call<ArrayList<LocDetails>> call, Response<ArrayList<LocDetails>> response) {
-                ArrayList<LocDetails> locDetails = response.body();
+            public void onSubscribe(Disposable d) {
+                iLocationView.unSubscribeCalls(d);
+                Log.d("LocationPresenter", " onSubscribe : " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(ArrayList<LocDetails> value) {
+                ArrayList<LocDetails> locDetails= value;
                 String json = new Gson().toJson(locDetails);
                 System.out.println("LocListPresenter getLoclist json : " + json);
                 iLocationView.setLocListAdapterList(locDetails);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<LocDetails>> call, Throwable t) {
-                if (t instanceof IOException) {
-                    Toast.makeText(activity, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                    // logging probably not necessary
-                }
-                else {
-                    Toast.makeText(activity, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                    // todo log to some central bug tracking service
-                }
-                t.printStackTrace();
-                //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onError(Throwable e) {
+                Log.d("LocationPresenter", " onError : " + e.getMessage());
+                Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+
+            @Override
+            public void onComplete() {
+                Log.d("LocationPresenter", " onComplete");
+            }
+        };
     }
+
 }
