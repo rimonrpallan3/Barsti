@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Barasti.iml" filepath="$PROJECT_DIR$/Barasti.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Barsti.iml" filepath="$PROJECT_DIR$/Barsti.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
